@@ -7,7 +7,7 @@ kotlin = "2.0.21"
 kotlinxSerializationJson = "1.7.3"
 
 ## Coroutine
-coroutine = "1.9.0-RC"
+coroutine = "1.9.0"
 
 ## AndroidX
 androidxCoreKtx = "1.16.0"
