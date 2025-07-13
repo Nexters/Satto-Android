@@ -1,6 +1,6 @@
 plugins {
-	id("satto.android.application")
-	id("satto.android.feature")
+	alias(libs.plugins.satto.android.application)
+	alias(libs.plugins.satto.android.feature)
 }
 
 android {

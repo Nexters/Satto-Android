@@ -1,3 +1,0 @@
-import convention.configureComposeAndroid
-
-configureComposeAndroid()

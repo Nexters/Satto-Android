@@ -1,5 +1,0 @@
-import convention.configureComposeAndroid
-import convention.configureCoroutineAndroid
-
-configureComposeAndroid()
-configureCoroutineAndroid()

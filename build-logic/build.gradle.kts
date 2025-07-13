@@ -11,13 +11,21 @@ dependencies {
 
 gradlePlugin {
 	plugins {
-		register("androidApplication") {
+		register("sattoAndroidApplication") {
 			id = "satto.android.application"
-			implementationClass = "SattoAndroidApplicationPlugin"
+			implementationClass = "com.hanbang.satto.SattoAndroidApplicationPlugin"
 		}
-		register("androidLibrary") {
+		register("sattoAndroidLibrary") {
 			id = "satto.android.library"
-			implementationClass = "SattoAndroidLibrary"
+			implementationClass = "com.hanbang.satto.SattoAndroidLibraryPlugin"
+		}
+		register("sattoComposePlugin") {
+			id = "satto.android.compose"
+			implementationClass = "com.hanbang.satto.SattoComposePlugin"
+		}
+		register("sattoFeaturePlugin") {
+			id = "satto.android.feature"
+			implementationClass = "com.hanbang.satto.SattoFeaturePlugin"
 		}
 	}
 }

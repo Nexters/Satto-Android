@@ -37,7 +37,7 @@ kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-p
 compose-compiler-gradle-plugin = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
 ksp-gradle-plugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 
-## Koitln
+## Kotlin
 kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 
 ## Coroutine
@@ -88,6 +88,12 @@ kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize",  version.ref 
 
 ## KSP
 kotlin-ksp = { id = "com.google.devtools.ksp" , version.ref = "ksp"}
+
+## Build-Logic
+satto-android-application = { id = "satto.android.application", version = "1" }
+satto-android-library = { id = "satto.android.library", version = "1" }
+satto-android-compose = { id = "satto.android.compose", version = "1" }
+satto-android-feature = { id = "satto.android.feature", version = "1" }
 
 [bundles]
 coroutines = ["coroutines-core", "coroutines-android"]
