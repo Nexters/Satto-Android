@@ -13,6 +13,8 @@ import org.gradle.api.Project
 class SattoAndroidLibraryPlugin : Plugin<Project> {
 	override fun apply(target: Project) {
 		with(target) {
+			pluginManager.apply("com.android.library")
+
 			configureComposeAndroid()
 			configureCoroutineAndroid()
 		}

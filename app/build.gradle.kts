@@ -1,6 +1,6 @@
 plugins {
 	alias(libs.plugins.satto.android.application)
-	alias(libs.plugins.satto.android.feature)
+	alias(libs.plugins.satto.android.compose)
 }
 
 android {
