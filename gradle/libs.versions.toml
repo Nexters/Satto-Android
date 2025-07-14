@@ -92,6 +92,7 @@ kotlin-ksp = { id = "com.google.devtools.ksp" , version.ref = "ksp"}
 ## Build-Logic
 satto-android-application = { id = "satto.android.application", version = "1" }
 satto-android-library = { id = "satto.android.library", version = "1" }
+satto-kotlin-library = { id = "satto.kotlin.library", version = "1" }
 satto-android-compose = { id = "satto.android.compose", version = "1" }
 satto-android-feature = { id = "satto.android.feature", version = "1" }
 
