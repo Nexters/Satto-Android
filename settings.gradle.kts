@@ -25,3 +25,4 @@ rootProject.name = "Satto"
 include(":app")
 include(":data")
 include(":domain")
+include(":remote")
