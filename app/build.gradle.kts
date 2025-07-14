@@ -39,4 +39,7 @@ android {
 
 dependencies {
 	implementation(projects.domain)
+	implementation(projects.data)
+	implementation(projects.local)
+	implementation(projects.remote)
 }
