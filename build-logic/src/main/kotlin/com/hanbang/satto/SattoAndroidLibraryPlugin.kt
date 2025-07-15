@@ -1,7 +1,7 @@
 package com.hanbang.satto
 
-import convention.configureComposeAndroid
 import convention.configureCoroutineAndroid
+import convention.configureKotlinAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -15,7 +15,7 @@ class SattoAndroidLibraryPlugin : Plugin<Project> {
 		with(target) {
 			pluginManager.apply("com.android.library")
 
-			configureComposeAndroid()
+			configureKotlinAndroid()
 			configureCoroutineAndroid()
 		}
 	}

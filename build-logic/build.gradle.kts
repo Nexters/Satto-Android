@@ -27,5 +27,9 @@ gradlePlugin {
 			id = "satto.android.feature"
 			implementationClass = "com.hanbang.satto.SattoFeaturePlugin"
 		}
+		register("sattoKotlinLibrary") {
+			id = "satto.kotlin.library"
+			implementationClass = "com.hanbang.satto.SattoKotlinLibraryPlugin"
+		}
 	}
 }
