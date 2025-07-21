@@ -1,3 +1,5 @@
+includeBuild("build-logic")
+
 pluginManagement {
 	repositories {
 		google {
@@ -21,3 +23,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "Satto"
 include(":app")
+include(":data")
+include(":domain")
+include(":remote")
+include(":local")
