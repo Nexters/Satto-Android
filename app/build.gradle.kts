@@ -17,18 +17,18 @@ android {
 		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 	}
 
-	signingConfigs {
-		create("release") {
-			storeFile = file("path/to/your/keystore.jks")
-			storePassword = "your-store-password"
-			keyAlias = "your-key-alias"
-			keyPassword = "your-key-password"
-		}
-	}
+//	signingConfigs {
+//		create("release") {
+//			storeFile = file(" ")
+//			storePassword = "your-store-password"
+//			keyAlias = "your-key-alias"
+//			keyPassword = "your-key-password"
+//		}
+//	}
 
 	buildTypes {
 		release {
-			signingConfig = signingConfigs.getByName("release")
+//			signingConfig = signingConfigs.getByName("release")
 			isMinifyEnabled = true
 			isShrinkResources = true
 			proguardFiles(
