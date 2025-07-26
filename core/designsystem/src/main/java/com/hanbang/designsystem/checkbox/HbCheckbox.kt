@@ -1,8 +1,7 @@
-package com.hanbang.designsystem.radiobutton
+package com.hanbang.designsystem.checkbox
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
@@ -14,7 +13,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hanbang.designsystem.R
-import com.hanbang.designsystem.checkbox.HbCheckbox
 import com.hanbang.designsystem.util.clickableSingle
 
 /**
@@ -23,7 +21,7 @@ import com.hanbang.designsystem.util.clickableSingle
  * @created  2025/07/26
  */
 @Composable
-fun HbRadioButton(
+fun HbCheckbox(
 	text: String,
 	onClick: () -> Unit,
 	modifier: Modifier = Modifier,
@@ -31,12 +29,11 @@ fun HbRadioButton(
 	isEnabled: Boolean = false,
 	textStyle: TextStyle = TextStyle.Default,
 ) {
-
 	val buttonRes = when (Pair(isActive, isEnabled)) {
-		Pair(true, true) -> R.drawable.img_checkbox_active_default
-		Pair(true, false) -> R.drawable.img_checkbox_active_disabled
-		Pair(false, true) -> R.drawable.img_checkbox_inactive_default
-		else -> R.drawable.img_checkbox_inacive_disabled
+		Pair(true, true) -> R.drawable.img_radio_button_active_default
+		Pair(true, false) -> R.drawable.img_radio_button_active_disabled
+		Pair(false, true) -> R.drawable.img_radio_button_inactive_default
+		else -> R.drawable.img_radio_button_inactive_disabled
 	}
 
 	Row(
@@ -60,34 +57,6 @@ fun HbRadioButton(
 
 @Preview
 @Composable
-private fun HbRadioCheckboxPreview() {
-	Column  {
-		HbCheckbox(
-			text = "라디오 버튼",
-			onClick = {},
-			isActive = true,
-			isEnabled = true
-		)
+private fun HbCheckboxPreview() {
 
-		HbCheckbox(
-			text = "라디오 버튼",
-			onClick = {},
-			isActive = true,
-			isEnabled = false
-		)
-
-		HbCheckbox(
-			text = "라디오 버튼",
-			onClick = {},
-			isActive = false,
-			isEnabled = true
-		)
-
-		HbCheckbox(
-			text = "라디오 버튼",
-			onClick = {},
-			isActive = false,
-			isEnabled = false
-		)
-	}
 }
