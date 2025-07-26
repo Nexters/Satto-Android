@@ -16,13 +16,13 @@ import androidx.compose.ui.platform.LocalDensity
 private val DarkColorScheme = darkColorScheme(
     primary = Primary2,
     secondary = Primary2,
-    tertiary = Primary2
+    tertiary = Primary2,
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = Primary2,
     secondary = Primary2,
-    tertiary = Primary2
+    tertiary = Primary2,
 )
 
 @Composable
@@ -43,7 +43,9 @@ fun SattoTheme(
         else -> LightColorScheme
     }
 
-    val sattoTypography = remember(density) { Typography(density) }
+    val sattoTypography = remember(density) {
+        Typography(density)
+    }
 
     CompositionLocalProvider(LocalSattoTypography provides sattoTypography) {
         MaterialTheme(

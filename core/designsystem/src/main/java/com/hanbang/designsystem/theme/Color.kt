@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.Color
 val Black = Color(0xFF000000)
 val White = Color(0xFFFFFFFF)
 
-//Gray
+// Gray
 val Gray1 = Color(0xFF222729)
 val Gray2 = Color(0xFF353C3F)
 val Gray3 = Color(0xFF4A5256)
@@ -21,7 +21,7 @@ val Gray7 = Color(0xFFE7EDF0)
 val Gray8 = Color(0xFFF1F4F6)
 val Gray9 = Color(0xFFF7F9FA)
 
-//Primary
+// Primary
 val Primary1 = Color(0xFF6A00FF)
 val Primary2 = Color(0xFF7834FF)
 val Primary3 = Color(0xFF8E61EF)
@@ -32,7 +32,7 @@ val Primary7 = Color(0xFFDDD0FF)
 val Primary8 = Color(0xFFECE5FF)
 val Primary9 = Color(0xFFF7F5FF)
 
-//Red
+// Red
 val Red1 = Color(0xFFE43540)
 val Red2 = Color(0xFFE43540)
 val Red3 = Color(0xFFF34854)
@@ -43,7 +43,7 @@ val Red7 = Color(0xFFFFC2C5)
 val Red8 = Color(0xFFFFE6E8)
 val Red9 = Color(0xFFFFF4F5)
 
-//Orange
+// Orange
 val Orange1 = Color(0xFFED4C0C)
 val Orange2 = Color(0xFFF5662D)
 val Orange3 = Color(0xFFFF7943)
@@ -54,7 +54,7 @@ val Orange7 = Color(0xFFFFD3C2)
 val Orange8 = Color(0xFFFFE8E0)
 val Orange9 = Color(0xFFFFF7F4)
 
-//Yellow
+// Yellow
 val Yellow1 = Color(0xFFFFC300)
 val Yellow2 = Color(0xFFFFD105)
 val Yellow3 = Color(0xFFFFE83B)
