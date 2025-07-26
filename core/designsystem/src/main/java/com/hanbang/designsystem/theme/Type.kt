@@ -1,4 +1,4 @@
-package com.hanbang.satto.ui.theme
+package com.hanbang.designsystem.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
