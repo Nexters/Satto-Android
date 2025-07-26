@@ -8,7 +8,10 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 
 private val DarkColorScheme = darkColorScheme(
     primary = Primary2,
@@ -28,6 +31,8 @@ fun SattoTheme(
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
+    val density = LocalDensity.current
+
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
@@ -38,9 +43,18 @@ fun SattoTheme(
         else -> LightColorScheme
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
+    val sattoTypography = remember(density) { Typography(density) }
+
+    CompositionLocalProvider(LocalSattoTypography provides sattoTypography) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            content = content
+        )
+    }
+}
+
+object SattoTheme {
+    val typography: SattoTypography
+        @Composable
+        get() = LocalSattoTypography.current
 }
