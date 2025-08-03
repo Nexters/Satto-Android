@@ -49,3 +49,7 @@ internal fun DependencyHandler.debugImplementation(dependencyNotation: Any) {
 internal fun DependencyHandler.ksp(dependencyNotation: Any) {
 	add("ksp", dependencyNotation)
 }
+
+internal fun DependencyHandler.kapt(dependencyNotation: Any) {
+	add("kapt", dependencyNotation)
+}

@@ -23,6 +23,13 @@ composeMaterial = "1.8.3"
 ##Orbit
 orbit = "10.0.0"
 
+## Hilt
+hilt = "2.51.1"
+hilt-test = "2.48.1"
+
+## Kapt
+kapt = "1.8.10"
+
 ## Kotlin Symbol Processing (KSP)
 ksp = "2.0.0-1.0.23"
 
@@ -75,6 +82,12 @@ orbit-viewmodel = { module = "org.orbit-mvi:orbit-viewmodel", version.ref = "orb
 orbit-compose = { module = "org.orbit-mvi:orbit-compose", version.ref = "orbit" }
 orbit-test = { module = "org.orbit-mvi:orbit-test", version.ref = "orbit" }
 
+# hilt
+hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+hilt-navigation-compose = { group = "androidx.hilt" , name = "hilt-navigation-compose", version = "1.2.0"}
+hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt-test" }
+
 ## Test
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -100,12 +113,19 @@ kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize",  version.ref 
 ## KSP
 kotlin-ksp = { id = "com.google.devtools.ksp" , version.ref = "ksp"}
 
+## Kapt
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kapt"}
+
+##Hilt
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt"}
+
 ## Build-Logic
 satto-android-application = { id = "satto.android.application", version = "1" }
 satto-android-library = { id = "satto.android.library", version = "1" }
 satto-kotlin-library = { id = "satto.kotlin.library", version = "1" }
 satto-android-compose = { id = "satto.android.compose", version = "1" }
 satto-android-feature = { id = "satto.android.feature", version = "1" }
+satto-hilt-plugin = { id = "satto.hilt.plugin", version = "1" }
 
 [bundles]
 coroutines = ["coroutines-core", "coroutines-android"]
