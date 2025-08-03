@@ -9,6 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Paint
@@ -114,3 +115,17 @@ fun Modifier.dropShadow(
 		canvas.restore()
 	}
 }
+
+fun Modifier.topBorder(
+	strokeWidth: Dp,
+	color: Color
+): Modifier = this.then(
+	Modifier.drawBehind {
+		drawLine(
+			color = color,
+			start = Offset(0f, 0f),
+			end = Offset(size.width, 0f),
+			strokeWidth = strokeWidth.toPx()
+		)
+	}
+)

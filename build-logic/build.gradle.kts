@@ -31,5 +31,9 @@ gradlePlugin {
 			id = "satto.kotlin.library"
 			implementationClass = "com.hanbang.satto.SattoKotlinLibraryPlugin"
 		}
+		register("sattoHiltPlugin") {
+			id = "satto.hilt.plugin"
+			implementationClass = "com.hanbang.satto.SattoHiltPlugin"
+		}
 	}
 }

@@ -1,6 +1,7 @@
 plugins {
 	alias(libs.plugins.satto.android.application)
 	alias(libs.plugins.satto.android.compose)
+	alias(libs.plugins.satto.hilt.plugin)
 }
 
 android {
@@ -46,5 +47,11 @@ dependencies {
 	implementation(projects.local)
 	implementation(projects.remote)
 	implementation(projects.core.designsystem)
+	implementation(projects.core.navigation)
+
 	implementation(projects.feature.onboarding)
+	implementation(projects.feature.main)
+	implementation(projects.feature.fortune)
+	implementation(projects.feature.history)
+	implementation(projects.feature.mypage)
 }
