@@ -33,10 +33,10 @@ fun HbRadioButton(
 ) {
 
 	val buttonRes = when (Pair(isActive, isEnabled)) {
-		Pair(true, true) -> R.drawable.img_checkbox_active_default
-		Pair(true, false) -> R.drawable.img_checkbox_active_disabled
-		Pair(false, true) -> R.drawable.img_checkbox_inactive_default
-		else -> R.drawable.img_checkbox_inacive_disabled
+		Pair(true, true) -> R.drawable.img_radio_button_active_default
+		Pair(true, false) -> R.drawable.img_radio_button_active_disabled
+		Pair(false, true) -> R.drawable.img_radio_button_inactive_default
+		else -> R.drawable.img_radio_button_inactive_disabled
 	}
 
 	Row(

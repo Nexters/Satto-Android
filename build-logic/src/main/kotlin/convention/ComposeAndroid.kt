@@ -30,6 +30,7 @@ internal fun Project.configureComposeAndroid() {
 			implementation(libs.findLibrary("androidx-material3").get())
 			implementation(libs.findLibrary("androidx-material").get())
 			implementation(libs.findLibrary("androidx-navigation-compose").get())
+			implementation(libs.findLibrary("androidx-lifecycle-viewmodel-compose").get())
 			implementation(libs.findLibrary("orbit-core").get())
 			implementation(libs.findLibrary("orbit-viewmodel").get())
 			implementation(libs.findLibrary("orbit-compose").get())

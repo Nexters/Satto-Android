@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -65,7 +66,7 @@ fun HbBoxButton(
 	val contentColor = if (isEnabled) colors.contentColor else colors.disabledContentColor
 
 	Box(
-		modifier = Modifier
+		modifier = modifier
 			.padding(containerPadding)
 			.clip(shape = styles.shape)
 			.height(styles.height)
@@ -75,7 +76,9 @@ fun HbBoxButton(
 				.matchParentSize()
 				.background(containerColor)
 				.border(width = 1.dp, color = colors.strokeColor, shape = styles.shape)
-				.clickableSingle(activeRippleEffect = false) { onClick() }
+				.clickableSingle(activeRippleEffect = false) {
+					if(isEnabled) onClick()
+				}
 				.pointerInput(buttonState) {
 					awaitPointerEventScope {
 						buttonState = if (buttonState == ButtonState.Pressed) {
@@ -90,7 +93,7 @@ fun HbBoxButton(
 		)
 
 		Box(
-			modifier = modifier
+			modifier = Modifier
 				.fillMaxHeight()
 				.padding(styles.contentPadding),
 			contentAlignment = Alignment.Center
@@ -103,6 +106,7 @@ fun HbBoxButton(
 				leftContent()
 
 				Text(
+					modifier = Modifier.fillMaxWidth(),
 					text = text,
 					textAlign = TextAlign.Center,
 					color = contentColor,
@@ -120,6 +124,19 @@ fun HbBoxButton(
 private fun HbBoxButtonPrimaryPreview() {
 	// Button/Primary
 	Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+		HbBoxButton(
+			styles = HbButtonStyles.xLarge,
+			text = "Button",
+			onClick = { },
+			colors = HbButtonColorType.primary,
+			leftContent = {
+
+			},
+			rightContent = {
+
+			}
+		)
+
 		HbBoxButton(
 			styles = HbButtonStyles.xLarge,
 			text = "Button",

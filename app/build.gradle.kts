@@ -46,4 +46,5 @@ dependencies {
 	implementation(projects.local)
 	implementation(projects.remote)
 	implementation(projects.core.designsystem)
+	implementation(projects.feature.onboarding)
 }

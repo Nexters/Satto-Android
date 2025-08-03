@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hanbang.designsystem.R
 import com.hanbang.designsystem.util.clickableSingle
+import com.hanbang.designsystem.util.noRippleClickable
 
 /**
  *
@@ -30,15 +31,15 @@ fun HbCheckbox(
 	textStyle: TextStyle = TextStyle.Default,
 ) {
 	val buttonRes = when (Pair(isActive, isEnabled)) {
-		Pair(true, true) -> R.drawable.img_radio_button_active_default
-		Pair(true, false) -> R.drawable.img_radio_button_active_disabled
-		Pair(false, true) -> R.drawable.img_radio_button_inactive_default
-		else -> R.drawable.img_radio_button_inactive_disabled
+		Pair(true, true) -> R.drawable.img_checkbox_active_default
+		Pair(true, false) -> R.drawable.img_checkbox_active_disabled
+		Pair(false, true) -> R.drawable.img_checkbox_inactive_default
+		else -> R.drawable.img_checkbox_inacive_disabled
 	}
 
 	Row(
 		modifier = modifier
-			.clickableSingle(activeRippleEffect = false) { onClick() },
+			.noRippleClickable { onClick() },
 		horizontalArrangement = Arrangement.spacedBy(8.dp),
 		verticalAlignment = Alignment.CenterVertically
 	) {
