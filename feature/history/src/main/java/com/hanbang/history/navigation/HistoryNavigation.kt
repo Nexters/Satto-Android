@@ -3,6 +3,7 @@ package com.hanbang.history.navigation
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.hanbang.designsystem.toast.HbSnackBarType
 import com.hanbang.history.HistoryRoute
 import com.hanbang.navigation.feature.history.RouteHistory
 
@@ -13,7 +14,7 @@ import com.hanbang.navigation.feature.history.RouteHistory
  */
 fun NavGraphBuilder.historyNavGraph(
 	padding: PaddingValues,
-	onShowErrorSnackBar: (throwable: Throwable?) -> Unit
+	onShowErrorSnackBar: (HbSnackBarType) -> Unit
 ) {
 	composable<RouteHistory> {
 		HistoryRoute(

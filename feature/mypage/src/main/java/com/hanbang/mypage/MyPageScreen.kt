@@ -38,12 +38,10 @@ import com.hanbang.mypage.component.MyPageSectionItem
 internal fun MyPageRoute(
 	paddingValues: PaddingValues,
 	navigateToEditProfile: () -> Unit,
-	onShowErrorSnackBar: (throwable: Throwable?) -> Unit,
 ) {
 	MyPageScreen(
 		paddingValues = paddingValues,
 		navigateToProfileEdit = navigateToEditProfile,
-		onShowErrorSnackBar = onShowErrorSnackBar
 	)
 }
 
@@ -51,7 +49,6 @@ internal fun MyPageRoute(
 private fun MyPageScreen(
 	paddingValues: PaddingValues,
 	navigateToProfileEdit: () -> Unit,
-	onShowErrorSnackBar: (throwable: Throwable?) -> Unit,
 ) {
 	Column(
 		modifier = Modifier.fillMaxSize()
@@ -152,8 +149,7 @@ private fun MyPageScreenPreview() {
 	SattoTheme {
 		MyPageScreen(
 			paddingValues = PaddingValues(),
-			navigateToProfileEdit = {},
-			onShowErrorSnackBar = {}
+			navigateToProfileEdit = {}
 		)
 	}
 }

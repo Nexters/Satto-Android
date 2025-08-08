@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.hanbang.designsystem.theme.Gray1
 import com.hanbang.designsystem.theme.SattoTheme
+import com.hanbang.designsystem.toast.HbSnackBarType
 
 /**
  *
@@ -17,7 +18,7 @@ import com.hanbang.designsystem.theme.SattoTheme
 @Composable
 internal fun HomeRoute(
 	paddingValues: PaddingValues,
-	onShowErrorSnackBar: (throwable: Throwable?) -> Unit,
+	onShowErrorSnackBar: (HbSnackBarType) -> Unit,
 ) {
 	HomeScreen()
 }

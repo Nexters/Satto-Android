@@ -21,6 +21,7 @@ import com.hanbang.designsystem.button.HbBoxButton
 import com.hanbang.designsystem.button.HbButtonColorType
 import com.hanbang.designsystem.button.HbButtonStyles
 import com.hanbang.designsystem.theme.SattoTheme
+import com.hanbang.designsystem.toast.HbSnackBarType
 import com.hanbang.domain.model.BirthTimeRanges
 import com.hanbang.domain.model.GenderType
 import com.hanbang.editprofile.component.EditProfileBirthTimePicker
@@ -40,7 +41,7 @@ import org.orbitmvi.orbit.compose.collectAsState
 @Composable
 fun EditProfileRoute(
 	paddingValues: PaddingValues,
-	onShowErrorSnackBar: (throwable: Throwable?) -> Unit,
+	onShowErrorSnackBar: (HbSnackBarType) -> Unit,
 	onNavigateUp: () -> Unit,
 	viewModel: EditProfileViewModel = hiltViewModel()
 ) {
