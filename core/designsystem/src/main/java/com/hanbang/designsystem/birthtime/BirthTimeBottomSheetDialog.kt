@@ -1,4 +1,4 @@
-package com.hanbang.onboarding.component
+package com.hanbang.designsystem.birthtime
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,7 +37,7 @@ import com.hanbang.designsystem.util.clickableSingle
  * @created  2025/08/03
  */
 @Composable
-fun OnboardingBirthTimeBottomSheetDialog(
+fun BirthTimeBottomSheetDialog(
 	timeList: List<String>,
 	onDismissRequest: () -> Unit,
 	onSelectBirthTime: (String) -> Unit,
