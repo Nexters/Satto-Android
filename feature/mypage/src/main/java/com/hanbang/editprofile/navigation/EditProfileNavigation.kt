@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.hanbang.designsystem.toast.HbSnackBarType
 import com.hanbang.editprofile.EditProfileRoute
 import com.hanbang.navigation.feature.editprofile.EditProfileRouteModel
 import com.hanbang.navigation.feature.editprofile.RouteEditProfile
@@ -22,7 +23,7 @@ fun NavController.navigateToEditProfile(
 
 fun NavGraphBuilder.editProfileNavGraph(
 	padding: PaddingValues,
-	onShowErrorSnackBar: (throwable: Throwable?) -> Unit,
+	onShowErrorSnackBar: (HbSnackBarType) -> Unit,
 	onNavigateUp: () -> Unit
 ) {
 	composable<RouteEditProfile> {

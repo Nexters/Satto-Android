@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
+import com.hanbang.designsystem.toast.HbSnackBarType
 import com.hanbang.editprofile.navigation.editProfileNavGraph
 import com.hanbang.editprofile.navigation.navigateToEditProfile
 import com.hanbang.fortune.navigation.fortuneNavGraph
@@ -23,7 +24,7 @@ import com.hanbang.mypage.navigation.myPageNavGraph
 internal fun MainNavHost(
 	navigator: MainNavigator,
 	padding: PaddingValues,
-	onShowErrorSnackBar: (throwable: Throwable?) -> Unit,
+	onShowErrorSnackBar: (HbSnackBarType) -> Unit,
 	modifier: Modifier = Modifier,
 ) {
 	Box(

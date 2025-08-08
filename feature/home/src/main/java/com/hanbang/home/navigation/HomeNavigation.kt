@@ -3,6 +3,7 @@ package com.hanbang.home.navigation
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.hanbang.designsystem.toast.HbSnackBarType
 import com.hanbang.home.HomeRoute
 import com.hanbang.navigation.feature.home.RouteHome
 
@@ -13,7 +14,7 @@ import com.hanbang.navigation.feature.home.RouteHome
  */
 fun NavGraphBuilder.homeNavGraph(
 	padding: PaddingValues,
-	onShowErrorSnackBar: (throwable: Throwable?) -> Unit
+	onShowErrorSnackBar: (HbSnackBarType) -> Unit
 ) {
 	composable<RouteHome> {
 		HomeRoute(
