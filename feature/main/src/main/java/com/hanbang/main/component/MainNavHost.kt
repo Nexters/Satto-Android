@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
+import com.hanbang.editprofile.navigation.editProfileNavGraph
+import com.hanbang.editprofile.navigation.navigateToEditProfile
 import com.hanbang.fortune.navigation.fortuneNavGraph
 import com.hanbang.history.navigation.historyNavGraph
 import com.hanbang.home.navigation.homeNavGraph
@@ -47,6 +49,15 @@ internal fun MainNavHost(
 			myPageNavGraph(
 				padding = padding,
 				onShowErrorSnackBar = onShowErrorSnackBar,
+				navigateToEditProfile = {
+					navigator.navController.navigateToEditProfile(it)
+				}
+			)
+
+			editProfileNavGraph(
+				padding = padding,
+				onShowErrorSnackBar = onShowErrorSnackBar,
+				onNavigateUp = navigator.navController::navigateUp
 			)
 		}
 	}

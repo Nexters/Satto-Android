@@ -58,8 +58,9 @@ import com.hanbang.designsystem.theme.Red3
 import com.hanbang.designsystem.theme.SattoTheme
 import com.hanbang.designsystem.theme.White
 import com.hanbang.designsystem.util.clickableSingle
+import com.hanbang.domain.model.BirthTimeRanges
 import com.hanbang.onboarding.component.OnboardingAgreementBottomSheetDialog
-import com.hanbang.onboarding.component.OnboardingBirthTimeBottomSheetDialog
+import com.hanbang.designsystem.birthtime.BirthTimeBottomSheetDialog
 import com.hanbang.onboarding.model.OnboardingGenderType
 import com.hanbang.onboarding.model.OnboardingSideEffect
 import com.hanbang.onboarding.model.OnboardingState
@@ -99,21 +100,8 @@ fun OnboardingRoute(
 	}
 
 	if (showBirthTimeDialog) {
-		OnboardingBirthTimeBottomSheetDialog(
-			timeList = listOf(
-				"23:00 ~ 00:59",
-				"01:00 ~ 02:59",
-				"03:00 ~ 04:59",
-				"05:00 ~ 06:59",
-				"07:00 ~ 08:59",
-				"09:00 ~ 10:59",
-				"11:00 ~ 12:59",
-				"13:00 ~ 14:59",
-				"15:00 ~ 16:59",
-				"17:00 ~ 18:59",
-				"19:00 ~ 20:59",
-				"21:00 ~ 22:59"
-			),
+		BirthTimeBottomSheetDialog(
+			timeList = BirthTimeRanges.timeList,
 			onDismissRequest = { showBirthTimeDialog = false },
 			onSelectBirthTime = viewModel::saveBirthTime
 		)

@@ -2,6 +2,7 @@ plugins {
 	alias(libs.plugins.satto.android.feature)
 	alias(libs.plugins.satto.android.compose)
 	alias(libs.plugins.satto.hilt.plugin)
+	alias(libs.plugins.kotlin.plugin.serialization)
 }
 
 android {
@@ -16,4 +17,6 @@ dependencies {
 	implementation(projects.feature.fortune)
 	implementation(projects.feature.history)
 	implementation(projects.feature.mypage)
+
+	implementation(libs.kotlin.serialization.json)
 }

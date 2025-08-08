@@ -41,7 +41,7 @@ fun HbRadioButton(
 
 	Row(
 		modifier = modifier
-			.clickableSingle(activeRippleEffect = false) { onClick() },
+			.clickableSingle(activeRippleEffect = false) { if(isEnabled) onClick() },
 		horizontalArrangement = Arrangement.spacedBy(8.dp),
 		verticalAlignment = Alignment.CenterVertically
 	) {

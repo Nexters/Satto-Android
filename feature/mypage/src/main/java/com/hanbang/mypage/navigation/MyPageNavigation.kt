@@ -3,7 +3,9 @@ package com.hanbang.mypage.navigation
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.hanbang.editprofile.navigation.navigateToEditProfile
 import com.hanbang.mypage.MyPageRoute
+import com.hanbang.navigation.feature.editprofile.EditProfileRouteModel
 import com.hanbang.navigation.feature.mypage.RouteMyPage
 
 /**
@@ -13,11 +15,13 @@ import com.hanbang.navigation.feature.mypage.RouteMyPage
  */
 fun NavGraphBuilder.myPageNavGraph(
 	padding: PaddingValues,
+	navigateToEditProfile: (EditProfileRouteModel) -> Unit,
 	onShowErrorSnackBar: (throwable: Throwable?) -> Unit
 ) {
 	composable<RouteMyPage> {
 		MyPageRoute(
 			paddingValues = padding,
+			navigateToEditProfile = { navigateToEditProfile(EditProfileRouteModel(name = "test")) },
 			onShowErrorSnackBar = onShowErrorSnackBar
 		)
 	}
