@@ -28,6 +28,7 @@ import java.net.UnknownHostException
 internal fun MainScreen(
 	onTabSelected: (MainTab) -> Unit,
 	navigator: MainNavigator,
+	modifier: Modifier = Modifier
 ) {
 	val snackBarHostState = remember { SnackbarHostState() }
 	var snackBarType by remember { mutableStateOf<HbSnackBarType>(HbSnackBarType.NOTICE()) }
@@ -46,7 +47,8 @@ internal fun MainScreen(
 		navigator = navigator,
 		onShowErrorSnackBar = onShowErrorSnackBar,
 		snackBarHostState = snackBarHostState,
-		snackBarType = snackBarType
+		snackBarType = snackBarType,
+        modifier = modifier
 	)
 }
 
