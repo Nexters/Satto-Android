@@ -10,14 +10,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import com.hanbang.designsystem.R
 import com.hanbang.designsystem.toast.HbSnackBarType
 import com.hanbang.designsystem.toast.HbToastSnackbarHost
 import com.hanbang.main.component.MainBottomBar
 import com.hanbang.main.component.MainNavHost
 import kotlinx.coroutines.launch
-import java.net.UnknownHostException
 
 /**
  *
@@ -27,7 +24,7 @@ import java.net.UnknownHostException
 @Composable
 internal fun MainScreen(
 	onTabSelected: (MainTab) -> Unit,
-	navigator: MainNavigator,
+	navigator: MainNavigator
 ) {
 	val snackBarHostState = remember { SnackbarHostState() }
 	var snackBarType by remember { mutableStateOf<HbSnackBarType>(HbSnackBarType.NOTICE()) }
@@ -70,8 +67,7 @@ private fun MainScreenContent(
 		},
 		bottomBar = {
 			MainBottomBar(
-				modifier = Modifier
-					.navigationBarsPadding(),
+				modifier = Modifier.navigationBarsPadding(),
 				visible = navigator.shouldShowBottomBar(),
 				tabs = MainTab.entries,
 				currentTab = navigator.currentTab,
