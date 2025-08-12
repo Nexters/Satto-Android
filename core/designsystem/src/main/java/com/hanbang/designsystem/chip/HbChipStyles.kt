@@ -20,7 +20,7 @@ object HbChipStyles {
 		get() = HbChipStyleProperties(
 			height = 28.dp,
 			shape = RoundedCornerShape(99.dp),
-			contentPadding = PaddingValues(horizontal = 10.dp, vertical = 0.dp),
+			contentPadding = PaddingValues(horizontal = 10.dp, vertical = 3.5.dp),
 			spacing = 2.dp,
 			textStyle = TextStyle.Default
 		)
