@@ -1,5 +1,6 @@
 plugins {
 	alias(libs.plugins.satto.android.library)
+	alias(libs.plugins.satto.hilt.plugin)
 }
 
 android {
