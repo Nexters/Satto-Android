@@ -1,6 +1,8 @@
 package com.hanbang.local.di
 
+import com.hanbang.data.datasource.DeviceLocalDataSource
 import com.hanbang.data.datasource.UserLocalDataSource
+import com.hanbang.local.datasource.DefaultDeviceLocalDataSource
 import com.hanbang.local.datasource.DefaultUserLocalDataSource
 import dagger.Binds
 import dagger.Module
@@ -22,4 +24,10 @@ internal abstract class LocalDataSourceModule {
 	abstract fun bindUserLocalDataSource(
 		userLocalDataSource: DefaultUserLocalDataSource
 	): UserLocalDataSource
+
+	@Singleton
+	@Binds
+	abstract fun bindDeviceLocalDataSource(
+		deviceLocalDataSource: DefaultDeviceLocalDataSource
+	): DeviceLocalDataSource
 }

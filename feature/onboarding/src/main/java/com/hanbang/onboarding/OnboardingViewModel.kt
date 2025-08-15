@@ -8,13 +8,16 @@ import com.hanbang.onboarding.model.OnboardingState
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.blockingIntent
 import org.orbitmvi.orbit.viewmodel.container
+import javax.inject.Inject
 
 /**
  *
  * @author   JGeun
  * @created  2025/07/22
  */
-class OnboardingViewModel : ContainerHost<OnboardingState, OnboardingSideEffect>, ViewModel() {
+class OnboardingViewModel @Inject constructor(
+
+): ContainerHost<OnboardingState, OnboardingSideEffect>, ViewModel() {
 
 	override val container = container<OnboardingState, OnboardingSideEffect>(OnboardingState())
 
