@@ -14,6 +14,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
  */
 @Serializable
 data class CreateUserParam(
+	@SerialName("id")
 	val deviceId: String,
 	val name: String,
 	@SerialName("birth_date")

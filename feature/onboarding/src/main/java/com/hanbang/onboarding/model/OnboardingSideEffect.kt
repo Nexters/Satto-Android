@@ -7,4 +7,10 @@ package com.hanbang.onboarding.model
  */
 sealed class OnboardingSideEffect {
 	data object OpenAgreementDialog : OnboardingSideEffect()
+
+	data object UserCreated : OnboardingSideEffect()
+
+	data class ShowError(
+		val message: String
+	) : OnboardingSideEffect()
 }

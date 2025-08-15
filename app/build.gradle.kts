@@ -49,9 +49,11 @@ dependencies {
 	implementation(projects.core.designsystem)
 	implementation(projects.core.navigation)
 
+	implementation(projects.feature.intro)
 	implementation(projects.feature.onboarding)
 	implementation(projects.feature.main)
 	implementation(projects.feature.fortune)
 	implementation(projects.feature.history)
 	implementation(projects.feature.mypage)
+	implementation(libs.androidx.lifecycle.process)
 }

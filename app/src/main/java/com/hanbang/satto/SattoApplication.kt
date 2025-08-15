@@ -1,7 +1,9 @@
 package com.hanbang.satto
 
 import android.app.Application
+import com.hanbang.domain.manager.DeviceIdManager
 import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 
 /**
  *
@@ -10,4 +12,16 @@ import dagger.hilt.android.HiltAndroidApp
  */
 @HiltAndroidApp
 class SattoApplication : Application() {
+
+	@Inject lateinit var deviceIdManager: DeviceIdManager
+
+	override fun onCreate() {
+		super.onCreate()
+
+		initData()
+	}
+
+	private fun initData() {
+		deviceIdManager.storeDeviceId()
+	}
 }

@@ -27,26 +27,22 @@ class MainActivity : ComponentActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		enableEdgeToEdge()
+
 		setContent {
 			val navigator: MainNavigator = rememberMainNavigator()
 			LaunchedRouter(navigator.navController)
 
 			SattoTheme {
-				Scaffold(
-					modifier = Modifier.fillMaxSize(),
-					content = { padding ->
-						MainScreen(
-							navigator = navigator,
-							onTabSelected = {
-								when (it.route) {
-									is RouteHome -> { viewModel.navigateHome() }
-									is RouteFortune -> { viewModel.navigateFortune() }
-									is RouteHistory -> { viewModel.navigateHistory() }
-									is RouteMyPage -> { viewModel.navigateMyPage() }
-								}
-							},
-						)
-					}
+					MainScreen(
+						navigator = navigator,
+						onTabSelected = {
+							when (it.route) {
+								is RouteHome -> { viewModel.navigateHome() }
+								is RouteFortune -> { viewModel.navigateFortune() }
+								is RouteHistory -> { viewModel.navigateHistory() }
+								is RouteMyPage -> { viewModel.navigateMyPage() }
+							}
+						},
 				)
 			}
 		}

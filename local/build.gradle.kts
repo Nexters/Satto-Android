@@ -10,6 +10,8 @@ android {
 dependencies {
 	implementation(projects.data)
 
+	implementation(libs.datastore)
+
 	testImplementation(libs.junit)
 	androidTestImplementation(libs.androidx.junit)
 	androidTestImplementation(libs.androidx.espresso.core)

@@ -1,5 +1,6 @@
 package com.hanbang.designsystem.birthtime
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,6 +19,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
@@ -50,6 +54,7 @@ fun BirthTimeBottomSheetDialog(
 			Row(
 				modifier = Modifier
 					.fillMaxWidth()
+					.background(Color.Red)
 					.padding(vertical = 8.dp)) {
 				Text(
 					modifier = Modifier.weight(1f),
@@ -75,6 +80,7 @@ fun BirthTimeBottomSheetDialog(
 					modifier = Modifier
 						.fillMaxWidth()
 						.heightIn(max = 4 * 56.dp)
+						.background(Color.Blue)
 						.verticalScroll(rememberScrollState())
 				) {
 					timeList.forEach { time ->

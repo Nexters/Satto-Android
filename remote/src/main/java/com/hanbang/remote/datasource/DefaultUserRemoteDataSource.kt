@@ -4,6 +4,7 @@ import com.hanbang.data.datasource.UserRemoteDataSource
 import com.hanbang.data.model.DailyFortuneDto
 import com.hanbang.data.model.FourPillarDto
 import com.hanbang.data.model.LottoRecommendationDto
+import com.hanbang.data.model.PillarDetailDto
 import com.hanbang.data.model.UserDto
 import com.hanbang.remote.model.CreateUserParam
 import com.hanbang.remote.model.UpdateUserParam
@@ -21,13 +22,13 @@ class DefaultUserRemoteDataSource @Inject constructor(
 ) : UserRemoteDataSource {
 
 	override suspend fun createUser(
-		userId: String,
+		deviceId: String,
 		name: String,
 		birthDate: String,
 		gender: String
 	): UserDto {
 		val createUserParam = CreateUserParam(
-			deviceId = userId,
+			deviceId = deviceId,
 			name = name,
 			birthDate = birthDate,
 			gender = gender

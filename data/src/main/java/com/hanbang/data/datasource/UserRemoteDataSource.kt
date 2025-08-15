@@ -14,7 +14,7 @@ import com.hanbang.domain.model.GenderType
 interface UserRemoteDataSource {
 
 	suspend fun createUser(
-		userId: String,
+		deviceId: String,
 		name: String,
 		birthDate: String,
 		gender: String
