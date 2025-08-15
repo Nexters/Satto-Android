@@ -1,6 +1,7 @@
 package com.hanbang.remote.di
 
 import android.util.Log
+import com.hanbang.remote.BuildConfig
 import com.hanbang.remote.service.UserService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -24,8 +25,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 internal object NetworkModule {
 
-	private const val BASE_URL = "https://www.satto.io.kr/"
-
 	@Provides
 	@Singleton
 	fun provideDefaultOkHttpClient(): OkHttpClient {
@@ -42,7 +41,9 @@ internal object NetworkModule {
 			}
 			.addNetworkInterceptor(
 				HttpLoggingInterceptor { message ->
-					Log.w("Network Response", message)
+					if (BuildConfig.DEBUG) {
+						Log.w("Network Response", message)
+					}
 				}.apply {
 					level = HttpLoggingInterceptor.Level.BODY
 				}
@@ -65,7 +66,7 @@ internal object NetworkModule {
 		val converterFactory = json.asConverterFactory("application/json; charset=UTF8".toMediaType())
 
 		return Retrofit.Builder()
-			.baseUrl(BASE_URL)
+			.baseUrl(BuildConfig.BASE_URL)
 			.addConverterFactory(converterFactory)
 			.client(client)
 			.build()
@@ -75,5 +76,5 @@ internal object NetworkModule {
 	@Singleton
 	fun provideUserService(
 		retrofit: Retrofit
-	) = retrofit.create(UserService::class.java)
+	): UserService = retrofit.create(UserService::class.java)
 }
