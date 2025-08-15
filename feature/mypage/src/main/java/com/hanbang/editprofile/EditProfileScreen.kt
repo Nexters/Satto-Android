@@ -1,5 +1,6 @@
 package com.hanbang.editprofile
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -29,8 +30,11 @@ import com.hanbang.editprofile.component.EditProfileDateOfBirthContent
 import com.hanbang.editprofile.component.EditProfileGenderContent
 import com.hanbang.editprofile.component.EditProfileHeader
 import com.hanbang.editprofile.component.EditProfileNamingContent
+import com.hanbang.editprofile.component.EditProfileNavigateUpMiddleDialog
+import com.hanbang.editprofile.model.EditProfileSideEffect
 import com.hanbang.editprofile.model.EditProfileUiState
 import org.orbitmvi.orbit.compose.collectAsState
+import org.orbitmvi.orbit.compose.collectSideEffect
 
 /**
  *
@@ -46,11 +50,26 @@ fun EditProfileRoute(
 	viewModel: EditProfileViewModel = hiltViewModel()
 ) {
 	var showBirthTimeDialog by remember { mutableStateOf(false) }
+	var showNavigateUpMsgDialog by remember { mutableStateOf(false) }
 	val state by viewModel.collectAsState()
+
+	BackHandler {
+		if (viewModel.equalPreviousProfileData()) {
+			onNavigateUp()
+		} else {
+			showNavigateUpMsgDialog = true
+		}
+	}
 
 	EditProfileScreen(
 		state = state,
-		onNavigateUp = onNavigateUp,
+		onNavigateUp = {
+			if (viewModel.equalPreviousProfileData()) {
+				onNavigateUp()
+			} else {
+				showNavigateUpMsgDialog = true
+			}
+		},
 		onNameInputChanged = viewModel::inputNameChanged,
 		paddingValues = paddingValues,
 		onGenderSelected = viewModel::onGenderSelected,
@@ -66,6 +85,32 @@ fun EditProfileRoute(
 			onDismissRequest = { showBirthTimeDialog = false },
 			onSelectBirthTime = viewModel::saveBirthTime
 		)
+	}
+
+	if (showNavigateUpMsgDialog) {
+		EditProfileNavigateUpMiddleDialog(
+			onDismiss = { showNavigateUpMsgDialog = false },
+			onConfirm = {
+				showNavigateUpMsgDialog = false
+				onNavigateUp()
+			}
+		)
+	}
+
+	viewModel.collectSideEffect { sideEffect ->
+		when (sideEffect) {
+			is EditProfileSideEffect.NavigateUp -> {
+				onNavigateUp()
+			}
+
+			is EditProfileSideEffect.ShowErrorMessage -> {
+				onShowErrorSnackBar(
+					HbSnackBarType.ERROR(
+						message = sideEffect.message
+					)
+				)
+			}
+		}
 	}
 }
 
@@ -92,7 +137,7 @@ private fun EditProfileScreen(
 
 		LazyColumn(
 			modifier = Modifier
-				.weight(1f)
+				.weight(1f, fill = true)
 				.padding(vertical = 18.dp),
 			verticalArrangement = Arrangement.spacedBy(28.dp)
 		) {

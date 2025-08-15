@@ -22,7 +22,7 @@ fun NavGraphBuilder.myPageNavGraph(
 	composable<RouteMyPage> {
 		MyPageRoute(
 			paddingValues = padding,
-			navigateToEditProfile = { navigateToEditProfile(EditProfileRouteModel(name = "test")) }
+			navigateToEditProfile = { navigateToEditProfile(it) }
 		)
 	}
 }
