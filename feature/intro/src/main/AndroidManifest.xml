@@ -6,7 +6,8 @@
         <activity
             android:name=".IntroActivity"
             android:exported="true"
-            android:theme="@style/Theme.Satto.Splash">
+            android:theme="@style/Theme.Satto.Splash"
+            android:launchMode="singleInstance">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -7,5 +7,7 @@ package com.hanbang.data.datasource
  */
 interface UserLocalDataSource {
 
-	suspend fun getDeviceId(): String
+	suspend fun getUserId(): String
+
+	suspend fun storeUserId(userId: String): String
 }

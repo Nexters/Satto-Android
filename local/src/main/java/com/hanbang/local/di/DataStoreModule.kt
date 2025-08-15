@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.hanbang.local.di.qualifier.DeviceDataStore
+import com.hanbang.local.di.qualifier.UserDataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,6 +29,15 @@ object DataStoreModule {
 	@Singleton
 	@DeviceDataStore
 	fun provideDeviceDataStore(
+		@ApplicationContext context: Context
+	): DataStore<Preferences> {
+		return context.storeDataSource
+	}
+
+	@Provides
+	@Singleton
+	@UserDataStore
+	fun provideUserDataStore(
 		@ApplicationContext context: Context
 	): DataStore<Preferences> {
 		return context.storeDataSource

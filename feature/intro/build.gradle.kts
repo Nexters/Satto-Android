@@ -11,6 +11,7 @@ android {
 dependencies {
 	implementation(projects.core.designsystem)
 	implementation(projects.core.navigation)
+	implementation(projects.domain)
 
 	implementation("androidx.core:core-splashscreen:1.0.0")
 }

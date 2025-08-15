@@ -44,7 +44,7 @@ import com.hanbang.domain.extension.toggle
  * @created  2025/08/03
  */
 @Composable
-fun OnboardingAgreementBottomSheetDialog(
+internal fun OnboardingAgreementBottomSheetDialog(
 	onDismissRequest: () -> Unit,
 	onConfirmAgreement: () -> Unit,
 	openServiceAgreementInfo: () -> Unit,
@@ -57,10 +57,8 @@ fun OnboardingAgreementBottomSheetDialog(
 	LaunchedEffect(checkAllAgree) {
 		snapshotFlow { checkAllAgree }
 			.collect { agree ->
-				if (agree) {
-					checkServiceAgree = true
-					checkPersonalInfoAgree = true
-				}
+				checkServiceAgree = agree
+				checkPersonalInfoAgree = agree
 			}
 
 	}
@@ -160,6 +158,7 @@ fun OnboardingAgreementBottomSheetDialog(
 
 				HbBoxButton(
 					text = "확인",
+					isEnabled = checkServiceAgree &&checkPersonalInfoAgree,
 					onClick = {
 						onConfirmAgreement()
 						onDismissRequest()

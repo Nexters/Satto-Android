@@ -10,3 +10,7 @@ import javax.inject.Qualifier
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class DeviceDataStore
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class UserDataStore
