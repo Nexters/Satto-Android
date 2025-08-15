@@ -23,4 +23,17 @@ interface SattoRepository {
 		birthMinute: Int,
 		genderType: GenderType
 	): Flow<User>
+
+	fun getUser(): Flow<User>
+
+	fun updateUser(
+		name: String,
+		dateOfBirth: String,
+		birthYear: Int,
+		birthMonth: Int,
+		birthDay: Int,
+		birthHour: Int,
+		birthMinute: Int,
+		genderType: GenderType
+	): Flow<User>
 }

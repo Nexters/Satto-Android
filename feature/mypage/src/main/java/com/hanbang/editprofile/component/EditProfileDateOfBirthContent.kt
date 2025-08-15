@@ -51,12 +51,13 @@ internal fun EditProfileDateOfBirthContent(
 		HbInputField(
 			value = dateOfBirth,
 			onValueChange = { onDateOfBirthInputChanged(it) },
-			hint = "2000-01-01",
+			hint = "20000101",
 			isError = errorMsg.isNotEmpty(),
 			errorMessage = errorMsg,
 			errorTextStyle = typography.caption12Medium.copy(
 				color = Red3
 			),
+			counterMaxLength = 8,
 			modifier = Modifier.fillMaxWidth(),
 			textColor = Color.Black,
 			textStyle = typography.body14Medium,

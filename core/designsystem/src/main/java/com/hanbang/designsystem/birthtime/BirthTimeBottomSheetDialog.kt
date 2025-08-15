@@ -1,6 +1,5 @@
 package com.hanbang.designsystem.birthtime
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,14 +18,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
 import com.hanbang.designsystem.R
-import com.hanbang.designsystem.bottomsheet.HbBottomSheet
+import com.hanbang.designsystem.bottomsheet.AnimatedBottomDialog
 import com.hanbang.designsystem.bottomsheet.HbBottomSheetItem
 import com.hanbang.designsystem.button.HbBoxButton
 import com.hanbang.designsystem.button.HbButtonColorType
@@ -48,39 +44,36 @@ fun BirthTimeBottomSheetDialog(
 ) {
 	var isActiveTime by remember { mutableStateOf("") }
 
-	HbBottomSheet(
-		onDismissRequest = onDismissRequest,
-		headerContents = {
-			Row(
-				modifier = Modifier
-					.fillMaxWidth()
-					.background(Color.Red)
-					.padding(vertical = 8.dp)) {
-				Text(
-					modifier = Modifier.weight(1f),
-					text = "태어난 시",
-					style = LocalSattoTypography.current.body16Bold,
-					color = Gray1
-				)
-
-				Icon(
-					modifier = Modifier
-						.size(24.dp)
-						.clickableSingle(activeRippleEffect = false) { onDismissRequest() },
-					painter = painterResource(R.drawable.ic_close),
-					contentDescription = "close_icon"
-				)
-			}
-		},
-		contents = {
+	AnimatedBottomDialog(
+		onDismiss = onDismissRequest,
+		content = { closeDialog ->
 			Column(
 				modifier = Modifier.fillMaxWidth()
 			) {
+				Row(
+					modifier = Modifier
+						.fillMaxWidth()
+						.padding(vertical = 8.dp)) {
+					Text(
+						modifier = Modifier.weight(1f),
+						text = "태어난 시",
+						style = LocalSattoTypography.current.body16Bold,
+						color = Gray1
+					)
+
+					Icon(
+						modifier = Modifier
+							.size(24.dp)
+							.clickableSingle(activeRippleEffect = false) { closeDialog() },
+						painter = painterResource(R.drawable.ic_close),
+						contentDescription = "close_icon"
+					)
+				}
+
 				Column(
 					modifier = Modifier
 						.fillMaxWidth()
 						.heightIn(max = 4 * 56.dp)
-						.background(Color.Blue)
 						.verticalScroll(rememberScrollState())
 				) {
 					timeList.forEach { time ->

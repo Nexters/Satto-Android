@@ -32,6 +32,7 @@ import com.hanbang.designsystem.theme.Gray6
 import com.hanbang.designsystem.theme.SattoTheme
 import com.hanbang.designsystem.theme.White
 import com.hanbang.designsystem.util.noRippleClickable
+import com.hanbang.domain.model.GenderType
 
 /**
  *
@@ -40,6 +41,10 @@ import com.hanbang.designsystem.util.noRippleClickable
  */
 @Composable
 fun MyPageProfileBox(
+	name: String,
+	genderType: GenderType,
+	birthDate: String,
+	birthTime: String,
 	modifier: Modifier = Modifier,
 	onEditProfile: () -> Unit = { }
 ) {
@@ -68,7 +73,7 @@ fun MyPageProfileBox(
 			verticalAlignment = Alignment.CenterVertically
 		) {
 			Text(
-				text = "이름",
+				text = name,
 				style = SattoTheme.typography.headline20Bold,
 				color = Gray1
 			)
@@ -92,7 +97,11 @@ fun MyPageProfileBox(
 			horizontalArrangement = Arrangement.Center
 		) {
 			Text(
-				text = "여",
+				text = when (genderType) {
+					GenderType.MALE -> "남"
+					GenderType.FEMALE -> "여"
+					else -> ""
+				},
 				style = SattoTheme.typography.caption12Bold,
 				color = Gray3
 			)
@@ -109,7 +118,7 @@ fun MyPageProfileBox(
 			Spacer(Modifier.width(4.dp))
 
 			Text(
-				text = "1999-12-25",
+				text = birthDate,
 				style = SattoTheme.typography.caption12Bold,
 				color = Gray3
 			)
@@ -126,7 +135,7 @@ fun MyPageProfileBox(
 			Spacer(Modifier.width(4.dp))
 
 			Text(
-				text = "01:00 ~ 02:59",
+				text = birthTime,
 				style = SattoTheme.typography.caption12Bold,
 				color = Gray3
 			)
@@ -138,6 +147,11 @@ fun MyPageProfileBox(
 @Composable
 private fun MyPageProfileBoxPreview() {
 	SattoTheme {
-		MyPageProfileBox()
+		MyPageProfileBox(
+			name = "홍길동",
+			genderType = GenderType.NONE,
+			birthDate = "1990.01.01",
+			birthTime = "오전 10:00",
+		)
 	}
 }

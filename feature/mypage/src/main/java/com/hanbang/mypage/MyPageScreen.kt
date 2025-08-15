@@ -1,6 +1,7 @@
 package com.hanbang.mypage
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -11,13 +12,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.hanbang.designsystem.R
 import com.hanbang.designsystem.theme.Gray5
 import com.hanbang.designsystem.theme.Primary2
@@ -28,6 +34,11 @@ import com.hanbang.mypage.component.MyPageFeedbackBox
 import com.hanbang.mypage.component.MyPageHeader
 import com.hanbang.mypage.component.MyPageProfileBox
 import com.hanbang.mypage.component.MyPageSectionItem
+import com.hanbang.mypage.model.MyPageSideEffect
+import com.hanbang.mypage.model.MyPageState
+import com.hanbang.navigation.feature.editprofile.EditProfileRouteModel
+import org.orbitmvi.orbit.compose.collectAsState
+import org.orbitmvi.orbit.compose.collectSideEffect
 
 /**
  *
@@ -37,16 +48,42 @@ import com.hanbang.mypage.component.MyPageSectionItem
 @Composable
 internal fun MyPageRoute(
 	paddingValues: PaddingValues,
-	navigateToEditProfile: () -> Unit,
+	navigateToEditProfile: (EditProfileRouteModel) -> Unit,
+	viewModel: MyPageViewModel = hiltViewModel()
 ) {
-	MyPageScreen(
-		paddingValues = paddingValues,
-		navigateToProfileEdit = navigateToEditProfile,
-	)
+	val state by viewModel.collectAsState()
+
+
+	LaunchedEffect(Unit)  {
+		viewModel.initializeUserData()
+	}
+
+	Box(
+		modifier = Modifier.fillMaxSize()
+	) {
+		MyPageScreen(
+			state = state,
+			paddingValues = paddingValues,
+			navigateToProfileEdit = viewModel::navigateToProfileEdit
+		)
+
+		if (state.isLoading) {
+			LoadingProgress()
+		}
+	}
+
+	viewModel.collectSideEffect { sideEffect ->
+		when(sideEffect) {
+			is MyPageSideEffect.NavigateToEditProfile -> {
+				navigateToEditProfile(sideEffect.routeModel)
+			}
+		}
+	}
 }
 
 @Composable
 private fun MyPageScreen(
+	state: MyPageState,
 	paddingValues: PaddingValues,
 	navigateToProfileEdit: () -> Unit,
 ) {
@@ -63,6 +100,10 @@ private fun MyPageScreen(
 		) {
 			item {
 				MyPageProfileBox(
+					name = state.name,
+					genderType = state.genderType,
+					birthDate = state.dateOfBirth,
+					birthTime = state.birthTime,
 					onEditProfile = {
 						navigateToProfileEdit()
 					}
@@ -143,11 +184,25 @@ private fun MyPageScreen(
 	}
 }
 
+@Composable
+private fun LoadingProgress() {
+	Box(
+		modifier = Modifier.fillMaxSize()
+	) {
+		CircularProgressIndicator(
+			modifier = Modifier
+				.size(40.dp)
+				.align(Alignment.Center)
+		)
+	}
+}
+
 @Preview
 @Composable
 private fun MyPageScreenPreview() {
 	SattoTheme {
 		MyPageScreen(
+			state = MyPageState(),
 			paddingValues = PaddingValues(),
 			navigateToProfileEdit = {}
 		)

@@ -58,6 +58,34 @@ class DefaultSattoRepository @Inject constructor(
 		emit(userDto.toDomain())
 	}.flowOn(Dispatchers.IO)
 
+	override fun getUser(): Flow<User> = flow {
+		val userId = userLocalDataSource.getUserId()
+		val userDto = userRemoteDataSource.getUser(userId)
+		emit(userDto.toDomain())
+	}.flowOn(Dispatchers.IO)
+
+	override fun updateUser(
+		name: String,
+		dateOfBirth: String,
+		birthYear: Int,
+		birthMonth: Int,
+		birthDay: Int,
+		birthHour: Int,
+		birthMinute: Int,
+		genderType: GenderType
+	): Flow<User> = flow<User> {
+		val userId = userLocalDataSource.getUserId()
+
+		val userDto = userRemoteDataSource.updateUser(
+			userId = userId,
+			name = name,
+			birthDate = formatBirthDateTime(birthYear, birthMonth, birthDay, birthHour, birthMinute),
+			gender = genderType.value
+		)
+
+		emit(userDto.toDomain())
+	}.flowOn(Dispatchers.IO)
+
 	private fun formatBirthDateTime(year: Int, month: Int, day: Int, hour: Int, minute: Int): String {
 		val dateTime = LocalDateTime.of(year, month, day, hour, minute)
 		val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")

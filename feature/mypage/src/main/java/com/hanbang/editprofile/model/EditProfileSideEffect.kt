@@ -7,4 +7,9 @@ package com.hanbang.editprofile.model
  */
 sealed class EditProfileSideEffect {
 
+	data object NavigateUp : EditProfileSideEffect()
+
+	data class ShowErrorMessage(
+		val message: String
+	) : EditProfileSideEffect()
 }
