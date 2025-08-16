@@ -1,4 +1,4 @@
-package com.hanbang.home
+package com.hanbang.home.main
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -38,6 +38,7 @@ import com.hanbang.designsystem.R
 import com.hanbang.designsystem.chip.HbChip
 import com.hanbang.designsystem.chip.model.HbChipColors
 import com.hanbang.designsystem.chip.model.HbChipStyleProperties
+import com.hanbang.designsystem.lotto.LottoBall
 import com.hanbang.designsystem.theme.Black
 import com.hanbang.designsystem.theme.Gray3
 import com.hanbang.designsystem.theme.Gray5
@@ -373,27 +374,6 @@ private fun FortuneCategoryItem(
             color = Color.Black
         )
     }
-}
-
-@Composable
-private fun LottoBall(
-    number: Int?
-) {
-    Image(
-        painter = painterResource(
-            when (number) {
-                null -> R.drawable.img_lotto_ball_default
-                in 40 until Int.MAX_VALUE -> R.drawable.img_lotto_ball_green
-                in 30 until 40 -> R.drawable.img_lotto_ball_gray
-                in 20 until 30 -> R.drawable.img_lotto_ball_red
-                in 10 until 20 -> R.drawable.img_lotto_ball_blue
-                in 1 until 10 -> R.drawable.img_lotto_ball_yellow
-                else -> R.drawable.img_lotto_ball_default
-            }
-        ),
-        contentDescription = null,
-        modifier = Modifier.size(32.dp)
-    )
 }
 
 @Composable
