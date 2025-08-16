@@ -129,7 +129,7 @@ private fun HomeContent(
             HomeTitle(data.title)
         }
         item {
-            HomeImage(data.imageUrl)
+            HomeImage()
         }
         item {
             Spacer(modifier = Modifier.height(24.dp))
@@ -140,6 +140,7 @@ private fun HomeContent(
                 onRecommendClick = onRecommendClick,
                 onViewMoreClick = onViewMoreClick
             )
+            Spacer(modifier = Modifier.height(16.dp))
         }
         todayFortuneList(
             categories = data.fortuneCategories
@@ -175,17 +176,17 @@ private fun HomeTitle(
     Text(
         text = title,
         style = SattoTheme.typography.headline24Bold,
-        modifier = Modifier.fillMaxWidth(),
-        textAlign = TextAlign.Center
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 12.dp, bottom = 28.dp),
+        textAlign = TextAlign.Center,
     )
 }
 
 @Composable
-private fun HomeImage(
-    imageUrl: String
-) {
+private fun HomeImage() {
     AsyncImage(
-        model = imageUrl,
+        model = R.drawable.img_satto_tiger,
         contentDescription = null,
         modifier = Modifier.size(120.dp)
     )
@@ -229,49 +230,52 @@ private fun LottoRecommendCardItem(
                 numbers.forEach { number ->
                     LottoBall(number)
                 }
-                if (numbers.all { it == null }) {
-                    Spacer(modifier = Modifier.height(12.dp))
+            }
+            if (numbers.all { it == null }) {
+                Spacer(modifier = Modifier.height(12.dp))
+                Text(
+                    text = "번호를 받아보십시오",
+                    style = SattoTheme.typography.body14Regular,
+                    color = Gray5
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                Box(
+                    modifier = Modifier
+                        .padding(start = 20.dp, end = 20.dp, bottom = 24.dp)
+                        .background(color = Primary2, shape = RoundedCornerShape(8.dp))
+                        .padding(vertical = 12.dp)
+                        .clickable { onRecommendClick() }
+                ) {
                     Text(
-                        text = "번호를 받아보십시오",
-                        style = SattoTheme.typography.body14Regular,
-                        color = Gray5
-                    )
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Box(
-                        modifier = Modifier
-                            .padding(start = 20.dp, end = 20.dp, bottom = 24.dp)
-                            .background(color = Primary2, shape = RoundedCornerShape(8.dp))
-                            .padding(vertical = 12.dp)
-                            .clickable { onRecommendClick() }
-                    ) {
-                        Text(
-                            text = "번호 추천받기",
-                            style = SattoTheme.typography.body16Bold,
-                            color = White,
-                            modifier = Modifier.align(Alignment.Center)
-                        )
-                    }
-                } else {
-                    Box(
-                        modifier = Modifier
-                            .height(1.dp)
-                            .fillMaxWidth()
-                            .background(color = Gray8)
-                    )
-                    Box(
+                        text = "번호 추천받기",
+                        style = SattoTheme.typography.body16Bold,
+                        color = White,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .background(Color.Transparent)
-                            .padding(vertical = 12.dp)
-                            .clickable { onViewMoreClick() }
-                    ) {
-                        Text(
-                            text = "자세히 보기",
-                            style = SattoTheme.typography.caption12Regular,
-                            color = Gray3,
-                            modifier = Modifier.align(Alignment.Center)
-                        )
-                    }
+                            .align(Alignment.Center),
+                        textAlign = TextAlign.Center
+                    )
+                }
+            } else {
+                Box(
+                    modifier = Modifier
+                        .height(1.dp)
+                        .fillMaxWidth()
+                        .background(color = Gray8)
+                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color.Transparent)
+                        .padding(vertical = 12.dp)
+                        .clickable { onViewMoreClick() }
+                ) {
+                    Text(
+                        text = "자세히 보기",
+                        style = SattoTheme.typography.caption12Regular,
+                        color = Gray3,
+                        modifier = Modifier.align(Alignment.Center)
+                    )
                 }
             }
         }
@@ -289,6 +293,9 @@ private fun LazyListScope.todayFortuneList(
         key = { chunk -> chunk.joinToString("-") { it.id.toString() } }
     ) {
         TodayFortuneRow(it)
+    }
+    item {
+        TodayFortuneFooter()
     }
 }
 
@@ -360,7 +367,7 @@ private fun FortuneCategoryItem(
         )
 
         AsyncImage(
-            model = category.imageRes,
+            model = category.imageUrl,
             contentDescription = null,
             contentScale = ContentScale.Inside,
             modifier = Modifier
@@ -374,6 +381,37 @@ private fun FortuneCategoryItem(
             color = Color.Black
         )
     }
+}
+
+@Composable
+private fun LazyItemScope.TodayFortuneFooter() {
+    Box(
+        modifier = Modifier
+            .fillParentMaxWidth()
+            .height(20.dp)
+            .background(color = White, shape = RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp))
+    )
+}
+
+@Composable
+private fun LottoBall(
+    number: Int?
+) {
+    Image(
+        painter = painterResource(
+            when (number) {
+                null -> R.drawable.img_lotto_ball_default
+                in 40 until Int.MAX_VALUE -> R.drawable.img_lotto_ball_green
+                in 30 until 40 -> R.drawable.img_lotto_ball_gray
+                in 20 until 30 -> R.drawable.img_lotto_ball_red
+                in 10 until 20 -> R.drawable.img_lotto_ball_blue
+                in 1 until 10 -> R.drawable.img_lotto_ball_yellow
+                else -> R.drawable.img_lotto_ball_default
+            }
+        ),
+        contentDescription = null,
+        modifier = Modifier.size(32.dp)
+    )
 }
 
 @Composable
@@ -392,7 +430,20 @@ private fun LoadingProgress() {
 @Preview
 @Composable
 private fun HomeScreenPreview() {
-    HomeScreen {
-
+    SattoTheme {
+        HomeScreen {
+            HomeContent(
+                data = HomeUiState.Content(
+                    round = 1185,
+                    title = "title",
+                    date = LocalDate.now(),
+                    userName = "user name",
+                    lottoNumbers = List(6, { null }),
+                    fortuneCategories = emptyList()
+                ),
+                onRecommendClick = {},
+                onViewMoreClick = {}
+            )
+        }
     }
 }

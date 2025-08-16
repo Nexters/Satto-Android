@@ -44,7 +44,7 @@ interface UserRemoteDataSource {
 	suspend fun getDailyFortunes(
 		userId: String,
 		fortuneDate: String
-	): List<DailyFortuneDto>
+	): DailyFortuneDto
 
 	suspend fun getDailyFortuneDetail(
 		userId: String,

@@ -13,8 +13,6 @@ data class PillarDetailDto(
 	val branch: String,
 	val stemTenGod: String,
 	val branchTenGod: String,
-	val stemElement: String,
-	val branchElement: String
 )
 
 internal fun PillarDetailDto.toDomain(): PillarDetail {
@@ -23,7 +21,5 @@ internal fun PillarDetailDto.toDomain(): PillarDetail {
 		branch = PillarElement.parsePillarElementInString(branch),
 		stemTenGod = stemTenGod,
 		branchTenGod = branchTenGod,
-		stemElement = stemElement,
-		branchElement = branchElement
 	)
 }

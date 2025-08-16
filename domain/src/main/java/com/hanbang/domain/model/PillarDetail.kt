@@ -10,6 +10,4 @@ data class PillarDetail(
 	val branch: PillarElement,
 	val stemTenGod: String,
 	val branchTenGod: String,
-	val stemElement: String,
-	val branchElement: String
 )

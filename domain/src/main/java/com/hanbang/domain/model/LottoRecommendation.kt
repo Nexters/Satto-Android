@@ -6,10 +6,7 @@ package com.hanbang.domain.model
  * @created  2025/08/13
  */
 data class LottoRecommendation(
-	val id: Int,
 	val userId: String,
 	val round: Int,
-	val content: LottoRecommendationContent,
-	val createdAt: String,
-	val updatedAt: String
+	val content: LottoRecommendationContent?,
 )

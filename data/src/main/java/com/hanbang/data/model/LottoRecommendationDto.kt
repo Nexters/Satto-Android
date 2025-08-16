@@ -8,21 +8,15 @@ import com.hanbang.domain.model.LottoRecommendation
  * @created  2025/08/13
  */
 data class LottoRecommendationDto(
-	val id: Int,
 	val userId: String,
 	val round: Int,
-	val content: LottoRecommendationContentDto,
-	val createdAt: String,
-	val updatedAt: String
+	val content: LottoRecommendationContentDto?,
 )
 
 internal fun LottoRecommendationDto.toDomain(): LottoRecommendation {
 	return LottoRecommendation(
-		id = id,
 		userId = userId,
 		round = round,
-		content = content.toDomain(),
-		createdAt = createdAt,
-		updatedAt = updatedAt
+		content = content?.toDomain(),
 	)
 }
