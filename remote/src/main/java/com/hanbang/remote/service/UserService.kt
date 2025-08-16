@@ -2,6 +2,7 @@ package com.hanbang.remote.service
 
 import com.hanbang.remote.model.CreateLottoRecommendationResponse
 import com.hanbang.remote.model.CreateUserResponse
+import com.hanbang.remote.model.GetDailyFortuneDetailResponse
 import com.hanbang.remote.model.GetDailyFortuneResponse
 import com.hanbang.remote.model.GetLottoRecommendationResponse
 import com.hanbang.remote.model.GetUserForPillarResponse
@@ -56,4 +57,10 @@ interface UserService {
 		@Path("user_id") userId: String,
 		@Query("fortune_date") fortuneDate: String
 	): List<GetDailyFortuneResponse>
+
+	@GET("/users/{user_id}/daily-fortune-details")
+	suspend fun getDailyFortuneDetail(
+		@Path("user_id") userId: String,
+		@Query("fortune_date") fortuneDate: String
+	): GetDailyFortuneDetailResponse
 }

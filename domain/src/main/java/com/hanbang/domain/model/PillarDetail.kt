@@ -6,8 +6,8 @@ package com.hanbang.domain.model
  * @created  2025/08/13
  */
 data class PillarDetail(
-	val stem: String,
-	val branch: String,
+	val stem: PillarElement,
+	val branch: PillarElement,
 	val stemTenGod: String,
 	val branchTenGod: String,
 	val stemElement: String,

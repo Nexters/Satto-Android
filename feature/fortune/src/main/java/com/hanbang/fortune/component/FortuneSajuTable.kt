@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.hanbang.designsystem.extension.getColor
 import com.hanbang.designsystem.theme.Blue4
 import com.hanbang.designsystem.theme.Gray6
 import com.hanbang.designsystem.theme.Gray7
@@ -26,6 +27,7 @@ import com.hanbang.designsystem.theme.Red4
 import com.hanbang.designsystem.theme.SattoTheme
 import com.hanbang.designsystem.theme.White
 import com.hanbang.designsystem.theme.Yellow4
+import com.hanbang.fortune.model.PillarDetailUiModel
 
 /**
  *
@@ -34,6 +36,10 @@ import com.hanbang.designsystem.theme.Yellow4
  */
 @Composable
 internal fun FortuneSajuTable(
+	timePillarDetail: PillarDetailUiModel,
+	dayPillarDetail: PillarDetailUiModel,
+	monthPillarDetail: PillarDetailUiModel,
+	yearPillarDetail: PillarDetailUiModel,
 	modifier: Modifier = Modifier
 ) {
 	Column(
@@ -52,7 +58,7 @@ internal fun FortuneSajuTable(
 			) {
 				Text(
 					modifier = Modifier.align(Alignment.Center),
-					text = "시주",
+					text = timePillarDetail.stemTenGod,
 					style = SattoTheme.typography.body16Semibold,
 					textAlign = TextAlign.Center
 				)
@@ -74,7 +80,7 @@ internal fun FortuneSajuTable(
 				Text(
 					modifier = Modifier
 						.padding(vertical = 10.dp, horizontal = 12.dp).align(Alignment.Center),
-					text = "일주",
+					text = dayPillarDetail.stemTenGod,
 					style = SattoTheme.typography.body16Semibold,
 					textAlign = TextAlign.Center
 				)
@@ -95,7 +101,7 @@ internal fun FortuneSajuTable(
 				Text(
 					modifier = Modifier
 						.padding(vertical = 10.dp, horizontal = 12.dp).align(Alignment.Center),
-					text = "월주",
+					text = monthPillarDetail.stemTenGod,
 					style = SattoTheme.typography.body16Semibold,
 					textAlign = TextAlign.Center
 				)
@@ -116,7 +122,7 @@ internal fun FortuneSajuTable(
 				Text(
 					modifier = Modifier
 						.padding(vertical = 10.dp, horizontal = 12.dp).align(Alignment.Center),
-					text = "년주",
+					text = yearPillarDetail.stemTenGod,
 					style = SattoTheme.typography.body16Semibold,
 					textAlign = TextAlign.Center
 				)
@@ -129,23 +135,23 @@ internal fun FortuneSajuTable(
 		) {
 			SajuPillarTextBox(
 				modifier = Modifier.weight(1f),
-				pillar = "辛",
-				bgColor = Blue4
+				pillar = timePillarDetail.stem.hanja,
+				bgColor = timePillarDetail.stem.getColor()
 			)
 			SajuPillarTextBox(
 				modifier = Modifier.weight(1f),
-				pillar = "辛",
-				bgColor = Red4
+				pillar = dayPillarDetail.stem.hanja,
+				bgColor = dayPillarDetail.stem.getColor()
 			)
 			SajuPillarTextBox(
 				modifier = Modifier.weight(1f),
-				pillar = "辛",
-				bgColor = Gray6
+				pillar = monthPillarDetail.stem.hanja,
+				bgColor = monthPillarDetail.stem.getColor()
 			)
 			SajuPillarTextBox(
 				modifier = Modifier.weight(1f),
-				pillar = "辛",
-				bgColor = Gray6
+				pillar = yearPillarDetail.stem.hanja,
+				bgColor = yearPillarDetail.stem.getColor()
 			)
 		}
 
@@ -155,23 +161,23 @@ internal fun FortuneSajuTable(
 		) {
 			SajuPillarTextBox(
 				modifier = Modifier.weight(1f),
-				pillar = "辛",
-				bgColor = Blue4
+				pillar = timePillarDetail.branch.hanja,
+				bgColor = timePillarDetail.branch.getColor()
 			)
 			SajuPillarTextBox(
 				modifier = Modifier.weight(1f),
-				pillar = "辛",
-				bgColor = Gray6
+				pillar = dayPillarDetail.branch.hanja,
+				bgColor = dayPillarDetail.branch.getColor()
 			)
 			SajuPillarTextBox(
 				modifier = Modifier.weight(1f),
-				pillar = "辛",
-				bgColor = Yellow4
+				pillar = monthPillarDetail.branch.hanja,
+				bgColor = monthPillarDetail.branch.getColor()
 			)
 			SajuPillarTextBox(
 				modifier = Modifier.weight(1f),
-				pillar = "辛",
-				bgColor = Yellow4
+				pillar = yearPillarDetail.branch.hanja,
+				bgColor = yearPillarDetail.branch.getColor()
 			)
 		}
 
@@ -187,7 +193,7 @@ internal fun FortuneSajuTable(
 			) {
 				Text(
 					modifier = Modifier.align(Alignment.Center),
-					text = "정재",
+					text = timePillarDetail.branchTenGod,
 					style = SattoTheme.typography.body16Semibold,
 					textAlign = TextAlign.Center
 				)
@@ -209,7 +215,7 @@ internal fun FortuneSajuTable(
 				Text(
 					modifier = Modifier
 						.padding(vertical = 10.dp, horizontal = 12.dp).align(Alignment.Center),
-					text = "겁재",
+					text = dayPillarDetail.branchTenGod,
 					style = SattoTheme.typography.body16Semibold,
 					textAlign = TextAlign.Center
 				)
@@ -231,7 +237,7 @@ internal fun FortuneSajuTable(
 				Text(
 					modifier = Modifier
 						.padding(vertical = 10.dp, horizontal = 12.dp).align(Alignment.Center),
-					text = "정재",
+					text = monthPillarDetail.branchTenGod,
 					style = SattoTheme.typography.body16Semibold,
 					textAlign = TextAlign.Center
 				)
@@ -253,7 +259,7 @@ internal fun FortuneSajuTable(
 				Text(
 					modifier = Modifier
 						.padding(vertical = 10.dp, horizontal = 12.dp).align(Alignment.Center),
-					text = "겁재",
+					text = yearPillarDetail.branchTenGod,
 					style = SattoTheme.typography.body16Semibold,
 					textAlign = TextAlign.Center
 				)
@@ -288,6 +294,10 @@ private fun SajuPillarTextBox(
 private fun FortuneSajuTablePreview() {
 	SattoTheme {
 		FortuneSajuTable(
+			timePillarDetail = PillarDetailUiModel(),
+			dayPillarDetail = PillarDetailUiModel(),
+			monthPillarDetail = PillarDetailUiModel(),
+			yearPillarDetail = PillarDetailUiModel(),
 			modifier = Modifier
 				.padding(16.dp)
 				.fillMaxWidth()

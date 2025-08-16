@@ -4,7 +4,8 @@ import com.hanbang.data.datasource.DeviceLocalDataSource
 import com.hanbang.data.datasource.UserLocalDataSource
 import com.hanbang.data.datasource.UserRemoteDataSource
 import com.hanbang.data.model.toDomain
-import com.hanbang.domain.manager.DeviceIdManager
+import com.hanbang.domain.model.DailyFortuneDetail
+import com.hanbang.domain.model.FourPillar
 import com.hanbang.domain.model.GenderType
 import com.hanbang.domain.model.User
 import com.hanbang.domain.repository.SattoRepository
@@ -84,6 +85,19 @@ class DefaultSattoRepository @Inject constructor(
 		)
 
 		emit(userDto.toDomain())
+	}.flowOn(Dispatchers.IO)
+
+	override fun getUserFourPillar(): Flow<FourPillar> = flow {
+		val userId = userLocalDataSource.getUserId()
+		val fourPillarDto = userRemoteDataSource.getUserFourPillar(userId)
+		emit(fourPillarDto.toDomain())
+	}.flowOn(Dispatchers.IO)
+
+
+	override fun getDailyFortuneDetail(fortuneDate: String): Flow<DailyFortuneDetail> = flow {
+		val userId = userLocalDataSource.getUserId()
+		val dailyFortuneDetailDto = userRemoteDataSource.getDailyFortuneDetail(userId, fortuneDate)
+		emit(dailyFortuneDetailDto.toDomain())
 	}.flowOn(Dispatchers.IO)
 
 	private fun formatBirthDateTime(year: Int, month: Int, day: Int, hour: Int, minute: Int): String {

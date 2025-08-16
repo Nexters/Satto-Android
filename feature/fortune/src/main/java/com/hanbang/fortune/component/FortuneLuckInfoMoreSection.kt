@@ -56,7 +56,7 @@ internal fun FortuneLuckInfoMoreSection(
 			)
 			Text(
 				text = "행운 정보가 준비 중이에요.",
-				style = SattoTheme.typography.caption12Semibold,
+				style = SattoTheme.typography.body14Regular,
 				color = Gray5
 			)
 		}

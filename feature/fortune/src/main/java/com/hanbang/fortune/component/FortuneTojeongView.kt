@@ -22,6 +22,7 @@ import com.hanbang.designsystem.chip.HbChipColorType
 import com.hanbang.designsystem.chip.HbChipStyles
 import com.hanbang.designsystem.chip.model.HbChipColors
 import com.hanbang.designsystem.chip.model.HbChipStyleProperties
+import com.hanbang.designsystem.theme.Gray3
 import com.hanbang.designsystem.theme.Gray4
 import com.hanbang.designsystem.theme.Gray8
 import com.hanbang.designsystem.theme.SattoTheme
@@ -34,6 +35,11 @@ import com.hanbang.designsystem.theme.White
  */
 @Composable
 internal fun FortuneTojeongView(
+	strongElement: String,
+	strongElementChipColor: HbChipColors,
+	weakElement: String,
+	weakElementChipColor: HbChipColors,
+	elementDescription: String,
 	modifier: Modifier = Modifier
 ) {
 	Column(
@@ -51,61 +57,59 @@ internal fun FortuneTojeongView(
 
 		Spacer(Modifier.height(8.dp))
 
-		Spacer(
-			modifier = Modifier.fillMaxWidth()
-				.height(1.dp)
-				.background(color = Gray8, shape = RoundedCornerShape(1.dp))
-		)
-
-		Spacer(Modifier.height(8.dp))
-
 		Row(
 			modifier = Modifier.fillMaxWidth(),
 			horizontalArrangement = Arrangement.Center,
 			verticalAlignment = Alignment.CenterVertically
 		) {
-			HbChip(
-				text = "금",
-				onClick = {},
-				colors = HbChipColorType.SolidGray,
-				styles = HbChipStyles.round
-			)
+			Row(
+				modifier = Modifier.weight(1f)
+					.padding(12.dp),
+				verticalAlignment = Alignment.CenterVertically
+			) {
+				Text(
+					modifier  = Modifier.weight(1f),
+					text  = "강한 기운",
+					style = SattoTheme.typography.caption12Semibold,
+					color = Gray3,
+				)
 
-			Spacer(Modifier.width(2.dp))
+				HbChip(
+					text = strongElement,
+					colors = strongElementChipColor,
+					styles = HbChipStyles.round,
+					onClick = {}
+				)
+			}
 
-			HbChip(
-				text = "수",
-				onClick = {},
-				colors = HbChipColorType.SolidBlue,
-				styles = HbChipStyles.round
-			)
+			Row(
+				modifier = Modifier.weight(1f)
+					.padding(12.dp),
+				verticalAlignment = Alignment.CenterVertically
+			) {
+				Text(
+					modifier  = Modifier.weight(1f),
+					text  = "약한 기운",
+					style = SattoTheme.typography.caption12Semibold,
+					color = Gray3,
+				)
 
-			Spacer(Modifier.width(2.dp))
-
-			HbChip(
-				text = "토",
-				onClick = {},
-				colors = HbChipColorType.SolidYellow,
-				styles = HbChipStyles.round
-			)
-
-			Spacer(Modifier.width(2.dp))
-
-			HbChip(
-				text = "화",
-				onClick = {},
-				colors = HbChipColorType.SolidRed,
-				styles = HbChipStyles.round
-			)
+				HbChip(
+					text = weakElement,
+					colors = weakElementChipColor,
+					styles = HbChipStyles.round,
+					onClick = {}
+				)
+			}
 		}
 
 		Spacer(Modifier.height(8.dp))
 
 		Text(
 			modifier = Modifier.fillMaxWidth(),
-			text = "근심과 즐거움이 상반하니\n세월의 흐름을 잘 읽어보세요",
+			text = elementDescription,
 			style = SattoTheme.typography.body14Regular,
-			color = Gray4,
+			color = Gray3,
 			textAlign = TextAlign.Center
 		)
 	}
@@ -115,6 +119,12 @@ internal fun FortuneTojeongView(
 @Composable
 private fun FortuneTojeongViewPreview() {
 	SattoTheme {
-		FortuneTojeongView()
+		FortuneTojeongView(
+			strongElement = "화(火)",
+			strongElementChipColor = HbChipColorType.SolidRed,
+			weakElement = "수(水)",
+			weakElementChipColor = HbChipColorType.SolidBlue,
+			elementDescription = "근심과 즐거움이 상반하니\n세월의 흐름을 잘 읽어보시게",
+		)
 	}
 }
