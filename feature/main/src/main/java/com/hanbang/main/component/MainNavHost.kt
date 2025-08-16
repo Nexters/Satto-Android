@@ -11,7 +11,7 @@ import com.hanbang.editprofile.navigation.editProfileNavGraph
 import com.hanbang.editprofile.navigation.navigateToEditProfile
 import com.hanbang.fortune.navigation.fortuneNavGraph
 import com.hanbang.history.navigation.historyNavGraph
-import com.hanbang.home.navigation.homeNavGraph
+import com.hanbang.home.main.navigation.homeNavGraph
 import com.hanbang.main.MainNavigator
 import com.hanbang.mypage.navigation.myPageNavGraph
 

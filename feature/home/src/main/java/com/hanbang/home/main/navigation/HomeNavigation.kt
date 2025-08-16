@@ -1,10 +1,10 @@
-package com.hanbang.home.navigation
+package com.hanbang.home.main.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.hanbang.designsystem.toast.HbSnackBarType
-import com.hanbang.home.HomeRoute
+import com.hanbang.home.main.HomeRoute
 import com.hanbang.navigation.feature.home.RouteHome
 
 /**

@@ -50,7 +50,7 @@ fun TopAppBar(
                 TopAppBarTitleType.CENTER -> {
                     Box(modifier = Modifier.fillMaxSize()) {
                         TopAppBarLeftActionIcon(
-                            modifier = modifier.align(Alignment.CenterStart),
+                            modifier = Modifier.align(Alignment.CenterStart),
                             type = navigationType,
                             onNavigationClick = onNavigationClick
                         )

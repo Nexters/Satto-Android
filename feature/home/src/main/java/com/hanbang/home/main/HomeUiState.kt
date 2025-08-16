@@ -1,4 +1,4 @@
-package com.hanbang.home
+package com.hanbang.home.main
 
 import java.time.LocalDate
 

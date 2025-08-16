@@ -6,6 +6,15 @@ plugins {
 
 android {
 	namespace = "com.hanbang.remote"
+
+	buildTypes {
+		getByName("debug") {
+			buildConfigField("String", "BASE_URL", "\"https://www.satto.io.kr/\"")
+		}
+		getByName("release") {
+			buildConfigField("String", "BASE_URL", "\"https://www.satto.io.kr/\"")
+		}
+	}
 }
 
 dependencies {
