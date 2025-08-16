@@ -6,5 +6,5 @@ package com.hanbang.intro.model
  * @created  2025/08/15
  */
 enum class NextScreenType {
-	NONE, ONBOARDING,  HOME
+	NONE, LOGIN,  HOME
 }

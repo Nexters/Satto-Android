@@ -19,6 +19,8 @@ data class CreateUserParam(
 	val name: String,
 	@SerialName("birth_date")
 	val birthDate: String,
+	@SerialName("birth_time")
+	val birthTime: List<String?>,
 	val gender: String
 ) {
 	fun toRequestBody(): RequestBody {

@@ -23,25 +23,25 @@ enum class PillarElement(
 
 	companion object {
 		val hanjaSet = setOf(
-			"甲", "乙", "寅", "卯",
-			"丙", "丁", "巳", "午",
+			"甲", "乙", "寅", "卯", "木",
+			"丙", "丁", "巳", "午", "火",
 			"戊", "己", "辰",
-			"戌", "丑", "未",
-			"庚", "辛", "申", "酉",
-			"壬", "癸", "亥", "子"
+			"戌", "丑", "未", "土",
+			"庚", "辛", "申", "酉", "金",
+			"壬", "癸", "亥", "子", "水"
 		)
 		val hanjaToElement = mapOf(
 			// 木
-			"甲" to WOOD, "乙" to WOOD, "寅" to WOOD, "卯" to WOOD,
+			"甲" to WOOD, "乙" to WOOD, "寅" to WOOD, "卯" to WOOD, "木" to WOOD,
 			// 火
-			"丙" to FIRE, "丁" to FIRE, "巳" to FIRE, "午" to FIRE,
+			"丙" to FIRE, "丁" to FIRE, "巳" to FIRE, "午" to FIRE, "火" to FIRE,
 			// 土
-			"戊" to EARTH, "己" to EARTH, "辰" to EARTH,
+			"戊" to EARTH, "己" to EARTH, "辰" to EARTH, "土" to EARTH,
 			"戌" to EARTH, "丑" to EARTH, "未" to EARTH,
 			// 金
-			"庚" to METAL, "辛" to METAL, "申" to METAL, "酉" to METAL,
+			"庚" to METAL, "辛" to METAL, "申" to METAL, "酉" to METAL, "金" to METAL,
 			// 水
-			"壬" to WATER, "癸" to WATER, "亥" to WATER, "子" to WATER
+			"壬" to WATER, "癸" to WATER, "亥" to WATER, "子" to WATER, "水" to WATER
 		)
 
 		// 오행 → 간지 리스트

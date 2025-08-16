@@ -1,5 +1,6 @@
 package com.hanbang.remote.datasource
 
+import android.util.Log
 import com.hanbang.data.datasource.UserRemoteDataSource
 import com.hanbang.data.model.DailyFortuneDetailDto
 import com.hanbang.data.model.DailyFortuneDto
@@ -25,12 +26,14 @@ class DefaultUserRemoteDataSource @Inject constructor(
 		deviceId: String,
 		name: String,
 		birthDate: String,
+		birthTime: List<String>,
 		gender: String
 	): UserDto {
 		val createUserParam = CreateUserParam(
 			deviceId = deviceId,
 			name = name,
 			birthDate = birthDate,
+			birthTime = birthTime,
 			gender = gender
 		).toRequestBody()
 
@@ -45,11 +48,15 @@ class DefaultUserRemoteDataSource @Inject constructor(
 		userId: String,
 		name: String,
 		birthDate: String,
+		birthTime: List<String>,
 		gender: String
 	): UserDto {
+		Log.w("Test@@@", "updateUser: $name $")
+
 		val updateUserParam = UpdateUserParam(
 			name = name,
 			birthDate = birthDate,
+			birthTime = birthTime,
 			gender = gender
 		)
 

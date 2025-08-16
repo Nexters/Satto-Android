@@ -12,6 +12,8 @@ interface ActivityNavigator {
 
 	fun navigateToMain(context: Context, routeName: String = RouteHome.toString())
 
+	fun navigateToLogin(context: Context)
+
 	fun navigateToOnboarding(context: Context)
 
 	companion object {

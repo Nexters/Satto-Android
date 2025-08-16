@@ -66,7 +66,8 @@ class FortuneViewModel @Inject constructor(
 					userId = "",
 					fortuneDate = "",
 					fortuneScore = 0,
-					fortuneComment = ""
+					fortuneComment = "",
+					fortuneDetails = emptyList()
 				)
 			}
 
@@ -108,6 +109,7 @@ fun Triple<User, FourPillar, DailyFortuneDetail>.toFortuneState(
 		todayDate = todayDate,
 		fortuneScore = dailyFortuneDetail.fortuneScore,
 		fortuneComment = dailyFortuneDetail.fortuneComment,
+		fortuneDetailList = dailyFortuneDetail.fortuneDetails,
 		userName = user.name,
 		userDateOfBirth = user.birthDate,
 		userBirthTime = "",

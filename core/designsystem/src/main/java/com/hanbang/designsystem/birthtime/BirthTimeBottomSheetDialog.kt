@@ -1,5 +1,7 @@
 package com.hanbang.designsystem.birthtime
 
+import android.content.Context
+import android.util.TypedValue
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,11 +15,14 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
@@ -38,11 +43,23 @@ import com.hanbang.designsystem.util.clickableSingle
  */
 @Composable
 fun BirthTimeBottomSheetDialog(
+	initialTime: String,
 	timeList: List<String>,
 	onDismissRequest: () -> Unit,
 	onSelectBirthTime: (String) -> Unit,
 ) {
-	var isActiveTime by remember { mutableStateOf("") }
+	var isActiveTime by remember { mutableStateOf(initialTime) }
+	val scrollState = rememberScrollState(
+		initial = 0
+	)
+
+	val context = LocalContext.current
+
+	LaunchedEffect(Unit) {
+		val index = timeList.indexOfFirst { it == initialTime }.coerceAtLeast(0)
+		val scrollValue = index * dpToPx(context,56f)
+		scrollState.animateScrollTo(scrollValue.toInt())
+	}
 
 	AnimatedBottomDialog(
 		onDismiss = onDismissRequest,
@@ -74,7 +91,7 @@ fun BirthTimeBottomSheetDialog(
 					modifier = Modifier
 						.fillMaxWidth()
 						.heightIn(max = 4 * 56.dp)
-						.verticalScroll(rememberScrollState())
+						.verticalScroll(scrollState)
 				) {
 					timeList.forEach { time ->
 						HbBottomSheetItem(
@@ -99,4 +116,9 @@ fun BirthTimeBottomSheetDialog(
 			}
 		}
 	)
+}
+
+fun dpToPx(context: Context, dp: Float): Float {
+	val dm = context.resources.displayMetrics
+	return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, dm)
 }

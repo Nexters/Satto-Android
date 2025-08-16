@@ -30,18 +30,14 @@ class MyPageViewModel @Inject constructor(
 	fun initializeUserData() {
 		viewModelScope.launch {
 			getUserUseCase().collect { user ->
-				val birthDateTime = parseBirthDateTime(user.birthDate).split("-")
-				val dateOfBirth = "${birthDateTime.getOrNull(0).orEmpty()}-${birthDateTime.getOrNull(1).orEmpty()}-${birthDateTime.getOrNull(2).orEmpty()}"
-				val birthTime = "${birthDateTime.getOrNull(3).orEmpty()}:${birthDateTime.getOrNull(4).orEmpty()}"
-
 				intent {
 					reduce {
 						state.copy(
 							isLoading = false,
 							name = user.name,
 							genderType = user.gender,
-							dateOfBirth = dateOfBirth,
-							birthTime = birthTime
+							dateOfBirth = user.birthDate,
+							birthTime = user.birthTime.map { it.orEmpty() }
 						)
 					}
 				}
@@ -53,10 +49,5 @@ class MyPageViewModel @Inject constructor(
 		intent {
 			postSideEffect(MyPageSideEffect.NavigateToEditProfile(state.toEditProfileRouteModel()))
 		}
-	}
-
-	private fun parseBirthDateTime(dateTimeStr: String): String {
-		val parsed: LocalDateTime = LocalDateTime.parse(dateTimeStr) ?: LocalDateTime.now()
-		return parsed.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"))
 	}
 }

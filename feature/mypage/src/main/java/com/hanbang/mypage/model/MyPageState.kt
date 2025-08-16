@@ -14,13 +14,15 @@ data class MyPageState(
 	val isLoading: Boolean = true,
 	val name: String = "",
 	val dateOfBirth: String = "",
-	val birthTime: String = "",
+	val birthTime: List<String> = emptyList(),
 	val genderType: GenderType = GenderType.NONE
-)
+) {
+	val birthTimeStr = birthTime.joinToString(separator = " ~ ")
+}
 
 fun MyPageState.toEditProfileRouteModel() = EditProfileRouteModel(
 	name = name,
 	gender = genderType.name,
 	dateOfBirth = dateOfBirth.replace("-", ""),
-	birthTime = birthTime,
+	birthTime = birthTime.joinToString(separator = " ~ "),
 )

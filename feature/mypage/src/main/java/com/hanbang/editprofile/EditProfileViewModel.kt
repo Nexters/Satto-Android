@@ -1,5 +1,6 @@
 package com.hanbang.editprofile
 
+import android.util.Log
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -46,7 +47,7 @@ class EditProfileViewModel @Inject constructor(
 				name = routeModel.name,
 				genderType = GenderType.findByName(routeModel.gender),
 				dateOfBirth = routeModel.dateOfBirth,
-				birthTime = routeModel.birthTime,
+				birthTime = routeModel.birthTime.split(" ~ "),
 				userBirthTimeUnknown = routeModel.userBirthTimeUnknown
 			).also {
 				if (previousStateData != null) return@also
@@ -124,7 +125,7 @@ class EditProfileViewModel @Inject constructor(
 	fun saveBirthTime(time: String) = blockingIntent {
 		reduce {
 			state.copy(
-				birthTime = time,
+				birthTime = time.split(" ~ "),
 				userBirthTimeUnknown = false,
 				buttonValidation = true
 			)
@@ -146,13 +147,26 @@ class EditProfileViewModel @Inject constructor(
 			return@intent
 		}
 
+		if (state.dateOfBirth.length != 8) {
+			reduce {
+				state.copy(
+					dateOfBirthErrorMsg = "올바른 형식으로 입력해 주세요.",
+					buttonValidation = false
+				)
+			}
+			return@intent
+		}
+
+		reduce {
+			state.copy(
+				isLoading = true
+			)
+		}
+
 		val updateUser = updateUserUseCase(
 			name = state.name,
-			birthYear = state.dateOfBirthYear,
-			birthMonth = state.dateOfBirthMonth,
-			birthDay = state.dateOfBirthDay,
-			birthHour = state.birthTimeHour,
-			birthMinute = state.birthTimeMin,
+			birthDate = "${state.dateOfBirth.substring(0, 4)}-${state.dateOfBirth.substring(4, 6)}-${state.dateOfBirth.substring(6, 8)}",
+			birthTime = state.birthTime,
 			genderType = state.genderType
 		)
 

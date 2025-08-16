@@ -19,12 +19,8 @@ interface SattoRepository {
 
 	fun createUser(
 		name: String,
-		dateOfBirth: String,
-		birthYear: Int,
-		birthMonth: Int,
-		birthDay: Int,
-		birthHour: Int,
-		birthMinute: Int,
+		birthDate: String,
+		birthTime: List<String>,
 		genderType: GenderType
 	): Flow<User>
 
@@ -32,12 +28,8 @@ interface SattoRepository {
 
 	fun updateUser(
 		name: String,
-		dateOfBirth: String,
-		birthYear: Int,
-		birthMonth: Int,
-		birthDay: Int,
-		birthHour: Int,
-		birthMinute: Int,
+		birthDate: String,
+		birthTime: List<String>,
 		genderType: GenderType
 	): Flow<User>
 

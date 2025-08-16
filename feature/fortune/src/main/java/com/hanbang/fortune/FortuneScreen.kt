@@ -131,7 +131,7 @@ private fun FortuneScreen(
 						month = state.todayDate.split("-").getOrNull(1)?.toIntOrNull() ?: 0,
 						day = state.todayDate.split("-").getOrNull(2)?.toIntOrNull() ?: 0,
 						score = state.fortuneScore,
-						comment = state.fortuneComment
+						comment = state.fortuneComment,
 					)
 
 					Spacer(Modifier.height(32.dp))
@@ -158,6 +158,7 @@ private fun FortuneScreen(
 						.background(Primary8)
 				) {
 					FortuneComprehensiveSection(
+						fortuneDetailList = state.fortuneDetailList,
 						modifier = Modifier
 							.background(Primary8)
 							.padding(horizontal = 24.dp)

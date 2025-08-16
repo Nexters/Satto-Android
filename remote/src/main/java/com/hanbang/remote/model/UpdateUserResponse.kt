@@ -17,6 +17,8 @@ data class UpdateUserResponse(
 	val name: String,
 	@SerialName("birth_date")
 	val birthDate: String,
+	@SerialName("birth_time")
+	val birthTime: List<String?>,
 	val gender: String,
 	@SerialName("four_pillar")
 	val fourPillar: FourPillar
@@ -53,6 +55,7 @@ internal fun UpdateUserResponse.toDto() = UserDto(
 	id = id,
 	name = name,
 	birthDate = birthDate,
+	birthTime = birthTime,
 	gender = gender,
 	fourPillar = fourPillar.toDto()
 )

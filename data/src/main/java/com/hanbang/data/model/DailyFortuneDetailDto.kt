@@ -12,7 +12,8 @@ data class DailyFortuneDetailDto(
 	val userId: String,
 	val fortuneDate: String,
 	val fortuneScore: Int,
-	val fortuneComment: String
+	val fortuneComment: String,
+	val fortuneDetails: List<FortuneDetailDto>
 )
 
 fun DailyFortuneDetailDto.toDomain() = DailyFortuneDetail(
@@ -20,5 +21,6 @@ fun DailyFortuneDetailDto.toDomain() = DailyFortuneDetail(
 	userId = userId,
 	fortuneDate = fortuneDate,
 	fortuneScore = fortuneScore,
-	fortuneComment = fortuneComment
+	fortuneComment = fortuneComment,
+	fortuneDetails = fortuneDetails.map { it.toDomain() }
 )
