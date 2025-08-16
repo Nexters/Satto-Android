@@ -11,7 +11,11 @@ import com.hanbang.editprofile.navigation.editProfileNavGraph
 import com.hanbang.editprofile.navigation.navigateToEditProfile
 import com.hanbang.fortune.navigation.fortuneNavGraph
 import com.hanbang.history.navigation.historyNavGraph
+import com.hanbang.home.lottoad.navigation.lottoAdNavGraph
+import com.hanbang.home.lottoad.navigation.navigateToLottoAd
 import com.hanbang.home.main.navigation.homeNavGraph
+import com.hanbang.home.recommend.navigation.lottoRecommendNavGraph
+import com.hanbang.home.recommend.navigation.navigateToLottoRecommend
 import com.hanbang.main.MainNavigator
 import com.hanbang.mypage.navigation.myPageNavGraph
 
@@ -38,6 +42,9 @@ internal fun MainNavHost(
 			homeNavGraph(
 				padding = padding,
 				onShowErrorSnackBar = onShowErrorSnackBar,
+				onClickRecommend = navigator.navController::navigateToLottoAd,
+				onClickViewMore = navigator.navController::navigateToLottoRecommend,
+				onClickCheckResult = navigator.navController::navigateToLottoRecommend
 			)
 			fortuneNavGraph(
 				padding = padding,
@@ -59,6 +66,12 @@ internal fun MainNavHost(
 				padding = padding,
 				onShowErrorSnackBar = onShowErrorSnackBar,
 				onNavigateUp = navigator.navController::navigateUp
+			)
+
+			lottoRecommendNavGraph()
+
+			lottoAdNavGraph(
+				navigateToLottoRecommend = navigator.navController::navigateToLottoRecommend
 			)
 		}
 	}

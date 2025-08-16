@@ -57,6 +57,9 @@ internal fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel(),
     paddingValues: PaddingValues,
     onShowErrorSnackBar: (HbSnackBarType) -> Unit,
+    onClickRecommend: () -> Unit,
+    onClickViewMore: () -> Unit,
+    onClickCheckResult: () -> Unit
 ) {
     val uiState = viewModel.collectAsState().value
 
@@ -67,11 +70,13 @@ internal fun HomeRoute(
     HomeScreen {
         when {
             uiState.isLoading -> LoadingProgress()
-            uiState.content.round != -1 -> {
+            else -> {
                 HomeContent(
+                    padding = paddingValues,
                     data = uiState.content,
-                    onRecommendClick = {},
-                    onViewMoreClick = {}
+                    onClickRecommend = onClickRecommend,
+                    onClickViewMore = onClickViewMore,
+                    onClickCheckResult = onClickCheckResult
                 )
             }
         }
@@ -113,13 +118,15 @@ private fun HomeScreen(
 
 @Composable
 private fun HomeContent(
+    padding: PaddingValues = PaddingValues(),
     data: HomeUiState.Content,
-    onRecommendClick: () -> Unit,
-    onViewMoreClick: () -> Unit
+    onClickRecommend: () -> Unit,
+    onClickViewMore: () -> Unit,
+    onClickCheckResult: () -> Unit
 ) {
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(start = 20.dp, top = 28.dp, end = 20.dp, bottom = 34.dp),
+        modifier = Modifier.fillMaxSize().padding(bottom = padding.calculateBottomPadding()),
+        contentPadding = PaddingValues(start = 20.dp, top = 28.dp + padding.calculateTopPadding(), end = 20.dp, bottom = 34.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         item {
@@ -137,8 +144,10 @@ private fun HomeContent(
                 date = data.date,
                 userName = data.userName,
                 numbers = data.lottoNumbers,
-                onRecommendClick = onRecommendClick,
-                onViewMoreClick = onViewMoreClick
+                openType = data.openType,
+                onClickRecommend = onClickRecommend,
+                onClickViewMore = onClickViewMore,
+                onClickCheckResult = onClickCheckResult
             )
             Spacer(modifier = Modifier.height(16.dp))
         }
@@ -197,8 +206,10 @@ private fun LottoRecommendCardItem(
     date: LocalDate,
     userName: String,
     numbers: List<Int?>,
-    onRecommendClick: () -> Unit = {},
-    onViewMoreClick: () -> Unit = {},
+    openType: HomeUiState.Content.OpenType,
+    onClickRecommend: () -> Unit = {},
+    onClickViewMore: () -> Unit = {},
+    onClickCheckResult: () -> Unit = {}
 ) {
     Box(
         modifier = Modifier
@@ -231,52 +242,80 @@ private fun LottoRecommendCardItem(
                     LottoBall(number)
                 }
             }
-            if (numbers.all { it == null }) {
-                Spacer(modifier = Modifier.height(12.dp))
-                Text(
-                    text = "번호를 받아보십시오",
-                    style = SattoTheme.typography.body14Regular,
-                    color = Gray5
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-                Box(
-                    modifier = Modifier
-                        .padding(start = 20.dp, end = 20.dp, bottom = 24.dp)
-                        .background(color = Primary2, shape = RoundedCornerShape(8.dp))
-                        .padding(vertical = 12.dp)
-                        .clickable { onRecommendClick() }
-                ) {
+            when (openType) {
+                HomeUiState.Content.OpenType.RECOMMEND -> {
+                    Spacer(modifier = Modifier.height(12.dp))
                     Text(
-                        text = "번호 추천받기",
-                        style = SattoTheme.typography.body16Bold,
-                        color = White,
+                        text = "번호를 받아보십시오",
+                        style = SattoTheme.typography.body14Regular,
+                        color = Gray5
+                    )
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Box(
+                        modifier = Modifier
+                            .padding(start = 20.dp, end = 20.dp, bottom = 24.dp)
+                            .background(color = Primary2, shape = RoundedCornerShape(8.dp))
+                            .padding(vertical = 12.dp)
+                            .clickable { onClickRecommend() }
+                    ) {
+                        Text(
+                            text = "번호 추천받기",
+                            style = SattoTheme.typography.body16Bold,
+                            color = White,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .align(Alignment.Center),
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                }
+
+                HomeUiState.Content.OpenType.MORE -> {
+                    Spacer(modifier = Modifier.height(24.dp))
+                    Box(
+                        modifier = Modifier
+                            .height(1.dp)
+                            .fillMaxWidth()
+                            .background(color = Gray8)
+                    )
+                    Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .align(Alignment.Center),
-                        textAlign = TextAlign.Center
-                    )
+                            .background(Color.Transparent)
+                            .padding(vertical = 12.dp)
+                            .clickable { onClickViewMore() }
+                    ) {
+                        Text(
+                            text = "자세히 보기",
+                            style = SattoTheme.typography.caption12Regular,
+                            color = Gray3,
+                            modifier = Modifier.align(Alignment.Center)
+                        )
+                    }
                 }
-            } else {
-                Box(
-                    modifier = Modifier
-                        .height(1.dp)
-                        .fillMaxWidth()
-                        .background(color = Gray8)
-                )
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Color.Transparent)
-                        .padding(vertical = 12.dp)
-                        .clickable { onViewMoreClick() }
-                ) {
-                    Text(
-                        text = "자세히 보기",
-                        style = SattoTheme.typography.caption12Regular,
-                        color = Gray3,
-                        modifier = Modifier.align(Alignment.Center)
-                    )
+
+                HomeUiState.Content.OpenType.OPENED -> {
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Box(
+                        modifier = Modifier
+                            .padding(start = 20.dp, end = 20.dp, bottom = 24.dp)
+                            .background(color = Primary2, shape = RoundedCornerShape(8.dp))
+                            .padding(vertical = 12.dp)
+                            .clickable { onClickCheckResult() }
+                    ) {
+                        Text(
+                            text = "결과 확인하기",
+                            style = SattoTheme.typography.body16Bold,
+                            color = White,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .align(Alignment.Center),
+                            textAlign = TextAlign.Center
+                        )
+                    }
                 }
+
+                HomeUiState.Content.OpenType.FALLBACK -> Unit
             }
         }
     }
@@ -323,6 +362,7 @@ private fun LazyItemScope.TodayFortuneRow(
     Row(
         modifier = Modifier
             .fillParentMaxWidth()
+            .background(color = White)
             .padding(all = 20.dp),
         horizontalArrangement = Arrangement.spacedBy(20.dp)
     ) {
@@ -372,6 +412,7 @@ private fun FortuneCategoryItem(
             contentScale = ContentScale.Inside,
             modifier = Modifier
                 .fillMaxWidth()
+                .height(106.dp)
                 .background(color = Color(0xFFF6F7F9), shape = RoundedCornerShape(8.dp))
         )
 
@@ -390,27 +431,6 @@ private fun LazyItemScope.TodayFortuneFooter() {
             .fillParentMaxWidth()
             .height(20.dp)
             .background(color = White, shape = RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp))
-    )
-}
-
-@Composable
-private fun LottoBall(
-    number: Int?
-) {
-    Image(
-        painter = painterResource(
-            when (number) {
-                null -> R.drawable.img_lotto_ball_default
-                in 40 until Int.MAX_VALUE -> R.drawable.img_lotto_ball_green
-                in 30 until 40 -> R.drawable.img_lotto_ball_gray
-                in 20 until 30 -> R.drawable.img_lotto_ball_red
-                in 10 until 20 -> R.drawable.img_lotto_ball_blue
-                in 1 until 10 -> R.drawable.img_lotto_ball_yellow
-                else -> R.drawable.img_lotto_ball_default
-            }
-        ),
-        contentDescription = null,
-        modifier = Modifier.size(32.dp)
     )
 }
 
@@ -438,11 +458,20 @@ private fun HomeScreenPreview() {
                     title = "title",
                     date = LocalDate.now(),
                     userName = "user name",
-                    lottoNumbers = List(6, { null }),
-                    fortuneCategories = emptyList()
+                    lottoNumbers = List(6) { null },
+                    fortuneCategories = listOf(
+                        HomeUiState.FortuneCategory(
+                            id = 1,
+                            label = "label",
+                            imageUrl = "",
+                            description = "description"
+                        )
+                    ),
+                    openType = HomeUiState.Content.OpenType.RECOMMEND
                 ),
-                onRecommendClick = {},
-                onViewMoreClick = {}
+                onClickRecommend = {},
+                onClickViewMore = {},
+                onClickCheckResult = {}
             )
         }
     }

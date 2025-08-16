@@ -13,7 +13,9 @@ import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.viewmodel.container
+import java.time.DayOfWeek
 import java.time.LocalDate
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
@@ -47,6 +49,8 @@ class HomeViewModel @Inject constructor(
             val fortunes = fortunesDeferred.await()
             val user = userDeferred.await()
 
+            val now = LocalDateTime.now()
+
             reduce {
                 state.copy(
                     isLoading = false,
@@ -54,10 +58,16 @@ class HomeViewModel @Inject constructor(
                         round = lottoRecommendation.round,
                         lottoNumbers = lottoRecommendation.content?.let {
                             listOf(it.num1, it.num2, it.num3, it.num4, it.num5, it.num6)
-                        } ?: List(6, { null }),
+                        } ?: List(6) { null },
                         title = fortunes.title,
                         userName = user.name,
-                        date = LocalDate.now(),
+                        date = now.toLocalDate(),
+                        openType = when {
+                            lottoRecommendation.content == null -> HomeUiState.Content.OpenType.RECOMMEND
+                            now.isAlreadyOpened() -> HomeUiState.Content.OpenType.OPENED
+                            lottoRecommendation.content != null -> HomeUiState.Content.OpenType.MORE
+                            else -> HomeUiState.Content.OpenType.FALLBACK
+                        },
                         fortuneCategories = fortunes.content.map { fortune ->
                             HomeUiState.FortuneCategory(
                                 id = fortune.id,
@@ -70,5 +80,11 @@ class HomeViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    private fun LocalDateTime.isAlreadyOpened(): Boolean {
+        return this.dayOfWeek >= DayOfWeek.SATURDAY
+                && this.hour >= 20
+                && this.minute > 30
     }
 }

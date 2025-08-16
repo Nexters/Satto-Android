@@ -107,4 +107,16 @@ class DefaultSattoRepository @Inject constructor(
 		val lottoRecommendationDto = userRemoteDataSource.getLottoRecommendation(userId)
 		emit(lottoRecommendationDto.toDomain())
 	}.flowOn(Dispatchers.IO)
+
+	override fun createLottoRecommendation(): Flow<LottoRecommendation> = flow {
+		val userId = userLocalDataSource.getUserId()
+		val lottoRecommendationDto = userRemoteDataSource.createLottoRecommendation(userId)
+		emit(lottoRecommendationDto.toDomain())
+	}.flowOn(Dispatchers.IO)
+
+	private fun formatBirthDateTime(year: Int, month: Int, day: Int, hour: Int, minute: Int): String {
+		val dateTime = LocalDateTime.of(year, month, day, hour, minute)
+		val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+		return dateTime.format(formatter)
+	}
 }

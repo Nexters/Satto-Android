@@ -44,4 +44,6 @@ interface SattoRepository {
 	): Flow<DailyFortune>
 
 	fun getLottoRecommendation(): Flow<LottoRecommendation>
+
+	fun createLottoRecommendation(): Flow<LottoRecommendation>
 }
