@@ -1,10 +1,10 @@
 package com.hanbang.remote.datasource
 
 import com.hanbang.data.datasource.UserRemoteDataSource
+import com.hanbang.data.model.DailyFortuneDetailDto
 import com.hanbang.data.model.DailyFortuneDto
 import com.hanbang.data.model.FourPillarDto
 import com.hanbang.data.model.LottoRecommendationDto
-import com.hanbang.data.model.PillarDetailDto
 import com.hanbang.data.model.UserDto
 import com.hanbang.remote.model.CreateUserParam
 import com.hanbang.remote.model.UpdateUserParam
@@ -73,6 +73,13 @@ class DefaultUserRemoteDataSource @Inject constructor(
 
 	override suspend fun getDailyFortunes(userId: String, fortuneDate: String): List<DailyFortuneDto> {
 		return userService.getDailyFortunes(
+			userId = userId,
+			fortuneDate = fortuneDate
+		).toDto()
+	}
+
+	override suspend fun getDailyFortuneDetail(userId: String, fortuneDate: String): DailyFortuneDetailDto {
+		return userService.getDailyFortuneDetail(
 			userId = userId,
 			fortuneDate = fortuneDate
 		).toDto()

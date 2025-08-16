@@ -16,8 +16,11 @@ import androidx.compose.ui.unit.dp
 import com.hanbang.designsystem.theme.Gray2
 import com.hanbang.designsystem.theme.SattoTheme
 import com.hanbang.designsystem.R
+import com.hanbang.designsystem.extension.getHbChipColors
 import com.hanbang.designsystem.theme.Gray3
 import com.hanbang.designsystem.theme.Gray6
+import com.hanbang.domain.model.PillarElement
+import com.hanbang.fortune.model.PillarDetailUiModel
 
 /**
  *
@@ -29,6 +32,13 @@ internal fun FortuneSajuOverview(
 	name: String,
 	dateOfBirth: String,
 	birthTime: String,
+	timePillarDetail: PillarDetailUiModel,
+	dayPillarDetail: PillarDetailUiModel,
+	monthPillarDetail: PillarDetailUiModel,
+	yearPillarDetail: PillarDetailUiModel,
+	strongElement: String,
+	weakElement: String,
+	elementDescription: String,
 	modifier: Modifier = Modifier,
 ) {
 	Column(
@@ -80,11 +90,22 @@ internal fun FortuneSajuOverview(
 
 		Spacer(Modifier.height(16.dp))
 
-		FortuneSajuTable()
+		FortuneSajuTable(
+			timePillarDetail = timePillarDetail,
+			dayPillarDetail = dayPillarDetail,
+			monthPillarDetail = monthPillarDetail,
+			yearPillarDetail = yearPillarDetail
+		)
 
 		Spacer(Modifier.height(10.dp))
 
-		FortuneTojeongView()
+		FortuneTojeongView(
+			strongElement = strongElement,
+			strongElementChipColor = PillarElement.parsePillarElementInString(strongElement).getHbChipColors(),
+			weakElement = weakElement,
+			weakElementChipColor = PillarElement.parsePillarElementInString(weakElement).getHbChipColors(),
+			elementDescription = elementDescription,
+		)
 	}
 }
 
@@ -104,6 +125,13 @@ private fun FortuneSajuOverviewPreview() {
 			name = "콩떡님",
 			dateOfBirth = "2025-08-10",
 			birthTime = "10:00",
+			timePillarDetail = PillarDetailUiModel(),
+			dayPillarDetail = PillarDetailUiModel(),
+			monthPillarDetail = PillarDetailUiModel(),
+			yearPillarDetail = PillarDetailUiModel(),
+			strongElement = "",
+			weakElement = "",
+			elementDescription = "",
 			modifier = Modifier
 		)
 	}

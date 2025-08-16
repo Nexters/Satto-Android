@@ -1,6 +1,7 @@
 package com.hanbang.data.model
 
 import com.hanbang.domain.model.PillarDetail
+import com.hanbang.domain.model.PillarElement
 
 /**
  *
@@ -18,8 +19,8 @@ data class PillarDetailDto(
 
 internal fun PillarDetailDto.toDomain(): PillarDetail {
 	return PillarDetail(
-		stem = stem,
-		branch = branch,
+		stem = PillarElement.parsePillarElementInString(stem),
+		branch = PillarElement.parsePillarElementInString(branch),
 		stemTenGod = stemTenGod,
 		branchTenGod = branchTenGod,
 		stemElement = stemElement,

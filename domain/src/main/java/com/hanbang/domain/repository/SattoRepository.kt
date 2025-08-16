@@ -1,5 +1,7 @@
 package com.hanbang.domain.repository
 
+import com.hanbang.domain.model.DailyFortuneDetail
+import com.hanbang.domain.model.FourPillar
 import com.hanbang.domain.model.GenderType
 import com.hanbang.domain.model.User
 import kotlinx.coroutines.flow.Flow
@@ -36,4 +38,10 @@ interface SattoRepository {
 		birthMinute: Int,
 		genderType: GenderType
 	): Flow<User>
+
+	fun getUserFourPillar(): Flow<FourPillar>
+
+	fun getDailyFortuneDetail(
+		fortuneDate: String
+	): Flow<DailyFortuneDetail>
 }

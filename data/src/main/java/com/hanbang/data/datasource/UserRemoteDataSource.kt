@@ -1,10 +1,10 @@
 package com.hanbang.data.datasource
 
+import com.hanbang.data.model.DailyFortuneDetailDto
 import com.hanbang.data.model.DailyFortuneDto
 import com.hanbang.data.model.FourPillarDto
 import com.hanbang.data.model.LottoRecommendationDto
 import com.hanbang.data.model.UserDto
-import com.hanbang.domain.model.GenderType
 
 /**
  *
@@ -45,4 +45,9 @@ interface UserRemoteDataSource {
 		userId: String,
 		fortuneDate: String
 	): List<DailyFortuneDto>
+
+	suspend fun getDailyFortuneDetail(
+		userId: String,
+		fortuneDate: String
+	): DailyFortuneDetailDto
 }
