@@ -11,6 +11,7 @@ data class HomeUiState(
         val title: String,
         val date: LocalDate,
         val userName: String,
+        val openType: OpenType,
         val lottoNumbers: List<Int?>,
         val fortuneCategories: List<FortuneCategory>,
     ) {
@@ -22,7 +23,12 @@ data class HomeUiState(
                 date = LocalDate.now(),
                 lottoNumbers = emptyList(),
                 fortuneCategories = emptyList(),
+                openType = OpenType.FALLBACK
             )
+        }
+
+        enum class OpenType {
+            RECOMMEND, MORE, OPENED, FALLBACK
         }
     }
 

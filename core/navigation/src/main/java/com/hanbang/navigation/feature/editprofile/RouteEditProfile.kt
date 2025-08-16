@@ -9,4 +9,4 @@ import kotlinx.serialization.Serializable
  * @created  2025/08/06
  */
 @Serializable
-data class RouteEditProfile(val  editProfileJson: String) : Route
+data class RouteEditProfile(val editProfileJson: String) : Route

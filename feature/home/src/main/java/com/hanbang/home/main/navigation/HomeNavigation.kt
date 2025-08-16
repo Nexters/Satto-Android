@@ -14,12 +14,18 @@ import com.hanbang.navigation.feature.home.RouteHome
  */
 fun NavGraphBuilder.homeNavGraph(
 	padding: PaddingValues,
-	onShowErrorSnackBar: (HbSnackBarType) -> Unit
+	onShowErrorSnackBar: (HbSnackBarType) -> Unit,
+	onClickRecommend: () -> Unit,
+	onClickViewMore: () -> Unit,
+	onClickCheckResult: () -> Unit
 ) {
 	composable<RouteHome> {
 		HomeRoute(
 			paddingValues = padding,
-			onShowErrorSnackBar = onShowErrorSnackBar
+			onShowErrorSnackBar = onShowErrorSnackBar,
+			onClickRecommend = onClickRecommend,
+			onClickViewMore = onClickViewMore,
+			onClickCheckResult = onClickCheckResult
 		)
 	}
 }
