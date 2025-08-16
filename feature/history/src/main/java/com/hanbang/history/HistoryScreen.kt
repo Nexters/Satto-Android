@@ -1,13 +1,15 @@
 package com.hanbang.history
 
-import androidx.compose.foundation.layout.Column
+import android.view.ViewGroup
+import android.webkit.WebSettings
+import android.webkit.WebView
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.material.Button
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.hanbang.designsystem.theme.Gray1
-import com.hanbang.designsystem.theme.SattoTheme
+import androidx.compose.ui.viewinterop.AndroidView
 import com.hanbang.designsystem.toast.HbSnackBarType
 
 /**
@@ -31,38 +33,37 @@ private fun HistoryScreen(
 	paddingValues: PaddingValues,
 	onShowErrorSnackBar: (HbSnackBarType) -> Unit,
 ) {
-	Column(
-		modifier = Modifier
+	val webViewUrl = "https://clever-kataifi-dcedaf.netlify.app/lotto-history"
+
+	Box(
+		modifier = Modifier.fillMaxSize()
+			.padding(paddingValues)
 	) {
-		Text(
-			modifier = Modifier,
-			text = "HistoryScreen",
-			style = SattoTheme.typography.body16Medium,
-			color = Gray1
+		AndroidView(
+			modifier = Modifier
+				.fillMaxSize(),
+			factory = {
+				val myWebView = WebView(it).apply {
+					settings.run {
+						javaScriptEnabled = true
+						domStorageEnabled = true
+						loadsImagesAutomatically = true
+						mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+					}
+				}
+
+				myWebView.apply {
+					layoutParams = ViewGroup.LayoutParams(
+						ViewGroup.LayoutParams.MATCH_PARENT,
+						ViewGroup.LayoutParams.MATCH_PARENT
+					)
+				}
+			},
+			update = { view ->
+				if (view.url != webViewUrl) {
+					view.loadUrl(webViewUrl)
+				}
+			}
 		)
-
-		Button(
-			onClick = { onShowErrorSnackBar(HbSnackBarType.NOTICE("History Screen Notice")) }
-		) {
-			Text(text = "Show ToastSnackBar")
-		}
-
-		Button(
-			onClick = { onShowErrorSnackBar(HbSnackBarType.ERROR("History Screen Error")) }
-		) {
-			Text(text = "Show ToastSnackBar")
-		}
-
-		Button(
-			onClick = { onShowErrorSnackBar(HbSnackBarType.SUCCESS("History Screen SUCCESS")) }
-		) {
-			Text(text = "Show ToastSnackBar")
-		}
-
-		Button(
-			onClick = { onShowErrorSnackBar(HbSnackBarType.WARNING("History Screen WARNING")) }
-		) {
-			Text(text = "Show ToastSnackBar")
-		}
 	}
 }
