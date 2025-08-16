@@ -46,10 +46,6 @@ data class UpdateUserResponse(
 		val stemTenGod: String,
 		@SerialName("branch_ten_god")
 		val branchTenGod: String,
-		@SerialName("stem_element")
-		val stemElement: String,
-		@SerialName("branch_element")
-		val branchElement: String
 	)
 }
 
@@ -66,8 +62,6 @@ internal fun UpdateUserResponse.PillarDetail.toDto() = PillarDetailDto(
 	branch = branch,
 	stemTenGod = stemTenGod,
 	branchTenGod = branchTenGod,
-	stemElement = stemElement,
-	branchElement = branchElement
 )
 
 internal fun UpdateUserResponse.FourPillar.toDto() = FourPillarDto(

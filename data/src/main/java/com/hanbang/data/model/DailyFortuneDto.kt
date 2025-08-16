@@ -8,16 +8,21 @@ import com.hanbang.domain.model.DailyFortune
  * @created  2025/08/13
  */
 data class DailyFortuneDto(
-	val id: Int,
-	val userId: String,
-	val fortuneDate: String,
-	val fortuneType: String,
-	val imageUrl: String,
-	val description: String
-)
+	val title: String,
+	val content: List<Content>
+) {
+	data class Content(
+		val id: Int,
+		val userId: String,
+		val fortuneDate: String,
+		val fortuneType: String,
+		val imageUrl: String,
+		val description: String
+	)
+}
 
-internal fun DailyFortuneDto.toDomain(): DailyFortune {
-	return com.hanbang.domain.model.DailyFortune(
+internal fun DailyFortuneDto.Content.toDomain(): DailyFortune.Content {
+	return DailyFortune.Content(
 		id = id,
 		userId = userId,
 		fortuneDate = fortuneDate,
@@ -27,4 +32,9 @@ internal fun DailyFortuneDto.toDomain(): DailyFortune {
 	)
 }
 
-internal fun List<DailyFortuneDto>.toDomain() = map { it.toDomain() }
+internal fun List<DailyFortuneDto.Content>.toDomain() = map { it.toDomain() }
+
+internal fun DailyFortuneDto.toDomain() = DailyFortune(
+	title = title,
+	content = content.toDomain()
+)

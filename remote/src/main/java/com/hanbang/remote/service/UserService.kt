@@ -56,7 +56,7 @@ interface UserService {
 	suspend fun getDailyFortunes(
 		@Path("user_id") userId: String,
 		@Query("fortune_date") fortuneDate: String
-	): List<GetDailyFortuneResponse>
+	): GetDailyFortuneResponse
 
 	@GET("/users/{user_id}/daily-fortune-details")
 	suspend fun getDailyFortuneDetail(

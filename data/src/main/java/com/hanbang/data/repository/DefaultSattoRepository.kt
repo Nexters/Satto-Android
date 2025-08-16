@@ -6,7 +6,9 @@ import com.hanbang.data.datasource.UserRemoteDataSource
 import com.hanbang.data.model.toDomain
 import com.hanbang.domain.model.DailyFortuneDetail
 import com.hanbang.domain.model.FourPillar
+import com.hanbang.domain.model.DailyFortune
 import com.hanbang.domain.model.GenderType
+import com.hanbang.domain.model.LottoRecommendation
 import com.hanbang.domain.model.User
 import com.hanbang.domain.repository.SattoRepository
 import kotlinx.coroutines.Dispatchers
@@ -98,6 +100,18 @@ class DefaultSattoRepository @Inject constructor(
 		val userId = userLocalDataSource.getUserId()
 		val dailyFortuneDetailDto = userRemoteDataSource.getDailyFortuneDetail(userId, fortuneDate)
 		emit(dailyFortuneDetailDto.toDomain())
+	}.flowOn(Dispatchers.IO)
+
+	override fun getDailyFortunes(fortuneDate: String): Flow<DailyFortune> = flow {
+		val userId = userLocalDataSource.getUserId()
+		val dailyFortunesDto = userRemoteDataSource.getDailyFortunes(userId, fortuneDate)
+		emit(dailyFortunesDto.toDomain())
+	}.flowOn(Dispatchers.IO)
+
+	override fun getLottoRecommendation(): Flow<LottoRecommendation> = flow {
+		val userId = userLocalDataSource.getUserId()
+		val lottoRecommendationDto = userRemoteDataSource.getLottoRecommendation(userId)
+		emit(lottoRecommendationDto.toDomain())
 	}.flowOn(Dispatchers.IO)
 
 	private fun formatBirthDateTime(year: Int, month: Int, day: Int, hour: Int, minute: Int): String {

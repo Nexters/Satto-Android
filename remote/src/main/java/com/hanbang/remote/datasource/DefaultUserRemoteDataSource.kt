@@ -71,7 +71,7 @@ class DefaultUserRemoteDataSource @Inject constructor(
 		return userService.getLottoRecommendation(userId).toDto()
 	}
 
-	override suspend fun getDailyFortunes(userId: String, fortuneDate: String): List<DailyFortuneDto> {
+	override suspend fun getDailyFortunes(userId: String, fortuneDate: String): DailyFortuneDto {
 		return userService.getDailyFortunes(
 			userId = userId,
 			fortuneDate = fortuneDate

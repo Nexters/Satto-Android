@@ -11,19 +11,33 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class GetDailyFortuneResponse(
-	val id: Int,
-	@SerialName("user_id")
-	val userId: String,
-	@SerialName("fortune_date")
-	val fortuneDate: String,
-	@SerialName("fortune_type")
-	val fortuneType: String,
-	@SerialName("image_url")
-	val imageUrl: String,
-	val description: String
-)
+	val title: String,
+	val content: List<DailyFortuneContent>
+) {
+	@Serializable
+	data class DailyFortuneContent(
+		val id: Int,
+		@SerialName("user_id")
+		val userId: String,
+		@SerialName("fortune_date")
+		val fortuneDate: String,
+		@SerialName("fortune_type")
+		val fortuneType: String,
+		@SerialName("image_url")
+		val imageUrl: String,
+		val description: String
+	)
+}
 
 internal fun GetDailyFortuneResponse.toDto() = DailyFortuneDto(
+	title = title,
+	content = content.toDto()
+)
+
+internal fun List<GetDailyFortuneResponse.DailyFortuneContent>.toDto(): List<DailyFortuneDto.Content> =
+	this.map { it.toDto() }
+
+internal fun GetDailyFortuneResponse.DailyFortuneContent.toDto() = DailyFortuneDto.Content(
 	id = id,
 	userId = userId,
 	fortuneDate = fortuneDate,
@@ -31,6 +45,3 @@ internal fun GetDailyFortuneResponse.toDto() = DailyFortuneDto(
 	imageUrl = imageUrl,
 	description = description
 )
-
-internal fun List<GetDailyFortuneResponse>.toDto(): List<DailyFortuneDto> =
-	this.map { it.toDto() }

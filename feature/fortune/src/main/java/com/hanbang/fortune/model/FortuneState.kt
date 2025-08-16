@@ -42,6 +42,4 @@ fun PillarDetail.toUiModel() = PillarDetailUiModel(
 	branch = branch,
 	stemTenGod = stemTenGod,
 	branchTenGod = branchTenGod,
-	stemElement = stemElement,
-	branchElement = branchElement
 )

@@ -9,7 +9,6 @@ data class HomeUiState(
     data class Content(
         val round: Int,
         val title: String,
-        val imageUrl: String,
         val date: LocalDate,
         val userName: String,
         val lottoNumbers: List<Int?>,
@@ -19,7 +18,6 @@ data class HomeUiState(
             val empty = Content(
                 round = -1,
                 title = "",
-                imageUrl = "",
                 userName = "",
                 date = LocalDate.now(),
                 lottoNumbers = emptyList(),
@@ -31,7 +29,7 @@ data class HomeUiState(
     data class FortuneCategory(
         val id: Int,
         val label: String,
-        val imageRes: Int,
+        val imageUrl: String,
         val description: String,
     )
 }

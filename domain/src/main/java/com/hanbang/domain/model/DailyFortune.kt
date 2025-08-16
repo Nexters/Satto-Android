@@ -6,10 +6,15 @@ package com.hanbang.domain.model
  * @created  2025/08/13
  */
 data class DailyFortune(
-	val id: Int,
-	val userId: String,
-	val fortuneDate: String,
-	val fortuneType: String,
-	val imageUrl: String,
-	val description: String
-)
+	val title: String,
+	val content: List<Content>
+) {
+	data class Content(
+		val id: Int,
+		val userId: String,
+		val fortuneDate: String,
+		val fortuneType: String,
+		val imageUrl: String,
+		val description: String
+	)
+}

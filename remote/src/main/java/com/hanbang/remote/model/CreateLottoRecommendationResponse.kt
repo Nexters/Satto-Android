@@ -43,12 +43,9 @@ data class CreateLottoRecommendationResponse(
 }
 
 internal fun CreateLottoRecommendationResponse.toDto() = LottoRecommendationDto(
-	id = id,
 	userId = userId,
 	round = round,
 	content = content.toDto(),
-	createdAt = createdAt,
-	updatedAt = updatedAt
 )
 
 internal fun CreateLottoRecommendationResponse.Content.toDto() = LottoRecommendationContentDto(

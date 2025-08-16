@@ -12,15 +12,10 @@ import kotlinx.serialization.SerialName
  */
 @Serializable
 data class GetLottoRecommendationResponse(
-	val id: Int,
 	@SerialName("user_id")
 	val userId: String,
 	val round: Int,
-	val content: Content,
-	@SerialName("created_at")
-	val createdAt: String,
-	@SerialName("updated_at")
-	val updatedAt: String
+	val content: Content?,
 ) {
 	@Serializable
 	data class Content(
@@ -43,12 +38,9 @@ data class GetLottoRecommendationResponse(
 }
 
 internal fun GetLottoRecommendationResponse.toDto() = LottoRecommendationDto(
-	id = id,
 	userId = userId,
 	round = round,
-	content = content.toDto(),
-	createdAt = createdAt,
-	updatedAt = updatedAt
+	content = content?.toDto(),
 )
 
 internal fun GetLottoRecommendationResponse.Content.toDto() = LottoRecommendationContentDto(
