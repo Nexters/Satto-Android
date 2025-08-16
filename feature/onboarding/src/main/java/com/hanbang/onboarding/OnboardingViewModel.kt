@@ -44,7 +44,6 @@ class OnboardingViewModel @Inject constructor(
 		reduce {
 			state.copy(
 				genderType = genderType,
-				buttonValidation = false,
 				stage = if (state.stage == OnboardingStage.GENDER) state.stage.nextStage() else state.stage
 			)
 		}
@@ -75,7 +74,7 @@ class OnboardingViewModel @Inject constructor(
 	fun saveBirthTime(time: String) = blockingIntent {
 		reduce {
 			state.copy(
-				birthTime = time,
+				birthTime = time.split(" ~ ").map { it.trimIndent() },
 				userBirthTimeUnknown = false,
 				buttonValidation = true
 			)
@@ -227,15 +226,25 @@ class OnboardingViewModel @Inject constructor(
 
 	fun createUser() = intent {
 		viewModelScope.launch {
+			if (state.dateOfBirth.length != 8) return@launch
+
+			reduce {
+				state.copy(
+					isLoading =  true
+				)
+			}
+
 			createUserUseCase(
 				name = state.name,
-				birthYear = state.dateOfBirthYear,
-				birthMonth = state.dateOfBirthMonth,
-				birthDay = state.dateOfBirthDay,
-				birthHour = state.birthTimeHour,
-				birthMinute = state.birthTimeMin,
+				birthDate = state.getDateOfBirthWithDash(),
+				birthTime = state.birthTime,
 				genderType = state.genderType
 			).catch {
+				reduce {
+					state.copy(
+						isLoading =  false
+					)
+				}
 				postSideEffect(
 					OnboardingSideEffect.ShowError(it.message ?: "사용자 생성 중 오류가 발생했습니다.")
 				)

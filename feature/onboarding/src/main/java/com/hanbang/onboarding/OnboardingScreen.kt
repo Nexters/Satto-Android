@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,19 +22,16 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
+import com.hanbang.designsystem.birthtime.BirthTimeBottomSheetDialog
 import com.hanbang.designsystem.button.HbBoxButton
 import com.hanbang.designsystem.button.HbButtonColorType
 import com.hanbang.designsystem.button.HbButtonStyles
-import com.hanbang.designsystem.theme.LocalSattoTypography
 import com.hanbang.designsystem.theme.SattoTheme
-import com.hanbang.domain.model.BirthTimeRanges
-import com.hanbang.onboarding.component.OnboardingAgreementBottomSheetDialog
-import com.hanbang.designsystem.birthtime.BirthTimeBottomSheetDialog
 import com.hanbang.designsystem.theme.White
 import com.hanbang.designsystem.toast.HbSnackBarType
+import com.hanbang.domain.model.BirthTimeRanges
 import com.hanbang.domain.model.GenderType
-import com.hanbang.onboarding.component.OnboardingBirthTimeBottomSheetDialog
+import com.hanbang.onboarding.component.OnboardingAgreementBottomSheetDialog
 import com.hanbang.onboarding.component.OnboardingBirthTimePicker
 import com.hanbang.onboarding.component.OnboardingDateOfBirth
 import com.hanbang.onboarding.component.OnboardingGenderContent
@@ -55,6 +54,7 @@ fun OnboardingRoute(
 	paddingValues: PaddingValues,
 	onShowErrorSnackBar: (HbSnackBarType) -> Unit,
 	navigateToHome: () -> Unit,
+	navigateUp: () -> Unit,
 	viewModel: OnboardingViewModel = hiltViewModel()
 ) {
 	val state by viewModel.collectAsState()
@@ -67,11 +67,15 @@ fun OnboardingRoute(
 		onNameInputChanged = viewModel::inputNameChanged,
 		onValidateStage = viewModel::validateStage,
 		onGenderSelected = viewModel::onGenderSelected,
-		navigateUp = { },
+		navigateUp = navigateUp,
 		onDateOfBirthInputChanged = viewModel::inputDateOfBirth,
 		onClickBirthTimePicker = { showBirthTimeDialog = true },
 		onToggleUserBirthTimeUnknown = viewModel::toggleUserBirthTimeUnknown
 	)
+
+	if (state.isLoading) {
+		LoadingProgress()
+	}
 
 	viewModel.collectSideEffect {
 		when (it) {
@@ -88,7 +92,8 @@ fun OnboardingRoute(
 	}
 
 	if (showBirthTimeDialog) {
-		OnboardingBirthTimeBottomSheetDialog(
+		BirthTimeBottomSheetDialog(
+			initialTime = state.birthTimeStr,
 			timeList = BirthTimeRanges.timeList,
 			onDismissRequest = { showBirthTimeDialog = false },
 			onSelectBirthTime = viewModel::saveBirthTime
@@ -151,7 +156,7 @@ private fun OnboardingScreen(
 						itemHeight = itemHeight
 					) {
 						OnboardingBirthTimePicker(
-							birthTime = state.birthTime,
+							birthTime = state.birthTimeStr,
 							userBirthTimeUnknown = state.userBirthTimeUnknown,
 							onClickBirthTimePicker = {
 								onClickBirthTimePicker()
@@ -233,6 +238,19 @@ private fun OnboardingScreen(
 }
 
 @Composable
+private fun LoadingProgress() {
+	Box(
+		modifier = Modifier.fillMaxSize()
+	) {
+		CircularProgressIndicator(
+			modifier = Modifier
+				.size(40.dp)
+				.align(Alignment.Center)
+		)
+	}
+}
+
+@Composable
 @Preview(showBackground = true)
 private fun OnboardingNamingScreenPreview() {
 
@@ -243,7 +261,6 @@ private fun OnboardingNamingScreenPreview() {
 			state = state,
 			paddingValues = PaddingValues(),
 			onNameInputChanged = {
-				state = state.copy(it)
 			},
 			onGenderSelected = {
 				state = state.copy(genderType = it)
@@ -251,7 +268,7 @@ private fun OnboardingNamingScreenPreview() {
 			onValidateStage = {},
 			navigateUp = {},
 			onDateOfBirthInputChanged = {},
-			onClickBirthTimePicker = { state = state.copy(birthTime = "23:00 ~ 00:59") },
+			onClickBirthTimePicker = {},
 			onToggleUserBirthTimeUnknown = {}
 		)
 	}

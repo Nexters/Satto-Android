@@ -1,10 +1,17 @@
 package com.hanbang.fortune.component
 
 import androidx.annotation.FloatRange
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.StrokeCap
@@ -26,6 +33,11 @@ internal fun FortuneLuckArc(
 	@FloatRange(0.0, 1.0) value: Float,
 	modifier: Modifier = Modifier,
 ) {
+	val animatedValue by animateFloatAsState(
+		targetValue = value,
+		animationSpec = tween(3000)
+	)
+
 	Box(
 		modifier = modifier
 	) {
@@ -53,7 +65,7 @@ internal fun FortuneLuckArc(
 					color = Primary4,
 					size = Size(size.width - strokeWidth, (size.height - strokeWidth) * 2),
 					startAngle = 180f,
-					sweepAngle = 180f * value,
+					sweepAngle = 180f * animatedValue,
 					style = Stroke(
 						strokeWidth + 20,
 						cap = StrokeCap.Butt

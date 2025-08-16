@@ -64,7 +64,8 @@ class OnboardingActivity : ComponentActivity() {
 						OnboardingRoute(
 							paddingValues = innerPadding,
 							onShowErrorSnackBar = onShowErrorSnackBar,
-							navigateToHome = { activityNavigator.navigateToMain(context) }
+							navigateToHome = { activityNavigator.navigateToMain(context) },
+							navigateUp = { finish() }
 						)
 					}
 				)

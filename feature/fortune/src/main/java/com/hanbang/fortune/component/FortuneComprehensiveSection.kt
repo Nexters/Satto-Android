@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -30,6 +31,7 @@ import com.hanbang.designsystem.theme.Gray2
 import com.hanbang.designsystem.theme.SattoTheme
 import com.hanbang.designsystem.R
 import com.hanbang.designsystem.theme.White
+import com.hanbang.domain.model.FortuneDetail
 
 /**
  *
@@ -38,6 +40,7 @@ import com.hanbang.designsystem.theme.White
  */
 @Composable
 internal fun FortuneComprehensiveSection(
+	fortuneDetailList: List<FortuneDetail>,
 	modifier: Modifier = Modifier
 ) {
 	Column(modifier = modifier.fillMaxWidth()) {
@@ -53,42 +56,12 @@ internal fun FortuneComprehensiveSection(
 			modifier = Modifier.fillMaxWidth(),
 			horizontalArrangement = Arrangement.spacedBy(10.dp)
 		) {
-			item {
+			items(
+				items = fortuneDetailList,
+			) { fortuneDetail ->
 				FortuneComprehensiveCard(
-					text = "재물운",
-					message = "적은 노력 뚜렷한 성과",
-					imageRes = R.drawable.img_my_page_satto,
-				)
-			}
-
-			item {
-				FortuneComprehensiveCard(
-					text = "재물운",
-					message = "적은 노력 뚜렷한 성과",
-					imageRes = R.drawable.img_my_page_satto,
-				)
-			}
-
-			item {
-				FortuneComprehensiveCard(
-					text = "재물운",
-					message = "적은 노력 뚜렷한 성과",
-					imageRes = R.drawable.img_my_page_satto,
-				)
-			}
-
-			item {
-				FortuneComprehensiveCard(
-					text = "재물운",
-					message = "적은 노력 뚜렷한 성과",
-					imageRes = R.drawable.img_my_page_satto,
-				)
-			}
-
-			item {
-				FortuneComprehensiveCard(
-					text = "재물운",
-					message = "적은 노력 뚜렷한 성과",
+					text = fortuneDetail.title,
+					message = fortuneDetail.content,
 					imageRes = R.drawable.img_my_page_satto,
 				)
 			}
@@ -143,6 +116,11 @@ private fun FortuneComprehensiveCard(
 @Composable
 private fun FortuneComprehensiveSectionPreview() {
 	SattoTheme {
-		FortuneComprehensiveSection()
+		FortuneComprehensiveSection(
+			fortuneDetailList = listOf(),
+			modifier = Modifier
+				.fillMaxWidth()
+				.padding(16.dp)
+		)
 	}
 }

@@ -10,5 +10,6 @@ data class DailyFortuneDetail(
 	val userId: String,
 	val fortuneDate: String,
 	val fortuneScore: Int,
-	val fortuneComment: String
+	val fortuneComment: String,
+	val fortuneDetails: List<FortuneDetail>
 )

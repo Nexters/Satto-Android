@@ -17,6 +17,7 @@ interface UserRemoteDataSource {
 		deviceId: String,
 		name: String,
 		birthDate: String,
+		birthTime: List<String>,
 		gender: String
 	): UserDto
 
@@ -26,6 +27,7 @@ interface UserRemoteDataSource {
 		userId: String,
 		name: String,
 		birthDate: String,
+		birthTime: List<String>,
 		gender: String
 	): UserDto
 

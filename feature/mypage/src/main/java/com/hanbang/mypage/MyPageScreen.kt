@@ -53,7 +53,6 @@ internal fun MyPageRoute(
 ) {
 	val state by viewModel.collectAsState()
 
-
 	LaunchedEffect(Unit)  {
 		viewModel.initializeUserData()
 	}
@@ -103,7 +102,7 @@ private fun MyPageScreen(
 					name = state.name,
 					genderType = state.genderType,
 					birthDate = state.dateOfBirth,
-					birthTime = state.birthTime,
+					birthTime = state.birthTimeStr,
 					onEditProfile = {
 						navigateToProfileEdit()
 					}
@@ -128,18 +127,18 @@ private fun MyPageScreen(
 						.background(color = White, shape = RoundedCornerShape(10.dp))
 						.padding(vertical = 10.dp, horizontal = 10.dp)
 				) {
-					MyPageSectionItem(
-						text = "푸시알림",
-						onClick = {},
-						rightComponent = {
-							Icon(
-								modifier = Modifier.size(24.dp),
-								painter = painterResource(R.drawable.ic_chevron_right_16),
-								contentDescription = null,
-								tint = Gray5
-							)
-						}
-					)
+//					MyPageSectionItem(
+//						text = "푸시알림",
+//						onClick = {},
+//						rightComponent = {
+//							Icon(
+//								modifier = Modifier.size(24.dp),
+//								painter = painterResource(R.drawable.ic_chevron_right_16),
+//								contentDescription = null,
+//								tint = Gray5
+//							)
+//						}
+//					)
 
 					MyPageSectionItem(
 						text = "이용약관",

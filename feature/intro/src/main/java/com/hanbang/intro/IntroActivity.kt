@@ -62,8 +62,8 @@ class IntroActivity : ComponentActivity() {
 			repeatOnLifecycle(Lifecycle.State.STARTED) {
 				viewModel.nextScreenFlow.collectLatest { type: NextScreenType ->
 					when (type) {
-						NextScreenType.ONBOARDING -> {
-							activityNavigator.navigateToOnboarding(this@IntroActivity)
+						NextScreenType.LOGIN -> {
+							activityNavigator.navigateToLogin(this@IntroActivity)
 							finish()
 						}
 						NextScreenType.HOME -> {

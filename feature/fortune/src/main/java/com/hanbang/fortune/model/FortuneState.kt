@@ -1,6 +1,7 @@
 package com.hanbang.fortune.model
 
 import androidx.compose.runtime.Stable
+import com.hanbang.domain.model.FortuneDetail
 import com.hanbang.domain.model.PillarDetail
 import com.hanbang.domain.model.PillarElement
 
@@ -15,6 +16,7 @@ data class FortuneState(
 	val todayDate: String = "",
 	val fortuneScore: Int = 0,
 	val fortuneComment: String = "",
+	val fortuneDetailList: List<FortuneDetail> = emptyList(),
 	val userName: String = "",
 	val userDateOfBirth: String = "",
 	val userBirthTime: String = "",
@@ -33,8 +35,6 @@ data class PillarDetailUiModel(
 	val branch: PillarElement = PillarElement.NONE,
 	val stemTenGod: String = "",
 	val branchTenGod: String = "",
-	val stemElement: String = "",
-	val branchElement: String = ""
 )
 
 fun PillarDetail.toUiModel() = PillarDetailUiModel(

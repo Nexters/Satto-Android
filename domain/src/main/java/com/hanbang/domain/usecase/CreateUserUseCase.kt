@@ -14,23 +14,15 @@ import javax.inject.Inject
 class CreateUserUseCase @Inject constructor(
 	private val sattoRepository: SattoRepository
 ) {
-
 	operator fun invoke(
 		name: String,
-		birthYear: Int,
-		birthMonth: Int,
-		birthDay: Int,
-		birthHour: Int,
-		birthMinute: Int,
+		birthDate: String,
+		birthTime: List<String>,
 		genderType: GenderType
 	): Flow<User> = sattoRepository.createUser(
 		name = name,
-		dateOfBirth = "",
-		birthYear = birthYear,
-		birthMonth = birthMonth,
-		birthDay = birthDay,
-		birthHour = birthHour,
-		birthMinute = birthMinute,
+		birthDate = birthDate,
+		birthTime = birthTime,
 		genderType = genderType
 	)
 }

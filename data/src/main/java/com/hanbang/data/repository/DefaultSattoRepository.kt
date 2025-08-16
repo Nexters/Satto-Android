@@ -39,12 +39,8 @@ class DefaultSattoRepository @Inject constructor(
 
 	override fun createUser(
 		name: String,
-		dateOfBirth: String,
-		birthYear: Int,
-		birthMonth: Int,
-		birthDay: Int,
-		birthHour: Int,
-		birthMinute: Int,
+		birthDate: String,
+		birthTime: List<String>,
 		genderType: GenderType
 	): Flow<User> = flow {
 		val deviceId = deviceLocalDataSource.getDeviceId()
@@ -52,7 +48,8 @@ class DefaultSattoRepository @Inject constructor(
 		val userDto = userRemoteDataSource.createUser(
 			deviceId = deviceId,
 			name = name,
-			birthDate = formatBirthDateTime(birthYear, birthMonth, birthDay, birthHour, birthMinute),
+			birthDate = birthDate,
+			birthTime = birthTime,
 			gender = genderType.value
 		).also {
 			userLocalDataSource.storeUserId(it.id)
@@ -69,12 +66,8 @@ class DefaultSattoRepository @Inject constructor(
 
 	override fun updateUser(
 		name: String,
-		dateOfBirth: String,
-		birthYear: Int,
-		birthMonth: Int,
-		birthDay: Int,
-		birthHour: Int,
-		birthMinute: Int,
+		birthDate: String,
+		birthTime: List<String>,
 		genderType: GenderType
 	): Flow<User> = flow<User> {
 		val userId = userLocalDataSource.getUserId()
@@ -82,7 +75,8 @@ class DefaultSattoRepository @Inject constructor(
 		val userDto = userRemoteDataSource.updateUser(
 			userId = userId,
 			name = name,
-			birthDate = formatBirthDateTime(birthYear, birthMonth, birthDay, birthHour, birthMinute),
+			birthDate = birthDate,
+			birthTime = birthTime,
 			gender = genderType.value
 		)
 
@@ -113,10 +107,4 @@ class DefaultSattoRepository @Inject constructor(
 		val lottoRecommendationDto = userRemoteDataSource.getLottoRecommendation(userId)
 		emit(lottoRecommendationDto.toDomain())
 	}.flowOn(Dispatchers.IO)
-
-	private fun formatBirthDateTime(year: Int, month: Int, day: Int, hour: Int, minute: Int): String {
-		val dateTime = LocalDateTime.of(year, month, day, hour, minute)
-		val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-		return dateTime.format(formatter)
-	}
 }

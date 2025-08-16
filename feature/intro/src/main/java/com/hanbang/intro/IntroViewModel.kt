@@ -3,6 +3,7 @@ package com.hanbang.intro
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hanbang.domain.usecase.GetUserIdUseCase
+import com.hanbang.domain.usecase.GetUserUseCase
 import com.hanbang.intro.model.NextScreenType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
@@ -10,6 +11,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,7 +37,7 @@ class IntroViewModel @Inject constructor(
 			_nextScreenFlow.value = if (userId.isNotEmpty()) {
 				NextScreenType.HOME
 			} else {
-				NextScreenType.ONBOARDING
+				NextScreenType.LOGIN
 			}
 		}
 	}

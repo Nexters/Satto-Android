@@ -2,17 +2,21 @@ package com.hanbang.editprofile
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -79,8 +83,13 @@ fun EditProfileRoute(
 		onStoreChangedUserInfo = viewModel::storeChangedUserInfo
 	)
 
+	if (state.isLoading) {
+		LoadingProgress()
+	}
+
 	if (showBirthTimeDialog) {
 		BirthTimeBottomSheetDialog(
+			initialTime = state.birthTimeStr,
 			timeList = BirthTimeRanges.timeList,
 			onDismissRequest = { showBirthTimeDialog = false },
 			onSelectBirthTime = viewModel::saveBirthTime
@@ -166,7 +175,7 @@ private fun EditProfileScreen(
 
 			item {
 				EditProfileBirthTimePicker(
-					birthTime = state.birthTime,
+					birthTime = state.birthTimeStr,
 					userBirthTimeUnknown = state.userBirthTimeUnknown,
 					onClickBirthTimePicker = onClickBirthTimePicker,
 					onToggleUserBirthTimeUnknown = onToggleUserBirthTimeUnknown
@@ -188,6 +197,19 @@ private fun EditProfileScreen(
 	}
 }
 
+@Composable
+private fun LoadingProgress() {
+	Box(
+		modifier = Modifier.fillMaxSize()
+	) {
+		CircularProgressIndicator(
+			modifier = Modifier
+				.size(40.dp)
+				.align(Alignment.Center)
+		)
+	}
+}
+
 @Preview
 @Composable
 private fun EditProfileScreenPreview() {
@@ -201,7 +223,7 @@ private fun EditProfileScreenPreview() {
 				genderType = GenderType.NONE,
 				dateOfBirth = "2000-01-01",
 				dateOfBirthErrorMsg = "",
-				birthTime = "",
+				birthTime = emptyList(),
 				userBirthTimeUnknown = false,
 				buttonValidation = true
 			),
