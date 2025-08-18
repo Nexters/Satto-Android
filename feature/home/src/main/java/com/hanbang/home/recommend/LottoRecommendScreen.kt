@@ -16,12 +16,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -71,41 +76,55 @@ internal fun LottoRecommendScreen(
     val state = viewModel.collectAsState().value
 
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Primary9)
+            .systemBarsPadding()
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Primary9)
-        ) {
-            TopAppBar(
-                containerColor = Primary9,
-                contentColor = Gray1,
-                title = "${state.userName}님의 로또 번호",
-                titleType = TopAppBarTitleType.CENTER,
-            )
-            LottoRecommendContent(
-                modifier = Modifier.weight(1f),
-                state = state
-            )
+        when (state) {
+            LottoRecommendUiState.Loading -> {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .size(48.dp)
+                        .align(Alignment.Center)
+                )
+            }
+
+            is LottoRecommendUiState.Success -> {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                ) {
+                    TopAppBar(
+                        containerColor = Primary9,
+                        contentColor = Gray1,
+                        title = "${state.userName}님의 로또 번호",
+                        titleType = TopAppBarTitleType.CENTER,
+                    )
+                    LottoRecommendContent(
+                        modifier = Modifier.weight(1f),
+                        state = state
+                    )
+                }
+                BottomBar(
+                    modifier = Modifier.align(Alignment.BottomCenter),
+                    onClickNewNumber = {},
+                    onClickNotification = {}
+                )
+            }
         }
-        BottomBar(
-            modifier = Modifier.align(Alignment.BottomCenter),
-            onClickNewNumber = {},
-            onClickNotification = {}
-        )
     }
 }
 
 @Composable
 private fun LottoRecommendContent(
     modifier: Modifier = Modifier,
-    state: LottoRecommendUiState
+    state: LottoRecommendUiState.Success
 ) {
     LazyColumn(
         modifier = modifier
             .fillMaxSize(),
-        contentPadding = PaddingValues(horizontal = 24.dp),
+        contentPadding = PaddingValues(start = 24.dp, end = 24.dp, bottom = 64.dp),
         verticalArrangement = Arrangement.spacedBy(32.dp)
     ) {
         item {
@@ -210,7 +229,7 @@ private fun LottoRecommendContent(
 private fun LottoRecommendCard(
     round: Int,
     userName: String,
-    lottoNumbers: List<Int>,
+    lottoNumbers: List<Int?>,
     remainTime: Long
 ) {
     Column(
@@ -293,7 +312,7 @@ private fun LazyItemScope.ContentTitle(title: String) {
 @Composable
 private fun NumberRecommendItem(
     description: String,
-    number: Pair<Int, Int>
+    number: Pair<Int?, Int?>
 ) {
     Box(
         modifier = Modifier
@@ -369,16 +388,18 @@ private fun RowScope.NotRecommendItem(
             color = Gray1
         )
         Spacer(modifier = Modifier.height(20.dp))
-        Row(
+        LazyRow(
             modifier = Modifier
-                .fillMaxWidth()
                 .scrollable(
                     state = rememberScrollState(),
                     orientation = Orientation.Horizontal
                 ),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            numbers.map {
+            items(
+                items = numbers,
+                key = { it }
+            ) {
                 LottoBall(it)
             }
         }
@@ -449,7 +470,7 @@ private fun LottoRecommendCardPreview() {
 private fun LottoRecommendContentPreview() {
     SattoTheme {
         LottoRecommendContent(
-            state = LottoRecommendUiState(
+            state = LottoRecommendUiState.Success(
                 userName = "userName",
                 round = 1000,
                 lottoNumbers = listOf(Pair(1, 2), Pair(18, 45), Pair(37, 7)),

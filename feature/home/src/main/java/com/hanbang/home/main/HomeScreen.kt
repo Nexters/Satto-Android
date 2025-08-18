@@ -25,6 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -282,8 +283,9 @@ private fun LottoRecommendCardItem(
                         modifier = Modifier
                             .fillMaxWidth()
                             .background(Color.Transparent)
-                            .padding(vertical = 12.dp)
+                            .clip(RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp))
                             .clickable { onClickViewMore() }
+                            .padding(vertical = 12.dp)
                     ) {
                         Text(
                             text = "자세히 보기",
