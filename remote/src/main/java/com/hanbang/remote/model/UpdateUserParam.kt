@@ -13,15 +13,19 @@ import okhttp3.RequestBody.Companion.toRequestBody
  * @created  2025/08/13
  */
 @Serializable
-class UpdateUserParam(
+data class UpdateUserParam(
 	val name: String,
 	@SerialName("birth_date")
 	val birthDate: String,
 	@SerialName("birth_time")
-	val birthTime: List<String>,
+	val birthTime: List<String?>? = null,
 	val gender: String
 ) {
 	fun toRequestBody(): RequestBody {
-		return Json.encodeToString(this).toRequestBody()
+		val json = Json{
+			encodeDefaults = false   // default 값은 제외
+			explicitNulls = false
+		}
+		return json.encodeToString(this).toRequestBody()
 	}
 }

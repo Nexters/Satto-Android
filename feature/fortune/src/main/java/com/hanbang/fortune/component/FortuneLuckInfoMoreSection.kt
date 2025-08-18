@@ -41,7 +41,7 @@ internal fun FortuneLuckInfoMoreSection(
 			color = Gray2
 		)
 
-		Spacer(Modifier.height(16.dp))
+		Spacer(Modifier.height(12.dp))
 		
 		Column(
 			modifier = Modifier.fillMaxWidth()
@@ -55,7 +55,7 @@ internal fun FortuneLuckInfoMoreSection(
 				contentDescription = "satto_update_wait",
 			)
 			Text(
-				text = "행운 정보가 준비 중이에요.",
+				text = "행운 정보를 준비 중이에요",
 				style = SattoTheme.typography.body14Regular,
 				color = Gray5
 			)

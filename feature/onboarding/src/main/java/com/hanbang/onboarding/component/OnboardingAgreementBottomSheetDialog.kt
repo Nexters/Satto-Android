@@ -1,14 +1,17 @@
 package com.hanbang.onboarding.component
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -21,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
@@ -54,14 +58,21 @@ internal fun OnboardingAgreementBottomSheetDialog(
 	var checkServiceAgree by remember { mutableStateOf(false) }
 	var checkPersonalInfoAgree by remember { mutableStateOf(false) }
 
-	LaunchedEffect(checkAllAgree) {
-		snapshotFlow { checkAllAgree }
-			.collect { agree ->
-				checkServiceAgree = agree
-				checkPersonalInfoAgree = agree
-			}
+//	LaunchedEffect(checkAllAgree) {
+//		snapshotFlow { checkAllAgree }
+//			.collect { agree ->
+//				checkServiceAgree = agree
+//				checkPersonalInfoAgree = agree
+//			}
+//	}
 
+	LaunchedEffect(checkServiceAgree, checkPersonalInfoAgree) {
+		if (checkServiceAgree.not() || checkPersonalInfoAgree.not()) {
+			checkAllAgree = false
+		}
 	}
+
+
 	HbBottomSheet(
 		onDismissRequest = onDismissRequest,
 		headerContents = {
@@ -98,7 +109,11 @@ internal fun OnboardingAgreementBottomSheetDialog(
 					) {
 						HbCheckbox(
 							text = "전체 동의",
-							onClick = { checkAllAgree = checkAllAgree.toggle() },
+							onClick = {
+								checkAllAgree = checkAllAgree.toggle()
+								checkServiceAgree = checkAllAgree
+								checkPersonalInfoAgree = checkAllAgree
+							},
 							isActive = checkAllAgree,
 							isEnabled = true,
 							textStyle = SattoTheme.typography.body16Medium
@@ -108,7 +123,6 @@ internal fun OnboardingAgreementBottomSheetDialog(
 					Row(
 						modifier = Modifier
 							.fillMaxWidth()
-							.clickableSingle(activeRippleEffect = true) { openServiceAgreementInfo() }
 							.padding(vertical = 10.dp),
 						verticalAlignment = Alignment.CenterVertically
 					) {
@@ -121,18 +135,26 @@ internal fun OnboardingAgreementBottomSheetDialog(
 							textStyle = SattoTheme.typography.body16Medium
 						)
 
-						Icon(
-							modifier = Modifier.size(16.dp),
-							painter = painterResource(R.drawable.ic_chevron_right_16),
-							contentDescription = "chevron_right",
-							tint = Gray5
-						)
+						Box(
+							modifier = Modifier
+								.size(28.dp)
+								.clip(RoundedCornerShape(10.dp))
+								.clickableSingle(activeRippleEffect = true) { openServiceAgreementInfo() }
+						) {
+							Icon(
+								modifier = Modifier
+									.size(16.dp)
+									.align(Alignment.Center),
+								painter = painterResource(R.drawable.ic_chevron_right_16),
+								contentDescription = "chevron_right",
+								tint = Gray5
+							)
+						}
 					}
 
 					Row(
 						modifier = Modifier
 							.fillMaxWidth()
-							.clickableSingle(activeRippleEffect = true) { openPersonalInfoAgreementInfo() }
 							.padding(vertical = 10.dp),
 						verticalAlignment = Alignment.CenterVertically
 					) {
@@ -145,12 +167,21 @@ internal fun OnboardingAgreementBottomSheetDialog(
 							textStyle = SattoTheme.typography.body16Medium
 						)
 
-						Icon(
-							modifier = Modifier.size(16.dp),
-							painter = painterResource(R.drawable.ic_chevron_right_16),
-							contentDescription = "chevron_right",
-							tint = Gray5
-						)
+						Box(
+							modifier = Modifier
+								.size(28.dp)
+								.clip(RoundedCornerShape(10.dp))
+								.clickableSingle(activeRippleEffect = true) { openPersonalInfoAgreementInfo() }
+						) {
+							Icon(
+								modifier = Modifier
+									.size(16.dp)
+									.align(Alignment.Center),
+								painter = painterResource(R.drawable.ic_chevron_right_16),
+								contentDescription = "chevron_right",
+								tint = Gray5
+							)
+						}
 					}
 				}
 
@@ -158,7 +189,7 @@ internal fun OnboardingAgreementBottomSheetDialog(
 
 				HbBoxButton(
 					text = "확인",
-					isEnabled = checkServiceAgree &&checkPersonalInfoAgree,
+					isEnabled = checkServiceAgree && checkPersonalInfoAgree,
 					onClick = {
 						onConfirmAgreement()
 						onDismissRequest()

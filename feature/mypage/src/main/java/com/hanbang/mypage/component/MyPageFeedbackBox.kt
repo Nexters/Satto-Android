@@ -85,7 +85,7 @@ fun MyPageFeedbackBox(
 
 		Image(
 			modifier = Modifier.size(86.dp),
-			painter = painterResource(R.drawable.img_my_page_satto),
+			painter = painterResource(R.drawable.img_my_page_feedback),
 			contentDescription = null
 		)
 	}

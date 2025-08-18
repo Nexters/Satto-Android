@@ -29,7 +29,7 @@ fun NavGraphBuilder.editProfileNavGraph(
 	composable<RouteEditProfile> {
 		EditProfileRoute(
 			paddingValues = padding,
-			onShowErrorSnackBar = onShowErrorSnackBar,
+			onShowSnackBar = onShowErrorSnackBar,
 			onNavigateUp = onNavigateUp
 		)
 	}

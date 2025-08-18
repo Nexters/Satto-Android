@@ -6,7 +6,7 @@ package com.hanbang.domain.model
  * @created  2025/08/17
  */
 data class FortuneDetail(
-	val type: String,
+	val type: FortuneDetailType,
 	val title: String,
 	val content: String
 )

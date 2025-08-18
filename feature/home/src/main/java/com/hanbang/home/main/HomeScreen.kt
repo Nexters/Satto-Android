@@ -196,7 +196,7 @@ private fun HomeTitle(
 @Composable
 private fun HomeImage() {
     AsyncImage(
-        model = R.drawable.img_satto_tiger,
+        model = R.drawable.img_satto_home,
         contentDescription = null,
         modifier = Modifier.size(120.dp)
     )
@@ -247,7 +247,7 @@ private fun LottoRecommendCardItem(
                 HomeUiState.Content.OpenType.RECOMMEND -> {
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
-                        text = "번호를 받아보십시오",
+                        text = "번호를 받아보시오",
                         style = SattoTheme.typography.body14Regular,
                         color = Gray5
                     )
@@ -368,8 +368,10 @@ private fun LazyItemScope.TodayFortuneRow(
             .padding(all = 20.dp),
         horizontalArrangement = Arrangement.spacedBy(20.dp)
     ) {
-        Box(modifier = Modifier.weight(1f)) {
-            FortuneCategoryItem(category = categoryPair[0])
+        if (categoryPair.isNotEmpty()) {
+            Box(modifier = Modifier.weight(1f)) {
+                FortuneCategoryItem(category = categoryPair[0])
+            }
         }
         if (categoryPair.size > 1) {
             Box(modifier = Modifier.weight(1f)) {

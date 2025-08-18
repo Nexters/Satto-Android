@@ -106,39 +106,44 @@ fun MyPageProfileBox(
 				color = Gray3
 			)
 
-			Spacer(Modifier.width(4.dp))
+			if (birthDate.isNotEmpty()) {
+				Spacer(Modifier.width(4.dp))
 
-			Icon(
-				modifier = Modifier.size(3.dp),
-				painter = painterResource(R.drawable.ic_dot),
-				contentDescription = null,
-				tint = Gray6
-			)
+				Icon(
+					modifier = Modifier.size(3.dp),
+					painter = painterResource(R.drawable.ic_dot),
+					contentDescription = null,
+					tint = Gray6
+				)
 
-			Spacer(Modifier.width(4.dp))
+				Spacer(Modifier.width(4.dp))
 
-			Text(
-				text = birthDate,
-				style = SattoTheme.typography.caption12Bold,
-				color = Gray3
-			)
+				Text(
+					text = birthDate,
+					style = SattoTheme.typography.caption12Bold,
+					color = Gray3
+				)
+			}
 
-			Spacer(Modifier.width(4.dp))
+			if (birthTime.isNotEmpty()) {
+				Spacer(Modifier.width(4.dp))
 
-			Icon(
-				modifier = Modifier.size(3.dp),
-				painter = painterResource(R.drawable.ic_dot),
-				contentDescription = null,
-				tint = Gray6
-			)
+				Icon(
+					modifier = Modifier.size(3.dp),
+					painter = painterResource(R.drawable.ic_dot),
+					contentDescription = null,
+					tint = Gray6
+				)
 
-			Spacer(Modifier.width(4.dp))
+				Spacer(Modifier.width(4.dp))
 
-			Text(
-				text = birthTime,
-				style = SattoTheme.typography.caption12Bold,
-				color = Gray3
-			)
+				Text(
+					text = birthTime,
+					style = SattoTheme.typography.caption12Bold,
+					color = Gray3
+				)
+			}
+
 		}
 	}
 }

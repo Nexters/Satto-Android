@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Satto</string>
+    <string name="app_name">사또</string>
     <string name="error_message_network">네트워크 오류</string>
     <string name="error_message_unknown">알 수 없는 오류</string>
 </resources>

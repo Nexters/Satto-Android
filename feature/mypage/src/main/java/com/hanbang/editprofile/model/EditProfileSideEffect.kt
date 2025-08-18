@@ -1,5 +1,7 @@
 package com.hanbang.editprofile.model
 
+import com.hanbang.designsystem.toast.HbSnackBarType
+
 /**
  *
  * @author   JGeun
@@ -11,5 +13,9 @@ sealed class EditProfileSideEffect {
 
 	data class ShowErrorMessage(
 		val message: String
+	) : EditProfileSideEffect()
+
+	data class ShowSnackBar(
+		val hbSnackBarType: HbSnackBarType
 	) : EditProfileSideEffect()
 }

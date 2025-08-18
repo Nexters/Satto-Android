@@ -1,5 +1,7 @@
 package com.hanbang.onboarding
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -43,6 +46,7 @@ import com.hanbang.onboarding.model.OnboardingSideEffect
 import com.hanbang.onboarding.model.OnboardingState
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
+import androidx.core.net.toUri
 
 /**
  *
@@ -57,6 +61,7 @@ fun OnboardingRoute(
 	navigateUp: () -> Unit,
 	viewModel: OnboardingViewModel = hiltViewModel()
 ) {
+	val context = LocalContext.current
 	val state by viewModel.collectAsState()
 	var showBirthTimeDialog by remember { mutableStateOf(false) }
 	var showAgreementDialog by remember { mutableStateOf(false) }
@@ -104,8 +109,16 @@ fun OnboardingRoute(
 		OnboardingAgreementBottomSheetDialog(
 			onDismissRequest = { showAgreementDialog = false },
 			onConfirmAgreement = viewModel::createUser,
-			openServiceAgreementInfo = {},
-			openPersonalInfoAgreementInfo = {}
+			openServiceAgreementInfo = {
+				val url = "https://www.notion.so/satto-terms-consent/253180ab3dd7818b9a13c04f1df34044"
+				val intent = Intent(Intent.ACTION_VIEW, url.toUri())
+				context.startActivity(intent)
+			},
+			openPersonalInfoAgreementInfo = {
+				val url = "https://satto-terms-consent.notion.site/253180ab3dd781088ab9e2afdd7da150"
+				val intent = Intent(Intent.ACTION_VIEW, url.toUri())
+				context.startActivity(intent)
+			}
 		)
 	}
 }

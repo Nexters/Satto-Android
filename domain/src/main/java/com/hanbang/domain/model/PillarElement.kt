@@ -14,7 +14,7 @@ enum class PillarElement(
 	val hanja: String,
 	val korean: String
 ) {
-	NONE("", "-"),
+	NONE("-", "-"),
 	WOOD("木", "목"),
 	FIRE("火", "화"),
 	EARTH("土", "토"),

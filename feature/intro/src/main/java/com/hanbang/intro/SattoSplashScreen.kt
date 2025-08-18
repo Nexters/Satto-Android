@@ -28,7 +28,7 @@ fun SattoSplashScreen() {
 		Image(
 			modifier = Modifier.width(159.dp).height(44.dp)
 				.align(Alignment.Center),
-			painter = painterResource(R.drawable.img_satto_logo_white),
+			painter = painterResource(R.drawable.img_satto_logo_splash),
 			contentDescription = "Satto Logo",
 		)
 	}

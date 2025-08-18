@@ -237,7 +237,7 @@ class OnboardingViewModel @Inject constructor(
 			createUserUseCase(
 				name = state.name,
 				birthDate = state.getDateOfBirthWithDash(),
-				birthTime = state.birthTime,
+				birthTime = if(state.userBirthTimeUnknown) emptyList() else state.birthTime,
 				genderType = state.genderType
 			).catch {
 				reduce {
@@ -245,6 +245,7 @@ class OnboardingViewModel @Inject constructor(
 						isLoading =  false
 					)
 				}
+				Log.e("Test@@@,", "createUser error: ${it.message}")
 				postSideEffect(
 					OnboardingSideEffect.ShowError(it.message ?: "사용자 생성 중 오류가 발생했습니다.")
 				)

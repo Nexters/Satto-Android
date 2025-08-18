@@ -18,7 +18,7 @@ data class UpdateUserResponse(
 	@SerialName("birth_date")
 	val birthDate: String,
 	@SerialName("birth_time")
-	val birthTime: List<String?>,
+	val birthTime: List<String?>?,
 	val gender: String,
 	@SerialName("four_pillar")
 	val fourPillar: FourPillar
@@ -31,23 +31,23 @@ data class UpdateUserResponse(
 		val weakElement: String,
 		val description: String,
 		@SerialName("year_pillar_detail")
-		val yearPillarDetail: PillarDetail,
+		val yearPillarDetail: PillarDetail? = null,
 		@SerialName("month_pillar_detail")
-		val monthPillarDetail: PillarDetail,
+		val monthPillarDetail: PillarDetail? = null,
 		@SerialName("day_pillar_detail")
-		val dayPillarDetail: PillarDetail,
+		val dayPillarDetail: PillarDetail? = null,
 		@SerialName("time_pillar_detail")
-		val timePillarDetail: PillarDetail
+		val timePillarDetail: PillarDetail? = null,
 	)
 
 	@Serializable
 	data class PillarDetail(
-		val stem: String,
-		val branch: String,
+		val stem: String = "",
+		val branch: String = "",
 		@SerialName("stem_ten_god")
-		val stemTenGod: String,
+		val stemTenGod: String = "",
 		@SerialName("branch_ten_god")
-		val branchTenGod: String,
+		val branchTenGod: String = "",
 	)
 }
 
@@ -55,7 +55,7 @@ internal fun UpdateUserResponse.toDto() = UserDto(
 	id = id,
 	name = name,
 	birthDate = birthDate,
-	birthTime = birthTime,
+	birthTime = birthTime ?: emptyList(),
 	gender = gender,
 	fourPillar = fourPillar.toDto()
 )
@@ -71,8 +71,8 @@ internal fun UpdateUserResponse.FourPillar.toDto() = FourPillarDto(
 	strongElement = strongElement,
 	weakElement = weakElement,
 	description = description,
-	yearPillarDetail = yearPillarDetail.toDto(),
-	monthPillarDetail = monthPillarDetail.toDto(),
-	dayPillarDetail = dayPillarDetail.toDto(),
-	timePillarDetail = timePillarDetail.toDto()
+	yearPillarDetail = yearPillarDetail?.toDto() ?: PillarDetailDto(),
+	monthPillarDetail = monthPillarDetail?.toDto() ?: PillarDetailDto(),
+	dayPillarDetail = dayPillarDetail?.toDto() ?: PillarDetailDto(),
+	timePillarDetail = timePillarDetail?.toDto() ?: PillarDetailDto()
 )

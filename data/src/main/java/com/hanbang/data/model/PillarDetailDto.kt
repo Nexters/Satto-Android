@@ -9,10 +9,10 @@ import com.hanbang.domain.model.PillarElement
  * @created  2025/08/13
  */
 data class PillarDetailDto(
-	val stem: String,
-	val branch: String,
-	val stemTenGod: String,
-	val branchTenGod: String,
+	val stem: String = "",
+	val branch: String = "",
+	val stemTenGod: String = "",
+	val branchTenGod: String = "",
 )
 
 internal fun PillarDetailDto.toDomain(): PillarDetail {
