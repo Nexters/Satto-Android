@@ -1,18 +1,20 @@
 package com.hanbang.home.recommend
 
-data class LottoRecommendUiState(
-    val userName: String = "",
-    val round: Int = 0,
-    val lottoNumbers: List<Pair<Int, Int>> = emptyList(),
-    val remainTime: Long = Long.MAX_VALUE,
-    val isLoading: Boolean = false,
-    val strongElement: String = "",
-    val reason: String = "",
-    val weakElement: String = "",
-    val weakNumbers: List<Int> = emptyList(),
-    val infrequentNumbers: List<Int> = emptyList(),
-) {
-    val sortedLottoNumbers: List<Int> = lottoNumbers.flatMap { listOf(it.first, it.second) }.sorted()
+sealed interface LottoRecommendUiState {
+    data object Loading : LottoRecommendUiState
+    data class Success(
+        val userName: String = "",
+        val round: Int = 0,
+        val lottoNumbers: List<Pair<Int?, Int?>> = List(3) { Pair(null, null) },
+        val remainTime: Long = Long.MAX_VALUE,
+        val strongElement: String = "",
+        val reason: String = "",
+        val weakElement: String = "",
+        val weakNumbers: List<Int> = emptyList(),
+        val infrequentNumbers: List<Int> = emptyList(),
+    ) : LottoRecommendUiState {
+        val sortedLottoNumbers: List<Int?> = lottoNumbers.flatMap { listOf(it.first, it.second) }
+    }
 }
 
 sealed interface LottoRecommendUiEvent {
