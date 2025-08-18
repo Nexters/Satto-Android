@@ -3,22 +3,18 @@ package com.hanbang.fortune.component
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.hanbang.designsystem.theme.Black
 import com.hanbang.designsystem.theme.Gray2
 import com.hanbang.designsystem.theme.SattoTheme
-import com.hanbang.designsystem.R
+import com.hanbang.designsystem.extension.getImageRes
 import com.hanbang.designsystem.theme.White
 import com.hanbang.domain.model.FortuneDetail
 
@@ -50,7 +46,7 @@ internal fun FortuneComprehensiveSection(
 			color = Gray2
 		)
 
-		Spacer(Modifier.height(16.dp))
+		Spacer(Modifier.height(12.dp))
 
 		LazyRow(
 			modifier = Modifier.fillMaxWidth(),
@@ -62,7 +58,7 @@ internal fun FortuneComprehensiveSection(
 				FortuneComprehensiveCard(
 					text = fortuneDetail.title,
 					message = fortuneDetail.content,
-					imageRes = R.drawable.img_my_page_satto,
+					imageRes = fortuneDetail.type.getImageRes(),
 				)
 			}
 		}
@@ -76,7 +72,6 @@ private fun FortuneComprehensiveCard(
 	@DrawableRes imageRes: Int,
 	modifier: Modifier = Modifier
 ) {
-
 	Box(
 		modifier = modifier
 			.width(130.dp)
@@ -92,6 +87,8 @@ private fun FortuneComprehensiveCard(
 				style = SattoTheme.typography.body16Semibold,
 				color = Black
 			)
+
+			Spacer(Modifier.height(2.dp))
 
 			Text(
 				text = message,

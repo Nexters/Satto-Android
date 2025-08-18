@@ -5,6 +5,7 @@ import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.navigation.toRoute
+import com.hanbang.designsystem.toast.HbSnackBarType
 import com.hanbang.domain.extension.toggle
 import com.hanbang.domain.model.GenderType
 import com.hanbang.domain.usecase.UpdateUserUseCase
@@ -166,7 +167,7 @@ class EditProfileViewModel @Inject constructor(
 		val updateUser = updateUserUseCase(
 			name = state.name,
 			birthDate = "${state.dateOfBirth.substring(0, 4)}-${state.dateOfBirth.substring(4, 6)}-${state.dateOfBirth.substring(6, 8)}",
-			birthTime = state.birthTime,
+			birthTime = if (state.userBirthTimeUnknown) emptyList() else  state.birthTime,
 			genderType = state.genderType
 		)
 
@@ -175,6 +176,7 @@ class EditProfileViewModel @Inject constructor(
 				postSideEffect(EditProfileSideEffect.ShowErrorMessage(it.message ?: "오류가 발생했습니다."))
 			}.collect { user ->
 				postSideEffect(EditProfileSideEffect.NavigateUp)
+				postSideEffect(EditProfileSideEffect.ShowSnackBar(HbSnackBarType.SUCCESS(message = "프로필 수정이 완료됐소.")))
 			}
 	}
 

@@ -1,5 +1,6 @@
 package com.hanbang.mypage
 
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,9 +21,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.hanbang.designsystem.R
 import com.hanbang.designsystem.theme.Gray5
@@ -86,6 +89,8 @@ private fun MyPageScreen(
 	paddingValues: PaddingValues,
 	navigateToProfileEdit: () -> Unit,
 ) {
+	val context = LocalContext.current
+
 	Column(
 		modifier = Modifier.fillMaxSize()
 			.background(Primary9)
@@ -114,7 +119,13 @@ private fun MyPageScreen(
 			}
 
 			item {
-				MyPageFeedbackBox()
+				MyPageFeedbackBox(
+					onClick = {
+						val url = "http://pf.kakao.com/_bfCen/chat"
+						val intent = Intent(Intent.ACTION_VIEW, url.toUri())
+						context.startActivity(intent)
+					}
+				)
 			}
 
 			item {
@@ -142,7 +153,11 @@ private fun MyPageScreen(
 
 					MyPageSectionItem(
 						text = "이용약관",
-						onClick = {},
+						onClick = {
+							val url = "https://www.notion.so/satto-terms-consent/253180ab3dd7818b9a13c04f1df34044"
+							val intent = Intent(Intent.ACTION_VIEW, url.toUri())
+							context.startActivity(intent)
+						},
 						rightComponent = {
 							Icon(
 								modifier = Modifier.size(24.dp),
@@ -155,7 +170,11 @@ private fun MyPageScreen(
 
 					MyPageSectionItem(
 						text = "개인정보 처리방침",
-						onClick = {},
+						onClick = {
+							val url = "https://satto-terms-consent.notion.site/253180ab3dd781088ab9e2afdd7da150"
+							val intent = Intent(Intent.ACTION_VIEW, url.toUri())
+							context.startActivity(intent)
+						},
 						rightComponent = {
 							Icon(
 								modifier = Modifier.size(24.dp),

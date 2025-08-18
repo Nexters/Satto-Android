@@ -1,6 +1,7 @@
 package com.hanbang.data.model
 
 import com.hanbang.domain.model.FortuneDetail
+import com.hanbang.domain.model.FortuneDetailType
 
 /**
  *
@@ -14,7 +15,7 @@ data class FortuneDetailDto(
 )
 
 fun FortuneDetailDto.toDomain() = FortuneDetail(
-	type = type,
+	type = FortuneDetailType.findByValue(type),
 	title = title,
 	content = content
 )

@@ -2,17 +2,24 @@ package com.hanbang.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -21,6 +28,7 @@ import com.hanbang.designsystem.button.HbBoxButton
 import com.hanbang.designsystem.button.HbButtonColorType
 import com.hanbang.designsystem.button.HbButtonStyles
 import com.hanbang.designsystem.theme.Primary2
+import com.hanbang.designsystem.theme.Primary9
 import com.hanbang.designsystem.theme.SattoTheme
 import com.hanbang.designsystem.theme.White
 
@@ -48,24 +56,42 @@ private fun LoginScreen(
 	Column(
 		modifier = Modifier
 			.fillMaxSize()
-			.background(White)
+			.background(Primary9)
 			.padding(
 				bottom = paddingValues.calculateBottomPadding() + 24.dp,
 				top = paddingValues.calculateTopPadding() + 66.dp
 			)
 	) {
-		Box(
-			modifier = Modifier
-				.fillMaxWidth()
-				.height(50.dp)
-				.padding(horizontal = 40.dp)
+		Row (
+			modifier = Modifier.fillMaxWidth()
+				.padding(horizontal = 40.dp),
+			verticalAlignment = Alignment.CenterVertically
 		) {
-			Image(
-				modifier = Modifier.fillMaxSize(),
-				painter = painterResource(R.drawable.img_satto_logo_login),
-				contentScale = ContentScale.FillBounds,
-				contentDescription = "logo_login",
-			)
+			Box(
+				modifier = Modifier
+					.width(178.dp)
+					.height(50.dp)
+			) {
+				Image(
+					modifier = Modifier.fillMaxSize(),
+					painter = painterResource(R.drawable.img_satto_logo_login),
+					contentScale = ContentScale.FillBounds,
+					contentDescription = "logo_login",
+				)
+			}
+
+			Spacer(Modifier.width(8.dp))
+
+			Box(
+				modifier = Modifier.size(46.dp)
+			) {
+				Image(
+					modifier = Modifier.fillMaxSize(),
+					painter = painterResource(R.drawable.img_satto_pocket_login),
+					contentDescription = "pocket_login",
+					contentScale = ContentScale.FillBounds
+				)
+			}
 		}
 
 		Spacer(Modifier.height(24.dp))

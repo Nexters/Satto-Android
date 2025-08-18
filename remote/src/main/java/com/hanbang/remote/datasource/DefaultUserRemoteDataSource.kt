@@ -29,11 +29,12 @@ class DefaultUserRemoteDataSource @Inject constructor(
 		birthTime: List<String>,
 		gender: String
 	): UserDto {
+		val paramBirthTime = birthTime.filter { it.isNotEmpty() }.toList().takeIf { it.isNotEmpty() }
 		val createUserParam = CreateUserParam(
 			deviceId = deviceId,
 			name = name,
 			birthDate = birthDate,
-			birthTime = birthTime,
+			birthTime = paramBirthTime,
 			gender = gender
 		).toRequestBody()
 
@@ -51,12 +52,12 @@ class DefaultUserRemoteDataSource @Inject constructor(
 		birthTime: List<String>,
 		gender: String
 	): UserDto {
-		Log.w("Test@@@", "updateUser: $name $")
 
+		val paramBirthTime = birthTime.filter { it.isNotEmpty() }.toList().takeIf { it.isNotEmpty() }
 		val updateUserParam = UpdateUserParam(
 			name = name,
 			birthDate = birthDate,
-			birthTime = birthTime,
+			birthTime = paramBirthTime,
 			gender = gender
 		)
 

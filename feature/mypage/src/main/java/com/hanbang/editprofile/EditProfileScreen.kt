@@ -49,7 +49,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 @Composable
 fun EditProfileRoute(
 	paddingValues: PaddingValues,
-	onShowErrorSnackBar: (HbSnackBarType) -> Unit,
+	onShowSnackBar: (HbSnackBarType) -> Unit,
 	onNavigateUp: () -> Unit,
 	viewModel: EditProfileViewModel = hiltViewModel()
 ) {
@@ -113,11 +113,15 @@ fun EditProfileRoute(
 			}
 
 			is EditProfileSideEffect.ShowErrorMessage -> {
-				onShowErrorSnackBar(
+				onShowSnackBar(
 					HbSnackBarType.ERROR(
 						message = sideEffect.message
 					)
 				)
+			}
+
+			is EditProfileSideEffect.ShowSnackBar -> {
+				onShowSnackBar(sideEffect.hbSnackBarType)
 			}
 		}
 	}
