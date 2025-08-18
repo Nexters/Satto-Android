@@ -16,6 +16,8 @@ import com.hanbang.home.lottoad.navigation.navigateToLottoAd
 import com.hanbang.home.main.navigation.homeNavGraph
 import com.hanbang.home.recommend.navigation.lottoRecommendNavGraph
 import com.hanbang.home.recommend.navigation.navigateToLottoRecommend
+import com.hanbang.home.result.ad.navigation.lottoResultNavGraph
+import com.hanbang.home.result.ad.navigation.navigateToLottoResultAd
 import com.hanbang.main.MainNavigator
 import com.hanbang.mypage.navigation.myPageNavGraph
 
@@ -72,6 +74,10 @@ internal fun MainNavHost(
 
 			lottoAdNavGraph(
 				navigateToLottoRecommend = navigator.navController::navigateToLottoRecommend
+			)
+
+			lottoResultNavGraph(
+				navigateToLottoResult = navigator.navController::navigateToLottoResultAd
 			)
 		}
 	}

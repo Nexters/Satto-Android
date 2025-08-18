@@ -15,4 +15,5 @@ dependencies {
     implementation(projects.domain)
 
     implementation(libs.kotlin.serialization.json)
+    implementation(libs.lottie.compose)
 }
