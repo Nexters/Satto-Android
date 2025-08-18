@@ -1,3 +1,5 @@
+import java.net.URI
+
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 @Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
@@ -5,6 +7,7 @@ dependencyResolutionManagement {
 		google()
 		mavenCentral()
 		gradlePluginPortal()
+		maven { url = URI("https://oss.sonatype.org/content/repositories/snapshots/") }
 	}
 	versionCatalogs {
 		create("libs") {
