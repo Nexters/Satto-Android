@@ -10,7 +10,7 @@ fun NavController.navigateToLottoResultAd() {
     this.navigate(route = RouteLottoResultAd)
 }
 
-fun NavGraphBuilder.lottoResultNavGraph(
+fun NavGraphBuilder.lottoResultAdNavGraph(
     navigateToLottoResult: () -> Unit
 ) {
     composable<RouteLottoResultAd> {

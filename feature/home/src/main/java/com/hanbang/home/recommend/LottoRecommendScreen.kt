@@ -71,7 +71,9 @@ import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
 internal fun LottoRecommendScreen(
-    viewModel: LottoRecommendViewModel = hiltViewModel()
+    viewModel: LottoRecommendViewModel = hiltViewModel(),
+    onClickNewNumber: () -> Unit,
+    onClickCheckResult: () -> Unit
 ) {
     val state = viewModel.collectAsState().value
 
@@ -109,8 +111,8 @@ internal fun LottoRecommendScreen(
                 BottomBar(
                     modifier = Modifier.align(Alignment.BottomCenter),
                     type = state.ctaType,
-                    onClickNewNumber = {},
-                    onClickNotification = {}
+                    onClickNewNumber = onClickNewNumber,
+                    onClickCheckResult = onClickCheckResult
                 )
             }
         }

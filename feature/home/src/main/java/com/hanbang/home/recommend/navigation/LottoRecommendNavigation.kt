@@ -5,13 +5,24 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.hanbang.home.recommend.LottoRecommendScreen
 import com.hanbang.navigation.feature.lottorecommend.RouteLottoRecommend
+import com.hanbang.navigation.feature.lottorecommend.RouteLottoRecommendAd
 
-fun NavController.navigateToLottoRecommend() {
-    this.navigate(route = RouteLottoRecommend)
+fun NavController.navigateToLottoRecommendWithPopUp() {
+    this.navigate(route = RouteLottoRecommend) {
+        popUpTo<RouteLottoRecommendAd> { inclusive = true }
+        launchSingleTop = true
+        restoreState = false
+    }
 }
 
-fun NavGraphBuilder.lottoRecommendNavGraph() {
+fun NavGraphBuilder.lottoRecommendNavGraph(
+    onClickNewNumber: () -> Unit,
+    onClickCheckResult: () -> Unit
+) {
     composable<RouteLottoRecommend> {
-        LottoRecommendScreen()
+        LottoRecommendScreen(
+            onClickNewNumber = onClickNewNumber,
+            onClickCheckResult = onClickCheckResult
+        )
     }
 }
