@@ -1,6 +1,5 @@
 package com.hanbang.home.recommend
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hanbang.domain.usecase.GetLottoRecommendationUseCase
@@ -63,7 +62,7 @@ class LottoRecommendViewModel @Inject constructor(
                             Pair(it.num5, it.num6)
                         )
                     } ?: List(3) { Pair(null, null) },
-                    remainTime = (Duration.between(LocalDateTime.now(), lottoOpenDateTime).toMillis() / 1000L),
+                    remainTime = maxOf(0L, Duration.between(LocalDateTime.now(), lottoOpenDateTime).toMillis() / 1000L),
                     strongElement = lottoData.content?.strongElement ?: "",
                     reason = lottoData.content?.reason ?: "",
                     weakElement = lottoData.content?.weakElement ?: "",
