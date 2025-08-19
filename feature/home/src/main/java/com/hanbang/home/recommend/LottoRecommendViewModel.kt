@@ -41,7 +41,7 @@ class LottoRecommendViewModel @Inject constructor(
         .now()
         .with(TemporalAdjusters.nextOrSame(DayOfWeek.SATURDAY))
         .withHour(20)
-        .withMinute(30)
+        .withMinute(35)
         .withSecond(0)
 
     private fun fetchLottoRecommend() = intent {
@@ -63,7 +63,7 @@ class LottoRecommendViewModel @Inject constructor(
                             Pair(it.num5, it.num6)
                         )
                     } ?: List(3) { Pair(null, null) },
-                    remainTime = (Duration.between(LocalDateTime.now(), lottoOpenDateTime).toMillis() / 1000L).also { Log.d("lololo", "$it") },
+                    remainTime = (Duration.between(LocalDateTime.now(), lottoOpenDateTime).toMillis() / 1000L),
                     strongElement = lottoData.content?.strongElement ?: "",
                     reason = lottoData.content?.reason ?: "",
                     weakElement = lottoData.content?.weakElement ?: "",
