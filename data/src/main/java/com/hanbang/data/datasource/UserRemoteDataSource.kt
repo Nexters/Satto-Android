@@ -1,5 +1,6 @@
 package com.hanbang.data.datasource
 
+import com.hanbang.data.model.CheckLottoResultDto
 import com.hanbang.data.model.DailyFortuneDetailDto
 import com.hanbang.data.model.DailyFortuneDto
 import com.hanbang.data.model.FourPillarDto
@@ -52,4 +53,9 @@ interface UserRemoteDataSource {
 		userId: String,
 		fortuneDate: String
 	): DailyFortuneDetailDto
+
+	suspend fun checkLottoResult(
+		userId: String,
+		round: Int
+	): CheckLottoResultDto
 }

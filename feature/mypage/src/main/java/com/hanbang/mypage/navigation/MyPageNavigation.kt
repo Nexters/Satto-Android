@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.hanbang.designsystem.toast.HbSnackBarType
-import com.hanbang.editprofile.navigation.navigateToEditProfile
 import com.hanbang.mypage.MyPageRoute
 import com.hanbang.navigation.feature.editprofile.EditProfileRouteModel
 import com.hanbang.navigation.feature.mypage.RouteMyPage

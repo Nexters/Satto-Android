@@ -1,5 +1,7 @@
 package com.hanbang.home.result.ad
 
+import com.hanbang.navigation.feature.lottoresult.RouteLottoResultModel
+
 data class LottoResultAdUiState(
     val isPlaying: Boolean = false,
     val elapsedMillis: Long = 0L,
@@ -10,5 +12,5 @@ data class LottoResultAdUiState(
 }
 
 sealed interface LottoResultAdEvent {
-    data object NavigateToResult : LottoResultAdEvent
+    data class NavigateToResult(val args: RouteLottoResultModel) : LottoResultAdEvent
 }

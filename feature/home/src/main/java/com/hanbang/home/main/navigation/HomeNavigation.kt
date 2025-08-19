@@ -23,7 +23,7 @@ fun NavGraphBuilder.homeNavGraph(
 	onShowErrorSnackBar: (HbSnackBarType) -> Unit,
 	onClickRecommend: () -> Unit,
 	onClickViewMore: () -> Unit,
-	onClickCheckResult: () -> Unit
+	onClickCheckResult: (Int) -> Unit
 ) {
 	composable<RouteHome> {
 		HomeRoute(

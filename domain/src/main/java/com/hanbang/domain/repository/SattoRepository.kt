@@ -1,5 +1,6 @@
 package com.hanbang.domain.repository
 
+import com.hanbang.domain.model.CheckLottoResult
 import com.hanbang.domain.model.DailyFortuneDetail
 import com.hanbang.domain.model.FourPillar
 import com.hanbang.domain.model.DailyFortune
@@ -46,4 +47,6 @@ interface SattoRepository {
 	fun getLottoRecommendation(): Flow<LottoRecommendation>
 
 	fun createLottoRecommendation(): Flow<LottoRecommendation>
+
+	fun checkLottoResult(round: Int): Flow<CheckLottoResult>
 }

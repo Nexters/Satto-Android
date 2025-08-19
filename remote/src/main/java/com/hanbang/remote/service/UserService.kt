@@ -1,5 +1,6 @@
 package com.hanbang.remote.service
 
+import com.hanbang.remote.model.CheckLottoResultResponse
 import com.hanbang.remote.model.CreateLottoRecommendationResponse
 import com.hanbang.remote.model.CreateUserResponse
 import com.hanbang.remote.model.GetDailyFortuneDetailResponse
@@ -63,4 +64,10 @@ interface UserService {
 		@Path("user_id") userId: String,
 		@Query("fortune_date") fortuneDate: String
 	): GetDailyFortuneDetailResponse
+
+	@POST("/users/{user_id}/lotto-recommendation/{round}/check")
+	suspend fun checkLottoResult(
+		@Path("user_id") userId: String,
+		@Path("round") round: Int
+	): CheckLottoResultResponse
 }

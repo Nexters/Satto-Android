@@ -60,7 +60,7 @@ internal fun HomeRoute(
     onShowErrorSnackBar: (HbSnackBarType) -> Unit,
     onClickRecommend: () -> Unit,
     onClickViewMore: () -> Unit,
-    onClickCheckResult: () -> Unit
+    onClickCheckResult: (Int) -> Unit
 ) {
     val uiState = viewModel.collectAsState().value
 
@@ -123,7 +123,7 @@ private fun HomeContent(
     data: HomeUiState.Content,
     onClickRecommend: () -> Unit,
     onClickViewMore: () -> Unit,
-    onClickCheckResult: () -> Unit
+    onClickCheckResult: (Int) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize().padding(bottom = padding.calculateBottomPadding()),
@@ -142,6 +142,7 @@ private fun HomeContent(
         item {
             Spacer(modifier = Modifier.height(24.dp))
             LottoRecommendCardItem(
+                round = data.round,
                 date = data.date,
                 userName = data.userName,
                 numbers = data.lottoNumbers,
@@ -204,13 +205,14 @@ private fun HomeImage() {
 
 @Composable
 private fun LottoRecommendCardItem(
+    round: Int,
     date: LocalDate,
     userName: String,
     numbers: List<Int?>,
     openType: HomeUiState.Content.OpenType,
     onClickRecommend: () -> Unit = {},
     onClickViewMore: () -> Unit = {},
-    onClickCheckResult: () -> Unit = {}
+    onClickCheckResult: (Int) -> Unit = {}
 ) {
     Box(
         modifier = Modifier
@@ -302,7 +304,7 @@ private fun LottoRecommendCardItem(
                         modifier = Modifier
                             .padding(start = 20.dp, end = 20.dp, bottom = 24.dp)
                             .background(color = Primary2, shape = RoundedCornerShape(8.dp))
-                            .clickable { onClickCheckResult() }
+                            .clickable { onClickCheckResult(round) }
                             .padding(vertical = 12.dp)
                     ) {
                         Text(

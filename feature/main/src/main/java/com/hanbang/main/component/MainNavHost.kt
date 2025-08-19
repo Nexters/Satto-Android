@@ -17,7 +17,7 @@ import com.hanbang.home.lottoad.navigation.navigateToLottoAd
 import com.hanbang.home.main.navigation.homeNavGraph
 import com.hanbang.home.main.navigation.navigateToHome
 import com.hanbang.home.recommend.navigation.lottoRecommendNavGraph
-import com.hanbang.home.recommend.navigation.navigateToLottoRecommendWithPopUp
+import com.hanbang.home.recommend.navigation.navigateToLottoRecommend
 import com.hanbang.home.result.ad.navigation.lottoResultAdNavGraph
 import com.hanbang.home.result.ad.navigation.navigateToLottoResultAd
 import com.hanbang.home.result.navigation.lottoResultNavGraph
@@ -50,7 +50,7 @@ internal fun MainNavHost(
 				padding = padding,
 				onShowErrorSnackBar = onShowErrorSnackBar,
 				onClickRecommend = navigator.navController::navigateToLottoAd,
-				onClickViewMore = navigator.navController::navigateToLottoRecommendWithPopUp,
+				onClickViewMore = navigator.navController::navigateToLottoRecommend,
 				onClickCheckResult = navigator.navController::navigateToLottoResultAd
 			)
 			fortuneNavGraph(
@@ -82,12 +82,13 @@ internal fun MainNavHost(
 			)
 
 			lottoAdNavGraph(
-				navigateToLottoRecommend = navigator.navController::navigateToLottoRecommendWithPopUp,
+				navigateToLottoRecommend = navigator.navController::navigateToLottoRecommend,
 				navigateToBack = navigator.navController::navigateUp,
 			)
 
 			lottoResultAdNavGraph(
-				navigateToLottoResult = navigator.navController::navigateToLottoResult
+				navigateToLottoResult = navigator.navController::navigateToLottoResult,
+				navigateToBack = navigator.navController::navigateUp
 			)
 
 			lottoResultNavGraph(

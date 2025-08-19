@@ -4,6 +4,7 @@ import com.hanbang.data.datasource.DeviceLocalDataSource
 import com.hanbang.data.datasource.UserLocalDataSource
 import com.hanbang.data.datasource.UserRemoteDataSource
 import com.hanbang.data.model.toDomain
+import com.hanbang.domain.model.CheckLottoResult
 import com.hanbang.domain.model.DailyFortuneDetail
 import com.hanbang.domain.model.FourPillar
 import com.hanbang.domain.model.DailyFortune
@@ -119,4 +120,10 @@ class DefaultSattoRepository @Inject constructor(
 		val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 		return dateTime.format(formatter)
 	}
+
+	override fun checkLottoResult(round: Int): Flow<CheckLottoResult> = flow {
+		val userId = userLocalDataSource.getUserId()
+		val checkLottoResultDto = userRemoteDataSource.checkLottoResult(userId, round)
+		emit(checkLottoResultDto.toDomain())
+	}.flowOn(Dispatchers.IO)
 }
