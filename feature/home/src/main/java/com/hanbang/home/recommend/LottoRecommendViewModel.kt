@@ -1,11 +1,15 @@
 package com.hanbang.home.recommend
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hanbang.domain.usecase.GetLottoRecommendationUseCase
 import com.hanbang.domain.usecase.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
@@ -16,6 +20,7 @@ import java.time.Duration
 import java.time.LocalDateTime
 import java.time.temporal.TemporalAdjusters
 import javax.inject.Inject
+import kotlin.math.max
 
 @HiltViewModel
 class LottoRecommendViewModel @Inject constructor(
@@ -29,14 +34,18 @@ class LottoRecommendViewModel @Inject constructor(
         }
     )
 
+    private val coroutineExceptionHandler = CoroutineExceptionHandler { _, _ -> }
+    private var remainTimeJob: Job? = null
+
     private val lottoOpenDateTime = LocalDateTime
         .now()
         .with(TemporalAdjusters.nextOrSame(DayOfWeek.SATURDAY))
         .withHour(20)
         .withMinute(30)
+        .withSecond(0)
 
     private fun fetchLottoRecommend() = intent {
-        viewModelScope.launch {
+        viewModelScope.launch(coroutineExceptionHandler) {
             val userDeferred = async { getUserUseCase().first() }
             val lottoDeferred = async { getLottoRecommendationUseCase().first() }
 
@@ -54,13 +63,34 @@ class LottoRecommendViewModel @Inject constructor(
                             Pair(it.num5, it.num6)
                         )
                     } ?: List(3) { Pair(null, null) },
-                    remainTime = Duration.between(LocalDateTime.now(), lottoOpenDateTime).toMillis() / 1000L,
+                    remainTime = (Duration.between(LocalDateTime.now(), lottoOpenDateTime).toMillis() / 1000L).also { Log.d("lololo", "$it") },
                     strongElement = lottoData.content?.strongElement ?: "",
                     reason = lottoData.content?.reason ?: "",
                     weakElement = lottoData.content?.weakElement ?: "",
                     weakNumbers = lottoData.content?.coldNums ?: emptyList(),
                     infrequentNumbers = lottoData.content?.infrequentNums ?: emptyList()
                 )
+            }
+
+            startTimerJob()
+        }
+    }
+
+    private fun startTimerJob() {
+        remainTimeJob?.cancel()
+        remainTimeJob = viewModelScope.launch(coroutineExceptionHandler) {
+            while (true) {
+                delay(1000L)
+                intent {
+                    val current = state
+                    if (current is LottoRecommendUiState.Success) {
+                        val remain = max(0L, Duration.between(LocalDateTime.now(), lottoOpenDateTime).toMillis() / 1000L)
+                        reduce {
+                            current.copy(remainTime = remain)
+                        }
+                        if (remain == 0L)  remainTimeJob?.cancel()
+                    }
+                }
             }
         }
     }

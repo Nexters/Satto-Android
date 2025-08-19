@@ -71,7 +71,9 @@ import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
 internal fun LottoRecommendScreen(
-    viewModel: LottoRecommendViewModel = hiltViewModel()
+    viewModel: LottoRecommendViewModel = hiltViewModel(),
+    onClickNewNumber: () -> Unit,
+    onClickCheckResult: () -> Unit
 ) {
     val state = viewModel.collectAsState().value
 
@@ -108,8 +110,9 @@ internal fun LottoRecommendScreen(
                 }
                 BottomBar(
                     modifier = Modifier.align(Alignment.BottomCenter),
-                    onClickNewNumber = {},
-                    onClickNotification = {}
+                    type = state.ctaType,
+                    onClickNewNumber = onClickNewNumber,
+                    onClickCheckResult = onClickCheckResult
                 )
             }
         }
@@ -390,6 +393,7 @@ private fun RowScope.NotRecommendItem(
         Spacer(modifier = Modifier.height(20.dp))
         LazyRow(
             modifier = Modifier
+                .fillMaxWidth()
                 .scrollable(
                     state = rememberScrollState(),
                     orientation = Orientation.Horizontal
@@ -409,30 +413,36 @@ private fun RowScope.NotRecommendItem(
 @Composable
 private fun BottomBar(
     modifier: Modifier = Modifier,
+    type: LottoRecommendUiState.CtaType,
     onClickNewNumber: () -> Unit = {},
-    onClickNotification: () -> Unit = {}
+    onClickCheckResult: () -> Unit = {}
 ) {
-    Row(
+    Box(
         modifier = modifier
             .fillMaxWidth()
             .background(color = Primary9)
             .padding(start = 24.dp, end = 24.dp, bottom = 24.dp)
     ) {
-        HbBoxButton(
-            text = "번호 새로 받기",
-            onClick = onClickNewNumber,
-            colors = HbButtonColorType.border,
-            styles = HbButtonStyles.large,
-            modifier = Modifier.weight(1f)
-        )
-        Spacer(modifier = Modifier.width(10.dp))
-        HbBoxButton(
-            text = "당첨 알림 받기",
-            onClick = onClickNotification,
-            colors = HbButtonColorType.primary,
-            styles = HbButtonStyles.large,
-            modifier = Modifier.weight(1f)
-        )
+        when (type) {
+            LottoRecommendUiState.CtaType.CREATE_NUMBER -> {
+                HbBoxButton(
+                    text = "번호 새로 받기",
+                    onClick = onClickNewNumber,
+                    colors = HbButtonColorType.border,
+                    styles = HbButtonStyles.large,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+            LottoRecommendUiState.CtaType.CHECK_RESULT -> {
+                HbBoxButton(
+                    text = "당첨 알림 받기",
+                    onClick = onClickCheckResult,
+                    colors = HbButtonColorType.primary,
+                    styles = HbButtonStyles.large,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        }
     }
 }
 
@@ -489,6 +499,8 @@ private fun LottoRecommendContentPreview() {
 @Composable
 private fun BottomBarPreview() {
     SattoTheme {
-        BottomBar()
+        BottomBar(
+            type = LottoRecommendUiState.CtaType.CREATE_NUMBER
+        )
     }
 }
