@@ -256,8 +256,8 @@ private fun LottoRecommendCardItem(
                         modifier = Modifier
                             .padding(start = 20.dp, end = 20.dp, bottom = 24.dp)
                             .background(color = Primary2, shape = RoundedCornerShape(8.dp))
-                            .padding(vertical = 12.dp)
                             .clickable { onClickRecommend() }
+                            .padding(vertical = 12.dp)
                     ) {
                         Text(
                             text = "번호 추천받기",
@@ -302,8 +302,8 @@ private fun LottoRecommendCardItem(
                         modifier = Modifier
                             .padding(start = 20.dp, end = 20.dp, bottom = 24.dp)
                             .background(color = Primary2, shape = RoundedCornerShape(8.dp))
-                            .padding(vertical = 12.dp)
                             .clickable { onClickCheckResult() }
+                            .padding(vertical = 12.dp)
                     ) {
                         Text(
                             text = "결과 확인하기",

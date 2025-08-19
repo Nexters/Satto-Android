@@ -11,6 +11,7 @@ data class LottoRecommendationDto(
 	val userId: String,
 	val round: Int,
 	val content: LottoRecommendationContentDto?,
+	val isFinished: Boolean
 )
 
 internal fun LottoRecommendationDto.toDomain(): LottoRecommendation {
@@ -18,5 +19,6 @@ internal fun LottoRecommendationDto.toDomain(): LottoRecommendation {
 		userId = userId,
 		round = round,
 		content = content?.toDomain(),
+		isFinished = isFinished
 	)
 }
