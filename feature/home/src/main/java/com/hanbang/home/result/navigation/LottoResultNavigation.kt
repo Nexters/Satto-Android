@@ -15,8 +15,14 @@ fun NavController.navigateToLottoResult() {
     }
 }
 
-fun NavGraphBuilder.lottoResultNavGraph() {
+fun NavGraphBuilder.lottoResultNavGraph(
+    onClickBack: () -> Unit,
+    onClickHome: () -> Unit,
+) {
     composable<RouteLottoResult> {
-        LottoResultScreen()
+        LottoResultScreen(
+            onClickBack = onClickBack,
+            onClickHome = onClickHome
+        )
     }
 }

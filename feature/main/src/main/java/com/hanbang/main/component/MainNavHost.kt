@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import com.hanbang.designsystem.toast.HbSnackBarType
 import com.hanbang.editprofile.navigation.editProfileNavGraph
@@ -14,6 +15,7 @@ import com.hanbang.history.navigation.historyNavGraph
 import com.hanbang.home.lottoad.navigation.lottoAdNavGraph
 import com.hanbang.home.lottoad.navigation.navigateToLottoAd
 import com.hanbang.home.main.navigation.homeNavGraph
+import com.hanbang.home.main.navigation.navigateToHome
 import com.hanbang.home.recommend.navigation.lottoRecommendNavGraph
 import com.hanbang.home.recommend.navigation.navigateToLottoRecommendWithPopUp
 import com.hanbang.home.result.ad.navigation.lottoResultAdNavGraph
@@ -22,6 +24,7 @@ import com.hanbang.home.result.navigation.lottoResultNavGraph
 import com.hanbang.home.result.navigation.navigateToLottoResult
 import com.hanbang.main.MainNavigator
 import com.hanbang.mypage.navigation.myPageNavGraph
+import com.hanbang.navigation.feature.home.RouteHome
 
 /**
  *
@@ -74,18 +77,30 @@ internal fun MainNavHost(
 
 			lottoRecommendNavGraph(
 				onClickNewNumber = navigator.navController::navigateToLottoAd,
-				onClickCheckResult = navigator.navController::navigateToLottoResultAd
+				onClickCheckResult = navigator.navController::navigateToLottoResultAd,
+				navigateToBack = navigator.navController::navigateUp
 			)
 
 			lottoAdNavGraph(
-				navigateToLottoRecommend = navigator.navController::navigateToLottoRecommendWithPopUp
+				navigateToLottoRecommend = navigator.navController::navigateToLottoRecommendWithPopUp,
+				navigateToBack = navigator.navController::navigateUp,
 			)
 
 			lottoResultAdNavGraph(
 				navigateToLottoResult = navigator.navController::navigateToLottoResult
 			)
 
-			lottoResultNavGraph()
+			lottoResultNavGraph(
+				onClickBack = navigator.navController::navigateUp,
+				onClickHome = {
+					navigator.navController.navigateToHome(
+						NavOptions.Builder()
+							.setPopUpTo(route = RouteHome, inclusive = true, saveState = true)
+							.setLaunchSingleTop(true)
+							.build()
+					)
+				}
+			)
 		}
 	}
 }

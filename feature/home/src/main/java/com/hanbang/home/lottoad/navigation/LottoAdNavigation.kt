@@ -14,11 +14,13 @@ fun NavController.navigateToLottoAd() {
 }
 
 fun NavGraphBuilder.lottoAdNavGraph(
-    navigateToLottoRecommend: () -> Unit
+    navigateToLottoRecommend: () -> Unit,
+    navigateToBack: () -> Unit
 ) {
     composable<RouteLottoRecommendAd> {
         LottoAdScreen(
-            navigateToLottoRecommend = navigateToLottoRecommend
+            navigateToLottoRecommend = navigateToLottoRecommend,
+            navigateToBack = navigateToBack
         )
     }
 }

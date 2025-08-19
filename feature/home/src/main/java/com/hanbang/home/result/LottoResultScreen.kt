@@ -30,15 +30,23 @@ import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
 internal fun LottoResultScreen(
-    viewModel: LottoResultViewModel = hiltViewModel()
+    viewModel: LottoResultViewModel = hiltViewModel(),
+    onClickBack: () -> Unit,
+    onClickHome: () -> Unit
 ) {
     val state = viewModel.collectAsState().value
-    LottoResultBackground(state)
+    LottoResultBackground(
+        state = state,
+        onClickBack = onClickBack,
+        onClickHome = onClickHome
+    )
 }
 
 @Composable
 private fun LottoResultBackground(
-    state: LottoResultUiState
+    state: LottoResultUiState,
+    onClickBack: () -> Unit = {},
+    onClickHome: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -55,7 +63,8 @@ private fun LottoResultBackground(
             title = "당첨 결과",
             titleType = TopAppBarTitleType.CENTER,
             contentColor = Gray1,
-            containerColor = Color.Transparent
+            containerColor = Color.Transparent,
+            onNavigationClick = onClickBack
         )
         LottoResultContent(
             modifier = Modifier
@@ -66,7 +75,7 @@ private fun LottoResultBackground(
             text = "메인으로 가기",
             colors = HbButtonColorType.primary,
             styles = HbButtonStyles.large,
-            onClick = {}
+            onClick = onClickHome
         )
     }
 }
@@ -83,7 +92,7 @@ private fun LottoResultContent(
                 orientation = Orientation.Vertical
             )
     ) {
-        
+
     }
 }
 

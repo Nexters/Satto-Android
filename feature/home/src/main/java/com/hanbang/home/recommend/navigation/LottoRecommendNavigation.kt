@@ -17,12 +17,14 @@ fun NavController.navigateToLottoRecommendWithPopUp() {
 
 fun NavGraphBuilder.lottoRecommendNavGraph(
     onClickNewNumber: () -> Unit,
-    onClickCheckResult: () -> Unit
+    onClickCheckResult: () -> Unit,
+    navigateToBack: () -> Unit
 ) {
     composable<RouteLottoRecommend> {
         LottoRecommendScreen(
             onClickNewNumber = onClickNewNumber,
-            onClickCheckResult = onClickCheckResult
+            onClickCheckResult = onClickCheckResult,
+            navigateToBack = navigateToBack
         )
     }
 }
