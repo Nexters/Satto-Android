@@ -5,3 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data object RouteLottoResultAd: Route
+
+@Serializable
+data object RouteLottoResult: Route
