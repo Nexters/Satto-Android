@@ -31,7 +31,7 @@ private val LightColorScheme = lightColorScheme(
 
 @Composable
 fun SattoTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean = false, // isSystemInDarkTheme(),
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
