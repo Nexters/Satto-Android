@@ -24,6 +24,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -34,6 +35,11 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.hanbang.designsystem.R
 import com.hanbang.designsystem.button.HbBoxButton
 import com.hanbang.designsystem.button.HbButtonColorType
@@ -78,7 +84,7 @@ private fun LottoResultBackground(
     onClickBack: () -> Unit = {},
     onClickHome: () -> Unit = {}
 ) {
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .background(
@@ -89,25 +95,54 @@ private fun LottoResultBackground(
             .systemBarsPadding()
             .navigationBarsPadding()
     ) {
-        TopAppBar(
-            title = "당첨 결과",
-            titleType = TopAppBarTitleType.CENTER,
-            contentColor = Gray1,
-            containerColor = Color.Transparent,
-            onNavigationClick = onClickBack
+        val confettiLottieComposition by rememberLottieComposition(LottieCompositionSpec.RawRes(com.hanbang.home.R.raw.lotto_result_confetti))
+        val confettiLottieProgress by animateLottieCompositionAsState(
+            composition = confettiLottieComposition,
+            isPlaying = true,
+            iterations = LottieConstants.IterateForever
         )
-        LottoResultContent(
+
+        LottieAnimation(
+            composition = confettiLottieComposition,
+            progress = { confettiLottieProgress },
             modifier = Modifier
-                .weight(1f, fill = true),
-            state = state
+                .padding(top = 32.dp, start = 12.dp)
+                .size(146.dp)
+                .align(Alignment.TopStart)
         )
-        HbBoxButton(
-            modifier = Modifier.padding(start = 24.dp, end = 24.dp, bottom = 24.dp),
-            text = "메인으로 가기",
-            colors = HbButtonColorType.primary,
-            styles = HbButtonStyles.large,
-            onClick = onClickHome
+
+        LottieAnimation(
+            composition = confettiLottieComposition,
+            progress = { confettiLottieProgress },
+            modifier = Modifier
+                .padding(top = 92.dp, end = 12.dp)
+                .size(146.dp)
+                .align(Alignment.TopEnd)
         )
+
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            TopAppBar(
+                title = "당첨 결과",
+                titleType = TopAppBarTitleType.CENTER,
+                contentColor = Gray1,
+                containerColor = Color.Transparent,
+                onNavigationClick = onClickBack
+            )
+            LottoResultContent(
+                modifier = Modifier
+                    .weight(1f, fill = true),
+                state = state
+            )
+            HbBoxButton(
+                modifier = Modifier.padding(start = 24.dp, end = 24.dp, bottom = 24.dp),
+                text = "메인으로 가기",
+                colors = HbButtonColorType.primary,
+                styles = HbButtonStyles.large,
+                onClick = onClickHome
+            )
+        }
     }
 }
 
@@ -239,7 +274,9 @@ private fun LottoResultContent(
                         },
                         style = SattoTheme.typography.body14Bold,
                         color = Gray2,
-                        modifier = Modifier.align(Alignment.CenterStart).padding(start = 24.dp)
+                        modifier = Modifier
+                            .align(Alignment.CenterStart)
+                            .padding(start = 24.dp)
                     )
                 }
             }

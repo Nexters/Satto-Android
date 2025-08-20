@@ -48,13 +48,13 @@ class LottoResultAdViewModel @Inject constructor(
 
         animationJob?.cancel()
         animationJob = viewModelScope.launch(coroutineExceptionHandler) {
+            val delayDeferred = async { delay(state.TOTAL_MILLIS - state.elapsedMillis) }
             val lottoDeferred = async { checkLottoResultUseCase(resultAdRoute.round).first() }
             currentMillis = System.currentTimeMillis()
             reduce { state.copy(isPlaying = true) }
-            val delayDeferred = async { delay(state.TOTAL_MILLIS - state.elapsedMillis) }
 
-            val response = lottoDeferred.await()
             delayDeferred.await()
+            val response = lottoDeferred.await()
 
             reduce { state.copy(isPlaying = false) }
             postSideEffect(
