@@ -6,12 +6,9 @@ data class LottoResultUiState(
     val resultNumbers: List<Int> = emptyList(),
     val bonusNumber: Int = 0,
     val rank: Int = Int.MAX_VALUE,
-    val prizeAmount: Long = 0L,
-    val isPlayingAnim: Boolean = false
+    val prizeAmount: Long = 0L
 ) {
     val isRanked = rank in 1..5
 }
 
-sealed interface LottoResultEvent {
-
-}
+sealed interface LottoResultEvent
