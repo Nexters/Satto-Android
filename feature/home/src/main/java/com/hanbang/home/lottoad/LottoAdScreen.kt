@@ -36,7 +36,8 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 @Composable
 internal fun LottoAdScreen(
     viewModel: LottoAdViewModel = hiltViewModel(),
-    navigateToLottoRecommend: () -> Unit
+    navigateToLottoRecommend: () -> Unit,
+    navigateToBack: () -> Unit
 ) {
     viewModel.collectSideEffect {
         when (it) {
@@ -54,12 +55,16 @@ internal fun LottoAdScreen(
     }
 
     val state = viewModel.collectAsState().value
-    LottoAdContent(state = state)
+    LottoAdContent(
+        state = state,
+        navigateToBack = navigateToBack
+    )
 }
 
 @Composable
 private fun LottoAdContent(
-    state: LottoAdUiState
+    state: LottoAdUiState,
+    navigateToBack: () -> Unit = {}
 ) {
     val alphaAnim = remember { Animatable(0f) }
     LaunchedEffect(Unit) {
@@ -91,6 +96,7 @@ private fun LottoAdContent(
         TopAppBar(
             containerColor = Color.Transparent,
             contentColor = Color.White,
+            onNavigationClick = navigateToBack
         )
         Text(
             text = "${state.userName}의 사주 분석 완료",

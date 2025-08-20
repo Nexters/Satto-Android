@@ -5,17 +5,20 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.hanbang.home.result.ad.LottoResultAdScreen
 import com.hanbang.navigation.feature.lottoresult.RouteLottoResultAd
+import com.hanbang.navigation.feature.lottoresult.RouteLottoResultModel
 
-fun NavController.navigateToLottoResultAd() {
-    this.navigate(route = RouteLottoResultAd)
+fun NavController.navigateToLottoResultAd(round: Int) {
+    this.navigate(route = RouteLottoResultAd(round))
 }
 
 fun NavGraphBuilder.lottoResultAdNavGraph(
-    navigateToLottoResult: () -> Unit
+    navigateToLottoResult: (RouteLottoResultModel) -> Unit,
+    navigateToBack: () -> Unit
 ) {
     composable<RouteLottoResultAd> {
         LottoResultAdScreen(
-            navigateToLottoResult = navigateToLottoResult
+            navigateToLottoResult = navigateToLottoResult,
+            navigateToBack = navigateToBack
         )
     }
 }

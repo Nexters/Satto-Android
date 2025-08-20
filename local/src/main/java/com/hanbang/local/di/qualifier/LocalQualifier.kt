@@ -14,3 +14,7 @@ annotation class DeviceDataStore
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class UserDataStore
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class UserSharedPreferences

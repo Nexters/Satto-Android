@@ -2,6 +2,7 @@ package com.hanbang.remote.datasource
 
 import android.util.Log
 import com.hanbang.data.datasource.UserRemoteDataSource
+import com.hanbang.data.model.CheckLottoResultDto
 import com.hanbang.data.model.DailyFortuneDetailDto
 import com.hanbang.data.model.DailyFortuneDto
 import com.hanbang.data.model.FourPillarDto
@@ -91,5 +92,9 @@ class DefaultUserRemoteDataSource @Inject constructor(
 			userId = userId,
 			fortuneDate = fortuneDate
 		).toDto()
+	}
+
+	override suspend fun checkLottoResult(userId: String, round: Int): CheckLottoResultDto {
+		return userService.checkLottoResult(userId, round).toDto()
 	}
 }

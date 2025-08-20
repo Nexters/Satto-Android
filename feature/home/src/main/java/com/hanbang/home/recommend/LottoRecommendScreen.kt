@@ -73,7 +73,8 @@ import org.orbitmvi.orbit.compose.collectAsState
 internal fun LottoRecommendScreen(
     viewModel: LottoRecommendViewModel = hiltViewModel(),
     onClickNewNumber: () -> Unit,
-    onClickCheckResult: () -> Unit
+    onClickCheckResult: (Int) -> Unit,
+    navigateToBack: () -> Unit
 ) {
     val state = viewModel.collectAsState().value
 
@@ -102,6 +103,7 @@ internal fun LottoRecommendScreen(
                         contentColor = Gray1,
                         title = "${state.userName}님의 로또 번호",
                         titleType = TopAppBarTitleType.CENTER,
+                        onNavigationClick = navigateToBack
                     )
                     LottoRecommendContent(
                         modifier = Modifier.weight(1f),
@@ -112,7 +114,7 @@ internal fun LottoRecommendScreen(
                     modifier = Modifier.align(Alignment.BottomCenter),
                     type = state.ctaType,
                     onClickNewNumber = onClickNewNumber,
-                    onClickCheckResult = onClickCheckResult
+                    onClickCheckResult = { onClickCheckResult(state.round) }
                 )
             }
         }

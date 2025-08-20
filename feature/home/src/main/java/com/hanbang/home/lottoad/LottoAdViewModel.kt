@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.hanbang.domain.usecase.CreateLottoRecommendationUseCase
 import com.hanbang.domain.usecase.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
@@ -30,6 +31,8 @@ class LottoAdViewModel @Inject constructor(
         }
     )
 
+    private val coroutineExceptionHandler = CoroutineExceptionHandler { _, _ -> }
+
     private var animationJob: Job? = null
     private var currentMillis: Long = 0
 
@@ -46,7 +49,7 @@ class LottoAdViewModel @Inject constructor(
         if (animationJob?.isActive == true) return@intent
 
         animationJob?.cancel()
-        animationJob = viewModelScope.launch {
+        animationJob = viewModelScope.launch(coroutineExceptionHandler) {
             val lottoDeferred = async { createLottoRecommendationUseCase().first() }
             currentMillis = System.currentTimeMillis()
             reduce { state.copy(isPlaying = true) }

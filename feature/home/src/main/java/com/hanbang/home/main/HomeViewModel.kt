@@ -13,7 +13,6 @@ import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.viewmodel.container
-import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.inject.Inject
@@ -64,7 +63,7 @@ class HomeViewModel @Inject constructor(
                         date = now.toLocalDate(),
                         openType = when {
                             lottoRecommendation.content == null -> HomeUiState.Content.OpenType.RECOMMEND
-                            now.isAlreadyOpened() -> HomeUiState.Content.OpenType.OPENED
+                            lottoRecommendation.isFinished -> HomeUiState.Content.OpenType.OPENED
                             lottoRecommendation.content != null -> HomeUiState.Content.OpenType.MORE
                             else -> HomeUiState.Content.OpenType.FALLBACK
                         },
@@ -80,11 +79,5 @@ class HomeViewModel @Inject constructor(
                 )
             }
         }
-    }
-
-    private fun LocalDateTime.isAlreadyOpened(): Boolean {
-        return this.dayOfWeek >= DayOfWeek.SATURDAY
-                && this.hour >= 20
-                && this.minute > 30
     }
 }

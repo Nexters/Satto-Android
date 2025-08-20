@@ -16,6 +16,8 @@ data class CreateLottoRecommendationResponse(
 	val userId: String,
 	val round: Int,
 	val content: Content,
+	@SerialName("is_finished")
+	val isFinished: Boolean,
 ) {
 	@Serializable
 	data class Content(
@@ -33,7 +35,7 @@ data class CreateLottoRecommendationResponse(
 		@SerialName("strong_element")
 		val strongElement: String,
 		@SerialName("weak_element")
-		val weakElement: String
+		val weakElement: String,
 	)
 }
 
@@ -41,6 +43,7 @@ internal fun CreateLottoRecommendationResponse.toDto() = LottoRecommendationDto(
 	userId = userId,
 	round = round,
 	content = content.toDto(),
+	isFinished = isFinished
 )
 
 internal fun CreateLottoRecommendationResponse.Content.toDto() = LottoRecommendationContentDto(

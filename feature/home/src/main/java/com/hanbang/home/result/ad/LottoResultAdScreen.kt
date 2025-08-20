@@ -27,17 +27,19 @@ import com.hanbang.designsystem.theme.Primary3
 import com.hanbang.designsystem.theme.SattoTheme
 import com.hanbang.designsystem.theme.White
 import com.hanbang.home.R
+import com.hanbang.navigation.feature.lottoresult.RouteLottoResultModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
 internal fun LottoResultAdScreen(
     viewModel: LottoResultAdViewModel = hiltViewModel(),
-    navigateToLottoResult: () -> Unit = {}
+    navigateToLottoResult: (RouteLottoResultModel) -> Unit = {},
+    navigateToBack: () -> Unit = {}
 ) {
     viewModel.collectSideEffect {
         when (it) {
-            LottoResultAdEvent.NavigateToResult -> navigateToLottoResult()
+            is LottoResultAdEvent.NavigateToResult -> navigateToLottoResult(it.args)
         }
     }
 
@@ -50,12 +52,16 @@ internal fun LottoResultAdScreen(
 
     val state = viewModel.collectAsState().value
 
-    LottoResultAdContent(state)
+    LottoResultAdContent(
+        state = state,
+        navigateToBack = navigateToBack
+    )
 }
 
 @Composable
 private fun LottoResultAdContent(
-    state: LottoResultAdUiState
+    state: LottoResultAdUiState,
+    navigateToBack: () -> Unit = {}
 ) {
     val isPlaying = remember(state.isPlaying) { mutableStateOf(state.isPlaying) }
 
@@ -91,7 +97,8 @@ private fun LottoResultAdContent(
             title = "당첨 결과",
             containerColor = Color.Transparent,
             contentColor = White,
-            titleType = TopAppBarTitleType.CENTER
+            titleType = TopAppBarTitleType.CENTER,
+            onNavigationClick = navigateToBack
         )
         Column(
             modifier = Modifier

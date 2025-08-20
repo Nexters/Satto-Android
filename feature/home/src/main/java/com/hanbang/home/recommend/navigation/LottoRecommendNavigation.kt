@@ -7,7 +7,7 @@ import com.hanbang.home.recommend.LottoRecommendScreen
 import com.hanbang.navigation.feature.lottorecommend.RouteLottoRecommend
 import com.hanbang.navigation.feature.lottorecommend.RouteLottoRecommendAd
 
-fun NavController.navigateToLottoRecommendWithPopUp() {
+fun NavController.navigateToLottoRecommend() {
     this.navigate(route = RouteLottoRecommend) {
         popUpTo<RouteLottoRecommendAd> { inclusive = true }
         launchSingleTop = true
@@ -17,12 +17,14 @@ fun NavController.navigateToLottoRecommendWithPopUp() {
 
 fun NavGraphBuilder.lottoRecommendNavGraph(
     onClickNewNumber: () -> Unit,
-    onClickCheckResult: () -> Unit
+    onClickCheckResult: (Int) -> Unit,
+    navigateToBack: () -> Unit
 ) {
     composable<RouteLottoRecommend> {
         LottoRecommendScreen(
             onClickNewNumber = onClickNewNumber,
-            onClickCheckResult = onClickCheckResult
+            onClickCheckResult = onClickCheckResult,
+            navigateToBack = navigateToBack
         )
     }
 }

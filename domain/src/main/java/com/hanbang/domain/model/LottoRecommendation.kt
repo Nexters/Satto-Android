@@ -9,4 +9,5 @@ data class LottoRecommendation(
 	val userId: String,
 	val round: Int,
 	val content: LottoRecommendationContent?,
+	val isFinished: Boolean
 )
