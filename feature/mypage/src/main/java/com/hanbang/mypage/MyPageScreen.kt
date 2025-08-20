@@ -121,7 +121,7 @@ private fun MyPageScreen(
 			item {
 				MyPageFeedbackBox(
 					onClick = {
-						val url = "http://pf.kakao.com/_bfCen/chat"
+						val url = "https://naver.me/G02lXXxS"
 						val intent = Intent(Intent.ACTION_VIEW, url.toUri())
 						context.startActivity(intent)
 					}
