@@ -1,16 +1,19 @@
 package com.hanbang.home.result.ad
 
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -65,19 +68,22 @@ private fun LottoResultAdContent(
 ) {
     val isPlaying = remember(state.isPlaying) { mutableStateOf(state.isPlaying) }
 
-    val pigLottieComposition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.lotto_result_pig))
-    val pigLottieProgress by animateLottieCompositionAsState(
-        composition = pigLottieComposition,
-        isPlaying = isPlaying.value,
-        iterations = LottieConstants.IterateForever,
-    )
-
     val textLottieComposition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.lotto_result_text))
     val textLottieProgress by animateLottieCompositionAsState(
         composition = textLottieComposition,
         isPlaying = isPlaying.value,
         iterations = 1
     )
+
+    val textFinished by remember { derivedStateOf { textLottieProgress >= 1f } }
+
+    val pigLottieComposition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.lotto_result_pig))
+    val pigLottieProgress by animateLottieCompositionAsState(
+        composition = pigLottieComposition,
+        isPlaying = isPlaying.value && textFinished,
+        iterations = LottieConstants.IterateForever,
+    )
+    val pigAlpha by animateFloatAsState(targetValue = if (textFinished) 1f else 0f)
 
     Column(
         modifier = Modifier
@@ -108,7 +114,8 @@ private fun LottoResultAdContent(
         ) {
             LottieAnimation(
                 composition = pigLottieComposition,
-                progress = { pigLottieProgress }
+                progress = { pigLottieProgress },
+                modifier = Modifier.alpha(pigAlpha)
             )
             LottieAnimation(
                 composition = textLottieComposition,
