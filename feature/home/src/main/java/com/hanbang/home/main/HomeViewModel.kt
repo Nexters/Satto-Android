@@ -80,4 +80,23 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
+
+    fun refreshLottoNumber() = intent {
+        val lottoRecommend = getLottoRecommendationUseCase().first()
+        reduce {
+            state.copy(
+                content = state.content.copy(
+                    lottoNumbers = lottoRecommend.content?.let {
+                        listOf(it.num1, it.num2, it.num3, it.num4, it.num5, it.num6)
+                    } ?: List(6) { null },
+                    openType = when {
+                        lottoRecommend.content == null -> HomeUiState.Content.OpenType.RECOMMEND
+                        lottoRecommend.isFinished -> HomeUiState.Content.OpenType.OPENED
+                        lottoRecommend.content != null -> HomeUiState.Content.OpenType.MORE
+                        else -> HomeUiState.Content.OpenType.FALLBACK
+                    }
+                )
+            )
+        }
+    }
 }
