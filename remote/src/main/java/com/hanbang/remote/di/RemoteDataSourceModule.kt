@@ -1,6 +1,8 @@
 package com.hanbang.remote.di
 
+import com.hanbang.data.datasource.LottoStoreRemoteDataSource
 import com.hanbang.data.datasource.UserRemoteDataSource
+import com.hanbang.remote.datasource.DefaultLottoStoreRemoteDataSource
 import com.hanbang.remote.datasource.DefaultUserRemoteDataSource
 import com.hanbang.remote.service.UserService
 import dagger.Binds
@@ -23,4 +25,10 @@ internal abstract class RemoteDataSourceModule {
 	abstract fun bindUserRemoteDataSource(
 		userRemoteDataSource: DefaultUserRemoteDataSource
 	): UserRemoteDataSource
+
+	@Singleton
+	@Binds
+	abstract fun bindLottoStoreRemoteDataSource(
+		lottoStoreRemoteDataSource: DefaultLottoStoreRemoteDataSource
+	): LottoStoreRemoteDataSource
 }

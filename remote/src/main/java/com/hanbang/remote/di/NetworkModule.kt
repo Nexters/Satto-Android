@@ -2,6 +2,7 @@ package com.hanbang.remote.di
 
 import android.util.Log
 import com.hanbang.remote.BuildConfig
+import com.hanbang.remote.service.LottoStoreService
 import com.hanbang.remote.service.UserService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -77,4 +78,10 @@ internal object NetworkModule {
 	fun provideUserService(
 		retrofit: Retrofit
 	): UserService = retrofit.create(UserService::class.java)
+
+	@Provides
+	@Singleton
+	fun provideLottoStoreService(
+		retrofit: Retrofit
+	): LottoStoreService = retrofit.create(LottoStoreService::class.java)
 }

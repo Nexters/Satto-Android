@@ -61,10 +61,10 @@ import kotlinx.coroutines.launch
 fun HbInputField(
 	value: String,
 	onValueChange: (String) -> Unit,
-	modifier: Modifier = Modifier,
-	isSingleLine: Boolean = true,
 	textColor: Color,
 	textStyle: TextStyle,
+	modifier: Modifier = Modifier,
+	isSingleLine: Boolean = true,
 	counterMaxLength: Int = 0,
 	readOnly: Boolean = false,
 	isEnabled: Boolean = true,

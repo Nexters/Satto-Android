@@ -16,6 +16,7 @@ import com.hanbang.navigation.LaunchedRouter
 import com.hanbang.navigation.feature.fortune.RouteFortune
 import com.hanbang.navigation.feature.history.RouteHistory
 import com.hanbang.navigation.feature.home.RouteHome
+import com.hanbang.navigation.feature.mapsearch.RouteMapSearch
 import com.hanbang.navigation.feature.mypage.RouteMyPage
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,6 +40,7 @@ class MainActivity : ComponentActivity() {
 							when (it.route) {
 								is RouteHome -> { viewModel.navigateHome() }
 								is RouteFortune -> { viewModel.navigateFortune() }
+								is RouteMapSearch -> { viewModel.navigateMapSearch() }
 								is RouteHistory -> { viewModel.navigateHistory() }
 								is RouteMyPage -> { viewModel.navigateMyPage() }
 							}
