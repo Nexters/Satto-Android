@@ -1,6 +1,5 @@
 package com.hanbang.map.search
 
-import androidx.compose.runtime.Stable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -27,7 +26,6 @@ import javax.inject.Inject
  * @created  2025/12/16
  */
 @HiltViewModel
-@Stable
 class MapSearchViewModel @Inject constructor(
 	private val savedStateHandle: SavedStateHandle,
 	private val searchLottoStoresByQueryUseCase: SearchLottoStoresByQueryUseCase
