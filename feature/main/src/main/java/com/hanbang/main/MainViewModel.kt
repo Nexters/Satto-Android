@@ -6,6 +6,7 @@ import com.hanbang.navigation.Navigator
 import com.hanbang.navigation.feature.fortune.RouteFortune
 import com.hanbang.navigation.feature.history.RouteHistory
 import com.hanbang.navigation.feature.home.RouteHome
+import com.hanbang.navigation.feature.mapsearch.RouteMapSearch
 import com.hanbang.navigation.feature.mypage.RouteMyPage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -32,6 +33,14 @@ class MainViewModel @Inject constructor(
 	fun navigateHistory() = viewModelScope.launch {
 		navigator.navigate(
 			route = RouteHistory,
+			saveState = true,
+			launchSingleTop = true,
+		)
+	}
+
+	fun navigateMapSearch() = viewModelScope.launch {
+		navigator.navigate(
+			route = RouteMapSearch,
 			saveState = true,
 			launchSingleTop = true,
 		)

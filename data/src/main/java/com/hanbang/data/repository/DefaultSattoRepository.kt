@@ -1,15 +1,17 @@
 package com.hanbang.data.repository
 
 import com.hanbang.data.datasource.DeviceLocalDataSource
+import com.hanbang.data.datasource.LottoStoreRemoteDataSource
 import com.hanbang.data.datasource.UserLocalDataSource
 import com.hanbang.data.datasource.UserRemoteDataSource
 import com.hanbang.data.model.toDomain
 import com.hanbang.domain.model.CheckLottoResult
+import com.hanbang.domain.model.DailyFortune
 import com.hanbang.domain.model.DailyFortuneDetail
 import com.hanbang.domain.model.FourPillar
-import com.hanbang.domain.model.DailyFortune
 import com.hanbang.domain.model.GenderType
 import com.hanbang.domain.model.LottoRecommendation
+import com.hanbang.domain.model.LottoStores
 import com.hanbang.domain.model.User
 import com.hanbang.domain.repository.SattoRepository
 import kotlinx.coroutines.Dispatchers
@@ -30,6 +32,7 @@ class DefaultSattoRepository @Inject constructor(
 	private val userRemoteDataSource: UserRemoteDataSource,
 	private val userLocalDataSource: UserLocalDataSource,
 	private val deviceLocalDataSource: DeviceLocalDataSource,
+	private val lottoStoreRemoteDataSource: LottoStoreRemoteDataSource,
 ) : SattoRepository {
 
 	override suspend fun getUserId(): String {
@@ -125,5 +128,13 @@ class DefaultSattoRepository @Inject constructor(
 		val userId = userLocalDataSource.getUserId()
 		val checkLottoResultDto = userRemoteDataSource.checkLottoResult(userId, round)
 		emit(checkLottoResultDto.toDomain())
+	}.flowOn(Dispatchers.IO)
+
+	override fun searchLottoStoresByQuery(
+		query: String,
+		limit: Int
+	): Flow<List<LottoStores>> = flow {
+		val lottoStoreDtoList = lottoStoreRemoteDataSource.searchLottoStoresByQuery(query, limit)
+		emit(lottoStoreDtoList.map { it.toDomain() })
 	}.flowOn(Dispatchers.IO)
 }

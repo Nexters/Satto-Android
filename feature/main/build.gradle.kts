@@ -17,6 +17,7 @@ dependencies {
 	implementation(projects.feature.fortune)
 	implementation(projects.feature.history)
 	implementation(projects.feature.mypage)
+	implementation(projects.feature.mapSearch)
 
 	implementation(libs.kotlin.serialization.json)
 }

@@ -6,6 +6,7 @@ import com.hanbang.domain.model.FourPillar
 import com.hanbang.domain.model.DailyFortune
 import com.hanbang.domain.model.GenderType
 import com.hanbang.domain.model.LottoRecommendation
+import com.hanbang.domain.model.LottoStores
 import com.hanbang.domain.model.User
 import kotlinx.coroutines.flow.Flow
 
@@ -49,4 +50,9 @@ interface SattoRepository {
 	fun createLottoRecommendation(): Flow<LottoRecommendation>
 
 	fun checkLottoResult(round: Int): Flow<CheckLottoResult>
+
+	fun searchLottoStoresByQuery(
+		query: String,
+		limit: Int = 20
+	): Flow<List<LottoStores>>
 }

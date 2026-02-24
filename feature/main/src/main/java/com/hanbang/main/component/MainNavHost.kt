@@ -23,6 +23,7 @@ import com.hanbang.home.result.ad.navigation.navigateToLottoResultAd
 import com.hanbang.home.result.navigation.lottoResultNavGraph
 import com.hanbang.home.result.navigation.navigateToLottoResult
 import com.hanbang.main.MainNavigator
+import com.hanbang.map.search.navigation.mapSearchNavGraph
 import com.hanbang.mypage.navigation.myPageNavGraph
 import com.hanbang.navigation.feature.home.RouteHome
 
@@ -54,6 +55,10 @@ internal fun MainNavHost(
 				onClickCheckResult = navigator.navController::navigateToLottoResultAd
 			)
 			fortuneNavGraph(
+				padding = padding,
+				onShowErrorSnackBar = onShowErrorSnackBar,
+			)
+			mapSearchNavGraph(
 				padding = padding,
 				onShowErrorSnackBar = onShowErrorSnackBar,
 			)

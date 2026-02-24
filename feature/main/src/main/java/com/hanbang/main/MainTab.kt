@@ -5,6 +5,7 @@ import com.hanbang.designsystem.R
 import com.hanbang.navigation.feature.fortune.RouteFortune
 import com.hanbang.navigation.feature.history.RouteHistory
 import com.hanbang.navigation.feature.home.RouteHome
+import com.hanbang.navigation.feature.mapsearch.RouteMapSearch
 import com.hanbang.navigation.feature.mypage.RouteMyPage
 import com.hanbang.navigation.model.Route
 
@@ -27,6 +28,11 @@ internal enum class MainTab(
 		iconResId = R.drawable.ic_clover,
 		contentDescription = "운세",
 		route = RouteFortune,
+	),
+	MAP(
+		iconResId = R.drawable.ic_map_pin,
+		contentDescription = "명소",
+		route = RouteMapSearch,
 	),
 	HISTORY(
 		iconResId = R.drawable.ic_receipt,
